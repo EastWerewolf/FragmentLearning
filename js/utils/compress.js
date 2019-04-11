@@ -1,13 +1,17 @@
+/**
+ * 压缩图片  参数根据需求调整
+ * @param file
+ * @param type
+ * @param fn
+ */
 function changeFile (file,type,fn) {
     // 压缩图片需要的一些元素和对象 //创建一个img对象
     let reader = new FileReader(), img = new Image();
 
     reader.readAsDataURL(file);
     // 文件base64化，以便获知图片原始尺寸 顺便预览图片
-    const _this = this;
     reader.onload = function(e) {
         img.src = e.target.result;
-        _this.pic[type].src = this.result;
     };
 
     // base64地址图片加载完毕后执行

@@ -1,5 +1,5 @@
 let str = 'abb',ttf = 'abcba'
-var longestPalindrome = function(s) {
+let longestPalindrome = function(s) {
     let str = s.split('').reverse().join(''),arr = [];
     for(let i = 0;i <s.length;i++){
         for(let j = 0;j<s.length;j++){

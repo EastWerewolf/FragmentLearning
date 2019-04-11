@@ -1,4 +1,3 @@
-
 /**
  * 实现apply
  * @param context
@@ -29,7 +28,7 @@ Function.prototype.call2 = function(context = window) {
     return result;
 };
 /**
- * 实现bind
+ * 实现bind 版本一
  * @param context
  * @param args
  * @returns {function(): *}
@@ -37,18 +36,11 @@ Function.prototype.call2 = function(context = window) {
 Function.prototype.bind2 = function(context,...args){
     return ()=>this.call2(context,args)
 }
-let ff = 11;
-let sb ={
-    ff:22,
-    num:function(){
-        console.log(this.ff)
-    }
-}
-let getB = sb.num;
-getB();
-let getC = getB.bind2(sb);
-getC()
-
+/**
+ * 实现bing 版本二
+ * @param content
+ * @returns {function(): *}
+ */
 Function.prototype.bind2 = function(content) {
     if(typeof this != "function") {
         throw Error("not a function")
