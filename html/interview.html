@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .aa {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: black;
+            position: relative;
+        }
+
+        .bb {
+            width: 200px;
+            height: 200px;
+            background: #eee;
+            position: absolute;
+            top:50%;
+            left: 50%;
+            margin: -100px;
+            overflow:hidden;
+        }
+
+        .cc {
+            width:250px;
+            height:250px;
+            background:blue;
+            transform:rotate(45deg);
+            -ms-transform:rotate(45deg); 	/* IE 9 */
+            -moz-transform:rotate(45deg); 	/* Firefox */
+            -webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+            -o-transform:rotate(45deg);
+            position:absolute;
+            top:150px;
+            left:-25px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="aa">
+    <div class="bb">
+        <div class="cc">
+
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var divDom = document.getElementsByClassName("aa")[0];
+
+    divDom.onclick = function (e) {
+        console.log(1)
+        if(e.target.className === "aa"){
+            alert("圓形")
+        }else if(e.target.className === "bb"){
+            alert("正方形")
+        }else{
+            alert( "三角形")
+        }
+    }
+
+    let request = window.indexedDB.open('myDatabase', 2);
+    console.log(request)
+    //数据库打开失败
+    request.onerror = function(e){
+        console.log(e,'数据库打开失败')
+    };
+    //数据库打开成功
+    let DB;
+    request.onsuccess = function(e){
+        DB = e.target.result;
+        //新增表 创建之前判断是否存在
+        if(!DB.objectStoreNames.contains('person')){
+            let objectStore = DB.createObjectStore('person',{keyPath:'id'});//主键设置为id
+            let autoKey= DB.createObjectStore('father',{autoIncrement:true})//IndexDB自动生成主键
+            objectStore.createIndex('name', 'name', { unique: false });
+            objectStore.createIndex('email', 'email', { unique: true });
+        }
+    }
+    //数据库升级
+    request.onupgradeneeded = function(e){
+        DB = e.target.result;
+    }
+    console.log(DB)
+
+</script>
+</html>

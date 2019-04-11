@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            overflow: hidden;
+        }
+
+        /* 元素居中 */
+        body {
+            text-align: center;
+        }
+
+        /* 结果显示 */
+        #result {
+            width: 200px;
+            height: 50px;
+            font-size: 40px;
+            color: red;
+            font-family: Courier, "Andale Mono", Arial, sans-serif;
+        }
+
+        #picture, #restart, #result, #change_image {
+            margin-top: 30px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 拼图容器 */
+        #picture {
+            position: relative;
+            width: 350px;
+            height: 355px;
+            margin-bottom: 30px;
+        }
+
+        /* 重新开始按钮 */
+        #restart, #change_image {
+            cursor: pointer;
+            width: 120px;
+            height: 40px;
+            line-height: 40px;
+            background-color: #4286F5;
+            box-shadow: 3px 4px 15px black;
+            color: white;
+            font-size: 18px;
+            opacity: 0.7;
+        }
+
+        #restart:hover, #change_image:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* 图片分块 */
+        .picture_part0 {
+            background: url("../img/22.jpg") no-repeat;
+        }
+
+        .picture_part1 {
+            background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwiyMw5BthPBQVFYOfgYEzkM3JjbhFa-7aayHoDfnaY4zg5JFH1A") no-repeat;
+        }
+
+
+        .picture_part0, .picture_part1 {
+            transition-duration: 0.2s;
+            position: absolute;
+            /*border:1px solid  transparent;*/
+            display: inline-block;
+            width: 83px;
+            height: 83px;
+            margin-bottom: -4px;
+            opacity: 0.9;
+        }
+
+        .picture_part:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* 类名 position_x 代表了位置 */
+        .position_1, .position_2, .position_3, .position_4 {
+            top: 0px;
+        }
+
+        .position_5, .position_6, .position_7, .position_8 {
+            top: 85px;
+        }
+
+        .position_9, .position_10, .position_11, .position_12 {
+            top: 170px;
+        }
+
+        .position_13, .position_14, .position_15, .position_16 {
+            top: 255px;
+        }
+
+        .position_1, .position_5, .position_9, .position_13 {
+            left: 0px;
+        }
+
+        .position_2, .position_6, .position_10, .position_14 {
+            left: 85px;
+        }
+
+        .position_3, .position_7, .position_11, .position_15 {
+            left: 170px;
+        }
+
+        .position_4, .position_8, .position_12, .position_16 {
+            left: 255px;
+        }
+
+        /* id _position_x 代表每一个分块 */
+        #_position_1 {
+            background-position: 0% 0%;
+        }
+
+        #_position_2 {
+            background-position: 25% 0%;
+        }
+
+        #_position_3 {
+            background-position: 50% 0%;
+        }
+
+        #_position_4 {
+            background-position: 75% 0%;
+        }
+
+        #_position_5 {
+            background-position: 0% 25%;
+        }
+
+        #_position_6 {
+            background-position: 25% 25%;
+        }
+
+        #_position_7 {
+            background-position: 50% 25%;
+        }
+
+        #_position_8 {
+            background-position: 75% 25%;
+        }
+
+        #_position_9 {
+            background-position: 0% 50%;
+        }
+
+        #_position_10 {
+            background-position: 25% 50%;
+        }
+
+        #_position_11 {
+            background-position: 50% 50%;
+        }
+
+        #_position_12 {
+            background-position: 75% 50%;
+        }
+
+        #_position_13 {
+            background-position: 0% 75%;
+        }
+
+        #_position_14 {
+            background-position: 25% 75%;
+        }
+
+        #_position_15 {
+            background-position: 50% 75%;
+        }
+
+        #_position_16 {
+            opacity: 0;
+            background-position: -253px -252px;
+            background-image: none;
+        }
+    </style>
+</head>
+<body>
+<h1> 拼图游戏 </h1>
+<div id="result"></div>
+<div id="picture"></div>
+<div id="restart">重新开始</div>
+<div id="change_image">更换图片</div>
+
+</body>
+<script>
+    /*
+    项目：拼图游戏
+*/
+    let random_arr = [];
+    window.onload = function() {
+        create_pic();
+        document.getElementById("restart").addEventListener("click", random_pos);
+        document.getElementById("change_image").addEventListener("click", change_img);
+        // setInterval(random_pos,200)
+    };
+
+
+    /* 检查产生的随机数列是否是合理的，因为有可能出现恢复不到原图的情况 */
+    function check_random_isValid() {
+        var count = 0;
+        for (var i = 0; i < 16; i++) {
+            for (var j = i+1; j < 16; j++) {
+                if (random_arr[j] < random_arr[i]) {
+                    count++;
+                }
+            }
+        }
+        return count%2===0;
+    }
+
+    let picture = document.getElementById("picture");
+    /* 产生拼图 */
+    function create_pic() {
+        for (var i = 1; i <= 16; i++) {
+            var part = document.createElement("div");
+            part.addEventListener("click", pic_move);
+            part.className = "picture_part" + count + " position_"+i;
+            picture.appendChild(part);
+            part.id = "_position_"+i;
+        }
+    }
+
+    /* 改变图片 */
+    var count = 0;
+    function change_img(event) {
+        if (count < 1) count++;
+        else return;
+        for (var i = 0; i < 16; i++) {
+            picture.childNodes[i].className += " picture_part" + count;
+        }
+    }
+
+    /* 产生随机数列定义位置 */
+    function random_pos(event) {
+        document.getElementById("result").innerText = "";
+        /* 产生随机数列前先将拼图块对应的位置复位 */
+        for (var k = 1; k <= 16; k++) {
+            document.getElementById("_position_"+k).className="picture_part"+count+" position_"+k;
+        }
+        var part = document.getElementById("picture").childNodes;
+        for (var j = 0; j < 15; j++) {
+            random_arr[j] = j+1;
+        }
+        /* 利用sort和cmp进行随机打散 */
+        function cmp() { return 0.5-Math.random(); }
+        while(1) {
+            random_arr.sort(cmp);
+            if (check_random_isValid()) {
+                break;
+            }
+        }
+        /* 通过更改类名来改变位置 */
+        for (var i = 0; i < 15; i++) {
+            part[i].className = "picture_part" + count + " position_" + random_arr[i];
+        }
+    }
+
+    /* 点击图片触发的事件处理器 */
+    function pic_move(event) {
+        var whiteOne = document.getElementById("_position_16");
+        var whiteOne_top = whiteOne.offsetTop;
+        var whiteOne_left = whiteOne.offsetLeft;
+        var _offset_top = this.offsetTop;
+
+        var _offset_left = this.offsetLeft;
+        /* 判断点击的图片块是否与空格块相邻 */
+        if ((Math.abs(whiteOne_top-_offset_top) === 85 && whiteOne_left === _offset_left) ||
+            (Math.abs(whiteOne_left-_offset_left) === 85 && whiteOne_top === _offset_top)) {
+            var str = whiteOne.className;
+            whiteOne.className = this.className;
+            this.className = str;
+            check(); // 检查是否还原原图
+        }
+    }
+
+    /* 检查是否还原原图 */
+    function check() {
+        for (var i = 1; i <= 16; i++) {
+            var item = document.getElementById("_position_"+i);
+            if (item.className !== "picture_part" + count +" position_"+i &&
+                item.className !== "picture_part0" + " position_" + i + " picture_part1") {
+                document.getElementById("result").innerText = "Continue...";
+                return;
+            }
+        }
+        document.getElementById("result").innerText = "You Win!";
+    }
+</script>
+</html>
