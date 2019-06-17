@@ -12,7 +12,6 @@ const Event = {
                 writable: true
             })
         }
-
         if(!this.handles[eventName]){
             this.handles[eventName]=[];
         }

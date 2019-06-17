@@ -1,17 +1,20 @@
 let arr = [1,[2,[3,[4,[5,[6],[7,{name:123},flat]]]]]];
-function flat(array){
-    let flatArr = [];
-    (function getFlat(childArr){
-        let arr = childArr?childArr:array;
-        arr.forEach(i=>{
-            if(typeof(i)==='object'&&typeof i.length === 'number'){
-                getFlat(i)
-            }else{
-                flatArr.push(i)
-            }
-        })
-    }());
-    return flatArr
+function flat(arr){
+    const flatArr = [];
+    if(arr instanceof Array){
+        (function getArr(childArr){
+            childArr.forEach(i=>{
+                if(i instanceof Array){
+                    getArr(i)
+                }else{
+                    flatArr.push(i)
+                }
+            })
+        })(arr);
+        return flatArr
+    }else{
+        return arr
+    }
 }
 // let arr1 = flat(arr);
 // // let arr2 = arr.join(',').split(',');
