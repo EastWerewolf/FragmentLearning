@@ -16,11 +16,14 @@ function directInsertionSort(array, gap) {
         current = array[i];    //当前元素
         console.log('待比较元素的下标',index);
         while(index >= 0 && array[index] > current) { //前置条件之一:待比较元素比当前元素大
+            console.log('待比较元素',array[index],'当前元素',current,'未改变时:',array);
             array[index + gap] = array[index];    //将待比较元素后移gap位
+            console.log(`待比较元素${array[index + gap]}后移${gap}位`,array,index+gap,i);
             index -= gap;                           //游标前移gap位
         }
         if(index + gap !== i){                   //避免同一个元素赋值给自身
             array[index + gap] = current;            //将当前元素插入预留空位
+            console.log('交换完成:',array)
         }
     }
     return array;
@@ -34,5 +37,5 @@ function shellSort(array){
     }
     return array;
 }
-let arr = [2,1,11,43,6,34,65,32,65,78,32];
+let arr = [2,1,32,65,78,11,43,6,34,65,32];
 console.log(shellSort(arr))
