@@ -4,7 +4,6 @@
  */
 function Queue(size) {
     let list = [];
-
     //向队列中添加数据
     this.push = function(data) {
         if (data==null) {
