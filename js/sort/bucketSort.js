@@ -1,0 +1,46 @@
+/**
+ * 桶排序
+ * 桶排序即所谓的箱排序, 它是将数组分配到有限数量的桶子里.
+ * 每个桶里再各自排序(因此有可能使用别的排序算法或以递归方式继续桶排序).
+ * 当每个桶里的元素个数趋于一致时, 桶排序只需花费O(n)的时间. 桶排序通过空间换时间的方式提高了效率,
+ * 因此它需要额外的存储空间(即桶的空间).
+ */
+
+function bucketSort(array, bucketSize) {
+    if (array.length === 0) {
+        return array;
+    }
+
+    let i = 1,
+        min = array[0],
+        max = min;
+    while (i++ < array.length) {
+        if (array[i] < min) {
+            min = array[i];                //输入数据的最小值
+        } else if (array[i] > max) {
+            max = array[i];                //输入数据的最大值
+        }
+    }
+
+    //桶的初始化
+    bucketSize = bucketSize || 5; //设置桶的默认大小为5
+    let bucketCount = ~~((max - min) / bucketSize) + 1, //桶的个数
+        buckets = new Array(bucketCount); //创建桶
+    for (i = 0; i < buckets.length; i++) {
+        buckets[i] = []; //初始化桶
+    }
+
+    //将数据分配到各个桶中,这里直接按照数据值的分布来分配,一定范围内均匀分布的数据效率最为高效
+    for (i = 0; i < array.length; i++) {
+        buckets[~~((array[i] - min) / bucketSize)].push(array[i]);
+    }
+
+    array.length = 0;
+    for (i = 0; i < buckets.length; i++) {
+        quickSort(buckets[i]); //对每个桶进行排序，这里使用了快速排序
+        for (let j = 0; j < buckets[i].length; j++) {
+            array.push(buckets[i][j]); //将已排序的数据写回数组中
+        }
+    }
+    return array;
+}
