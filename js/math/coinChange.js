@@ -23,10 +23,8 @@ const coinChange = function (coins, amount) {
         for (let j = 0; j < coins.length; j++) {
             // 若硬币面额小于目标总额，则问题成立
             if (i - coins[j] >= 0) {
-                // console.log('i',i,'coins[j]',coins[j])
                 // 状态转移方程
                 f[i] = Math.min(f[i], f[i - coins[j]] + 1);
-                // console.log(f)
             }
         }
     }
