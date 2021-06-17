@@ -6,12 +6,15 @@ function randomNumber(){
     return Math.floor(Math.random()*62)
 }
 function uniqueArray(length){
+    let count = 0
     let arr = [];
     function b(){
+        count ++
         let num = randomNumber();
         arr.push(num);
         arr = set(arr);
         if(arr.length>=length){
+            console.log('调用次数',count)
             return arr
         }else{
             return b(length)
@@ -48,5 +51,5 @@ function hash(length,unique){
     }
 }
 
-console.log('随机哈希码',hash(5,true));
+console.log('随机哈希码',hash(62,true));
 const url = 'https://activity-pics.themobiyun.com/wx/'
