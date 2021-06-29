@@ -78,6 +78,10 @@
             border: 1px solid #fff;
             background-color: #fff;
             cursor: pointer;
+            transition:all 0.5s;
+        }
+        .close:hover{
+            transform: rotateZ(90deg);
         }
         .close::before{
             content: '';
@@ -155,22 +159,26 @@
     const editContent = document.getElementById('editContent')
     ele.onclick = function () {
         const selectionObj = window.getSelection();
+        // 限制选中
         const currentNode = selectionObj.anchorNode
+        const selectNode = currentNode.parentNode;
         if (!currentNode) {
             alert('请先选中文字')
             return
         }
-        const selectNode = currentNode.parentNode;
-        console.log(selectionObj,'selectionObj')
+        // 限制选中的为编辑区域
+        if (!editContent.contains(selectNode)) {
+            alert('请在合同区域进行标记选中')
+            return;
+        }
         const rangeObj = selectionObj.getRangeAt(0);
-        console.log(rangeObj, 'rangeObj')
         const docFragment = rangeObj.cloneContents();
-        console.log(docFragment, 'docFragment')
         const testDiv = document.createElement("div");
-        console.log(testDiv, 'testDiv')
+        // console.log(testDiv, 'testDiv')
         testDiv.appendChild(docFragment);
         const selectHtml = testDiv.innerHTML;
-        console.log( selectHtml,'selectHtml')
+        // console.log( selectHtml,'selectHtml')
+        // 点击元素currentNode不为null  但没有选中内容
         if (!selectHtml) {
             alert('请先选中文字')
             return
@@ -207,11 +215,14 @@
             startNode = startNode.nextElementSibling
             wholeText += text.indexOf('。') > -1 ? text : text + '。'
         })
-        // 取消选中
+        // 取消选中 显示标记
         window.getSelection().removeAllRanges()
-        console.log(selectText,'selectText')
+        // console.log(selectText,'selectText')
+        // 生成标签 提供编辑
+        createElement(selectNode,{wholeText,startIndex,endIndex})
+    }
+    function createElement (selectNode,{wholeText,startIndex,endIndex}) {
         const {offsetTop} = selectNode
-        // 生成标签
         const editDiv = document.createElement("div");
         editDiv.setAttribute('content',wholeText);
         editDiv.setAttribute('startIndex',startIndex)
@@ -231,16 +242,11 @@
             const start = editDiv.getAttribute('startIndex')
             const end = editDiv.getAttribute('endIndex')
             const children = [...editContent.children]
-            children.forEach((item,index) => {
-                if (index >= Number(start) && index <=Number(end)) {
-                    item.innerText = item.innerText.replace(/<span style="color:red">/g, '').replace(/<\/span>/g, '')
-                }
+            children.filter((item,index) => index >= Number(start) && index <=Number(end) ).forEach((item) => {
+                item.innerText = item.innerText.replace(/<span style="color:red">/g, '').replace(/<\/span>/g, '')
             })
             editDiv.remove()
         }
-    }
-    function createElement () {
-
     }
     function createStyle () {
         var stylee=document.createElement('style');
