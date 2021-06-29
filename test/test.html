@@ -1,0 +1,255 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        :root {
+            --bg: grey;
+            --fontSize: 25px;
+        }
+        .pink-theme {
+            --bg: hotpink;
+        }
+        body {
+            width: 100%;
+            height: auto;
+            transition: background 1s;
+            background: var(--bg);
+        }
+        button {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transition: color 1s;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            border: none;
+            background: #fff;
+            font-size: var(--fontSize);
+            color: var(--bg);
+        }
+        .button {
+            position: fixed;
+            top: 50%;
+            left: 70%;
+            transition: color 1s;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            border: none;
+            background: #fff;
+            font-size: var(--fontSize);
+            color: var(--bg);
+        }
+        .editContent{
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .editItem {
+            position: absolute;
+            right: 20px;
+            width: 200px;
+            min-height: 30px;
+            border: 1px solid red;
+            border-radius: 4px;
+            padding: 15px;
+            background-color: rgb(255, 255, 255);
+        }
+        .editMain{
+            width: 100%;
+            min-height: 30px;
+        }
+        .editMain:focus{
+            outline: none
+        }
+        .close{
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            border-radius: 50%;
+            border: 1px solid #fff;
+            background-color: #fff;
+            cursor: pointer;
+        }
+        .close::before{
+            content: '';
+            width: 1px;
+            height: 10px;
+            background-color: grey;
+            position: absolute;
+            left: 4px;
+            transform: rotateZ(-45deg);
+        }
+        .close::after{
+            content: '';
+            width: 1px;
+            height: 10px;
+            background-color: grey;
+            position: absolute;
+            left: 4px;
+            transform: rotateZ(45deg);
+        }
+    </style>
+</head>
+<body>
+<div class="editContent" id="editContent">
+    <div>在编辑器内您可以进行自由编辑股权结构</div>
+    <div>一键获取企业舆情信息，并且针对不同的舆情标签进行自定义模板，为您的调查节约时间</div>
+    <div>当前调查仅会调取企业舆情信息</div>
+    <div>点击下一步，即表示您已同意《用户协议》</div>
+    <div>*数据源自完整的项目，底稿管理内仅供查看、下载。</div>
+    <div>您对企业上海融创房地产开发集团有限公司的尽调报告已生成，请到项目内查看及下载</div>
+    <div>上海凡迪基因科技有限公司</div>
+    <div>上海融创房地产开发集团有限公司</div>
+    <div>在编辑器内您可以进行自由编辑股权结构</div>
+    <div>一键获取企业舆情信息，并且针对不同的舆情标签进行自定义模板，为您的调查节约时间</div>
+    <div>当前调查仅会调取企业舆情信息</div>
+    <div>点击下一步，即表示您已同意《用户协议》</div>
+    <div>*数据源自完整的项目，底稿管理内仅供查看、下载。</div>
+    <div>您对企业上海融创房地产开发集团有限公司的尽调报告已生成，请到项目内查看及下载</div>
+    <div>上海凡迪基因科技有限公司</div>
+    <div>上海融创房地产开发集团有限公司</div>
+    <div>在编辑器内您可以进行自由编辑股权结构</div>
+    <div>一键获取企业舆情信息，并且针对不同的舆情标签进行自定义模板，为您的调查节约时间</div>
+    <div>当前调查仅会调取企业舆情信息</div>
+    <div>点击下一步，即表示您已同意《用户协议》</div>
+    <div>*数据源自完整的项目，底稿管理内仅供查看、下载。</div>
+    <div>您对企业上海融创房地产开发集团有限公司的尽调报告已生成，请到项目内查看及下载</div>
+    <div>上海凡迪基因科技有限公司</div>
+    <div>上海融创房地产开发集团有限公司</div>
+    <div>在编辑器内您可以进行自由编辑股权结构</div>
+    <div>一键获取企业舆情信息，并且针对不同的舆情标签进行自定义模板，为您的调查节约时间</div>
+    <div>当前调查仅会调取企业舆情信息</div>
+    <div>点击下一步，即表示您已同意《用户协议》</div>
+    <div>*数据源自完整的项目，底稿管理内仅供查看、下载。</div>
+    <div>您对企业上海融创房地产开发集团有限公司的尽调报告已生成，请到项目内查看及下载</div>
+    <div>上海凡迪基因科技有限公司</div>
+    <div>上海融创房地产开发集团有限公司</div>
+    <div>在编辑器内您可以进行自由编辑股权结构</div>
+    <div>一键获取企业舆情信息，并且针对不同的舆情标签进行自定义模板，为您的调查节约时间</div>
+    <div>当前调查仅会调取企业舆情信息</div>
+    <div>点击下一步，即表示您已同意《用户协议》</div>
+    <div>*数据源自完整的项目，底稿管理内仅供查看、下载。</div>
+    <div>您对企业上海融创房地产开发集团有限公司的尽调报告已生成，请到项目内查看及下载</div>
+    <div>上海凡迪基因科技有限公司</div>
+    <div>上海融创房地产开发集团有限公司</div>
+</div>
+<button id="btn">插入标签</button>
+<script>
+    // document.querySelector("button").addEventListener("click", () => {
+    //     if (document.body.classList.contains("pink-theme")) {
+    //         document.body.classList.remove("pink-theme");
+    //     } else {
+    //         document.body.classList.add("pink-theme");
+    //     }
+    // });
+    const ele = document.getElementById('btn')
+    const editContent = document.getElementById('editContent')
+    ele.onclick = function () {
+        const selectionObj = window.getSelection();
+        const currentNode = selectionObj.anchorNode
+        if (!currentNode) {
+            alert('请先选中文字')
+            return
+        }
+        const selectNode = currentNode.parentNode;
+        console.log(selectionObj,'selectionObj')
+        const rangeObj = selectionObj.getRangeAt(0);
+        console.log(rangeObj, 'rangeObj')
+        const docFragment = rangeObj.cloneContents();
+        console.log(docFragment, 'docFragment')
+        const testDiv = document.createElement("div");
+        console.log(testDiv, 'testDiv')
+        testDiv.appendChild(docFragment);
+        const selectHtml = testDiv.innerHTML;
+        console.log( selectHtml,'selectHtml')
+        if (!selectHtml) {
+            alert('请先选中文字')
+            return
+        }
+        // 设置选中
+        const selectText = selectHtml.replace(/<div>/g,'').replace(/<\/div>/g,'').split('\n')
+        const { startContainer,  endContainer} = rangeObj
+        let startNode = startContainer.parentNode
+        let endNode = endContainer.parentNode
+        if (startNode.tagName!=='DIV') {
+            startNode = startNode.parentNode
+        }
+        if (endNode.tagName!=='DIV') {
+            endNode = endNode.parentNode
+        }
+        // 记录选中的位置
+        const children = [...editContent.children]
+        let startIndex = 0
+        let endIndex = 0
+        children.forEach((item,index) => {
+            if (item === startNode) {
+                startIndex = index
+            }
+            if (item === endNode) {
+                endIndex = index
+            }
+        })
+        // 记录选中内容
+        let wholeText = ''
+        selectText.forEach(i => {
+            const text = i.replace(/<span style="color:red">/g,'').replace(/<\/span>/g,'').trim()
+            const innerText = startNode.innerText.replace(/<span style="color:red">/g,'').replace(/<\/span>/g,'')
+            startNode.innerHTML = innerText.replace(text, `<span style="color:red">${text}</span>`)
+            startNode = startNode.nextElementSibling
+            wholeText += text.indexOf('。') > -1 ? text : text + '。'
+        })
+        // 取消选中
+        window.getSelection().removeAllRanges()
+        console.log(selectText,'selectText')
+        const {offsetTop} = selectNode
+        // 生成标签
+        const editDiv = document.createElement("div");
+        editDiv.setAttribute('content',wholeText);
+        editDiv.setAttribute('startIndex',startIndex)
+        editDiv.setAttribute('endIndex',endIndex)
+        editDiv.className = 'editItem'
+        editDiv.style.top = offsetTop + 'px'
+        const edit  = document.createElement("div");
+        edit.className = 'editMain'
+        edit.contentEditable = 'true'
+        const close = document.createElement("div");
+        close.className = 'close'
+        editDiv.appendChild(edit)
+        editDiv.appendChild(close)
+        editContent.appendChild(editDiv)
+        // 绑定事件  删除标签 删除标签去除选中文字
+        close.onclick = function () {
+            const start = editDiv.getAttribute('startIndex')
+            const end = editDiv.getAttribute('endIndex')
+            const children = [...editContent.children]
+            children.forEach((item,index) => {
+                if (index >= Number(start) && index <=Number(end)) {
+                    item.innerText = item.innerText.replace(/<span style="color:red">/g, '').replace(/<\/span>/g, '')
+                }
+            })
+            editDiv.remove()
+        }
+    }
+    function createElement () {
+
+    }
+    function createStyle () {
+        var stylee=document.createElement('style');
+        stylee.type = 'text/css';
+        stylee.id = that.config.styledot;
+        var sHtml = '.un-points .un-point-bullet{background-color:#ffffff;}';
+        stylee.innerHTML = sHtml;
+        document.getElementsByTagName('head').item(0).appendChild(stylee);
+    }
+</script>
+</body>
+</html>
