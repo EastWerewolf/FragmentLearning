@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    {{msg}} <br />
+    {{age}} <br />
+    <div v-text="msg"></div>
+    <input v-model="msg" type="text" />
+</div>
+<script src="./dep.js"></script>
+<script src="./watcher.js"></script>
+<script src="./compiler.js"></script>
+<script src="./observer.js"></script>
+<script src="./vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            msg: '123',
+            age: 21,
+        },
+    })
+</script>
+</body>
+</html>
