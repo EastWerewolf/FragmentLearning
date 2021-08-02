@@ -46,8 +46,12 @@ function permute1(nums){
     let res = []
     for (let i = 0; i < nums.length; i++){
         res = res.concat(
-            permute1([...nums.slice(0,1),...nums.slice(i+1)].map(v => [nums[i]],...v))
+            permute1([...nums.slice(0,i),...nums.slice(i+1)]).map(v => {
+                const sub = typeof v === "number" ? [v] : v
+                return [nums[i],...sub]
+            })
         )
     }
     return res
 }
+permute1([1,2,3,4])
