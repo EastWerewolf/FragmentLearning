@@ -38,3 +38,16 @@ const permute = (nums) => {
     dfs(0)
     return res
 }
+
+function permute1(nums){
+    if (nums.length === 1) {
+        return nums
+    }
+    let res = []
+    for (let i = 0; i < nums.length; i++){
+        res = res.concat(
+            permute1([...nums.slice(0,1),...nums.slice(i+1)].map(v => [nums[i]],...v))
+        )
+    }
+    return res
+}
