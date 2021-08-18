@@ -29,7 +29,6 @@ function curry(...args){
         return parmas.reduce((acc,item)=>{
             return acc+item
         })
-
     }
     return sum
 }
