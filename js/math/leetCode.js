@@ -17,3 +17,27 @@ let longestPalindrome = function(s) {
     return arr
 };
 console.log(longestPalindrome(str))
+
+
+// 输入： 3(x)2(yz2(az))1(x) 输出：xxxyzazazyzazazx
+
+const getStr = (str, index = 0) => {
+    const l = str.length;
+    let res = "";
+    let v = "";
+    for (let i = index; i < l; i++) {
+        if (str[i] === "(") {
+            const [nextValue, nextIndex] = getStr(str, i + 1);
+            const multi = Number(v) || 1;
+            res += `${nextValue.repeat(multi)}`;
+            i = nextIndex; v = "";
+        } else if (str[i] === ")") {
+            return [res, i];
+        } else if (/\d/.test(str[i])) {
+            v += str[i];
+        } else {
+            res += str[i];
+        }
+    }
+    return res;
+};
