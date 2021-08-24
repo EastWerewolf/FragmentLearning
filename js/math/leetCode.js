@@ -16,11 +16,11 @@ let longestPalindrome = function(s) {
     })
     return arr
 };
-console.log(longestPalindrome(str))
+// console.log(longestPalindrome(str))
 
 
 // 输入： 3(x)2(yz2(az))1(x) 输出：xxxyzazazyzazazx
-
+const str1 = '3(x)2(yz2(az))1(x)'
 const getStr = (str, index = 0) => {
     const l = str.length;
     let res = "";
@@ -30,8 +30,10 @@ const getStr = (str, index = 0) => {
             const [nextValue, nextIndex] = getStr(str, i + 1);
             const multi = Number(v) || 1;
             res += `${nextValue.repeat(multi)}`;
-            i = nextIndex; v = "";
+            i = nextIndex;
+            v = "";
         } else if (str[i] === ")") {
+            // console.log(res,'res')
             return [res, i];
         } else if (/\d/.test(str[i])) {
             v += str[i];
@@ -41,3 +43,5 @@ const getStr = (str, index = 0) => {
     }
     return res;
 };
+
+console.log(getStr(str1))
