@@ -33,7 +33,7 @@ const getStr = (str, index = 0) => {
             i = nextIndex;
             v = "";
         } else if (str[i] === ")") {
-            // console.log(res,'res')
+            console.log(res,'res')
             return [res, i];
         } else if (/\d/.test(str[i])) {
             v += str[i];
@@ -45,3 +45,13 @@ const getStr = (str, index = 0) => {
 };
 
 console.log(getStr(str1))
+
+let fn = (str)=>{
+    return str.replace(/(\d+)\(([a-zA-Z]+)\)/g,(a,b,c,d)=>{
+        return new Array(+b).fill(1).map(v=>c).join('')
+    })
+}
+while(/\(/.test(str)){
+    str = fn(str);
+}
+console.log(str)
