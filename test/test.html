@@ -147,6 +147,7 @@
         // 限制选中
         const currentNode = selectionObj.anchorNode
         const selectNode = currentNode.parentNode;
+        console.log(currentNode,'selectNode')
         if (!currentNode) {
             alert('请先选中文字')
             return
@@ -159,7 +160,7 @@
         const rangeObj = selectionObj.getRangeAt(0);
         const docFragment = rangeObj.cloneContents();
         const testDiv = document.createElement("div");
-        // console.log(testDiv, 'testDiv')
+        console.log(testDiv, 'testDiv')
         testDiv.appendChild(docFragment);
         const selectHtml = testDiv.innerHTML;
         // console.log( selectHtml,'selectHtml')
