@@ -34,3 +34,13 @@ function curry(...args){
 }
 console.log(curry(1)(2)(3)(10)(10,20).toString()) // 40
 
+function currying(func) {
+    const args = [];
+    return function result(...rest) {
+        if (rest.length === 0)
+            return func(...args);
+
+        args.push(...rest);
+        return result;
+    }
+}
