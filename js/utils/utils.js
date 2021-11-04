@@ -19,3 +19,10 @@ function maxAndMin(arr){
 export function scalarArrayEquals(array1, array2) {
     return array1.length === array2.length && array1.every(function(v, i) { return v ===array2[i]})
 }
+
+/**
+ * const castArray = (value) => (Array.isArray(value) ? value : [value]);
+ * @param value
+ * @returns {*}
+ */
+const castArray = (value) => (Array.isArray(value) ? value : [value]);
