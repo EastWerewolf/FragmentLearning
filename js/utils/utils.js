@@ -26,3 +26,9 @@ export function scalarArrayEquals(array1, array2) {
  * @returns {*}
  */
 const castArray = (value) => (Array.isArray(value) ? value : [value]);
+/**
+ * Check if an array is empty
+ * @param arr
+ * @returns {boolean}
+ */
+const isEmpty = (arr) => !Array.isArray(arr) || arr.length === 0;
