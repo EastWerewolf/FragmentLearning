@@ -40,3 +40,10 @@ const isEmpty = (arr) => !Array.isArray(arr) || arr.length === 0;
  */
 // `a` and `b` are arrays
 const isEqual = (a, b) => JSON.stringify(a.sort()) === JSON.stringify(b.sort());
+/**
+ * Count the occurrences of a value in an array
+ * @param arr
+ * @param val
+ * @returns {*}
+ */
+const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
