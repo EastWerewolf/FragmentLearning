@@ -32,3 +32,11 @@ const castArray = (value) => (Array.isArray(value) ? value : [value]);
  * @returns {boolean}
  */
 const isEmpty = (arr) => !Array.isArray(arr) || arr.length === 0;
+/**
+ * Compare two arrays regardless of order
+ * @param a
+ * @param b
+ * @returns {boolean}
+ */
+// `a` and `b` are arrays
+const isEqual = (a, b) => JSON.stringify(a.sort()) === JSON.stringify(b.sort());
