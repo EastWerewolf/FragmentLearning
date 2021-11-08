@@ -47,3 +47,10 @@ const isEqual = (a, b) => JSON.stringify(a.sort()) === JSON.stringify(b.sort());
  * @returns {*}
  */
 const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
+/**
+ * Calculate the number of difference days between two dates 计算两个日期的差值
+ * @param date
+ * @param otherDate
+ * @returns {number}
+ */
+const diffDays = (date, otherDate) => Math.ceil(Math.abs(date - otherDate) / (1000 * 60 * 60 * 24));
