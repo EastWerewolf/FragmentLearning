@@ -62,3 +62,9 @@ const diffDays = (date, otherDate) => Math.ceil(Math.abs(date - otherDate) / (10
  */
 
 const monthDiff = (startDate, endDate) => Math.max(0, (endDate.getFullYear() - startDate.getFullYear()) * 12 - startDate.getMonth() + endDate.getMonth());
+/**
+ * Convert a date to YYYY-MM-DD format 时间格式化
+ * @param date
+ * @returns {string}
+ */
+const formatYmd = (date) => date.toISOString().slice(0, 10);
