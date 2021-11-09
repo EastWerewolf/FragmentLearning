@@ -68,3 +68,9 @@ const monthDiff = (startDate, endDate) => Math.max(0, (endDate.getFullYear() - s
  * @returns {string}
  */
 const formatYmd = (date) => date.toISOString().slice(0, 10);
+/**
+ * Convert seconds to hh:mm:ss format 时间格式化
+ * @param s
+ * @returns {string}
+ */
+const formatSeconds = (s) => new Date(s * 1000).toISOString().substr(11, 8);
