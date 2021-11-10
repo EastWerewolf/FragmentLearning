@@ -74,3 +74,9 @@ const formatYmd = (date) => date.toISOString().slice(0, 10);
  * @returns {string}
  */
 const formatSeconds = (s) => new Date(s * 1000).toISOString().substr(11, 8);
+/**
+ * Get the day of the year from a date 获取日期在一年中的第几天
+ * @param date
+ * @returns {number}
+ */
+const dayOfYear = (date) => Math.floor((date - new Date(date.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
