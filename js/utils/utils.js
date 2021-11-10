@@ -80,3 +80,9 @@ const formatSeconds = (s) => new Date(s * 1000).toISOString().substr(11, 8);
  * @returns {number}
  */
 const dayOfYear = (date) => Math.floor((date - new Date(date.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+/**
+ * Get the month name of a date
+ * @param date
+ * @returns {string}
+ */
+const getMonthName = (date) => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', ' November', 'December'][date.getMonth()];
