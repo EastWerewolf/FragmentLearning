@@ -81,8 +81,14 @@ const formatSeconds = (s) => new Date(s * 1000).toISOString().substr(11, 8);
  */
 const dayOfYear = (date) => Math.floor((date - new Date(date.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
 /**
- * Get the month name of a date
+ * Get the month name of a date 获取当前月份名称
  * @param date
  * @returns {string}
  */
 const getMonthName = (date) => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', ' November', 'December'][date.getMonth()];
+/**
+ * Get the weekday of a date 获取当前星期名称
+ * @param date
+ * @returns {string}
+ */
+const getWeekday = (date) => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][date.getDay()];
