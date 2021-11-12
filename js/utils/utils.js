@@ -92,3 +92,10 @@ const getMonthName = (date) => ['January', 'February', 'March', 'April', 'May', 
  * @returns {string}
  */
 const getWeekday = (date) => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][date.getDay()];
+/**
+ * Check if an element is a descendant of another 检查一个元素是否在另一个元素之内
+ * @param child
+ * @param parent
+ * @returns {boolean}
+ */
+const isDescendant = (child, parent) => parent.contains(child);
