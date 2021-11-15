@@ -99,3 +99,9 @@ const getWeekday = (date) => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thurs
  * @returns {boolean}
  */
 const isDescendant = (child, parent) => parent.contains(child);
+/**
+ *  Check if an element is focused 交检查元素是否聚焦
+ * @param ele
+ * @returns {boolean}
+ */
+const hasFocus = (ele) => ele === document.activeElement;
