@@ -110,4 +110,8 @@ const hasFocus = (ele) => ele === document.activeElement;
  * @returns {boolean}
  */
 const isAtBottom = () => document.documentElement.clientHeight + window.scrollY >= document.documentElement.scrollHeight;
-
+/**
+ * Get the selected text 获取选中的文字
+ * @returns {string}
+ */
+const getSelectedText = () => window.getSelection().toString();
