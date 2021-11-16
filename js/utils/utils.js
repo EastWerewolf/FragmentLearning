@@ -105,3 +105,9 @@ const isDescendant = (child, parent) => parent.contains(child);
  * @returns {boolean}
  */
 const hasFocus = (ele) => ele === document.activeElement;
+/**
+ * Check if user scrolls to the bottom of the page 检查用户是否滚动到底部
+ * @returns {boolean}
+ */
+const isAtBottom = () => document.documentElement.clientHeight + window.scrollY >= document.documentElement.scrollHeight;
+
