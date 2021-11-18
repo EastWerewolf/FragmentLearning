@@ -115,3 +115,15 @@ const isAtBottom = () => document.documentElement.clientHeight + window.scrollY 
  * @returns {string}
  */
 const getSelectedText = () => window.getSelection().toString();
+/**
+ * Check if a value is a generator function
+ * @param v
+ * @returns {boolean}
+ */
+const isGeneratorFunction = (v) => Object.prototype.toString.call(v) === '[object GeneratorFunction]';
+/**
+ * Check if a value is an async function
+ * @param v
+ * @returns {boolean}
+ */
+const isAsyncFunction = (v) => Object.prototype.toString.call(v) === '[object AsyncFunction]';
