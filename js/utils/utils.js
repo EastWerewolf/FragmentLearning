@@ -151,3 +151,9 @@ const getDiscountPrice = (price, discount) =>
         .done((res) => res);
 
 getDiscountPrice('$6.00', '20%'); // 4.8
+/**
+ * Check if a value is a function
+ * @param v
+ * @returns {boolean}
+ */
+const isFunction = (v) => ['[object Function]', '[object GeneratorFunction]', '[object AsyncFunction]', '[object Promise]'].includes(Object.prototype.toString.call(v));
