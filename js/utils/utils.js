@@ -157,3 +157,9 @@ getDiscountPrice('$6.00', '20%'); // 4.8
  * @returns {boolean}
  */
 const isFunction = (v) => ['[object Function]', '[object GeneratorFunction]', '[object AsyncFunction]', '[object Promise]'].includes(Object.prototype.toString.call(v));
+/**
+ * Execute a function once
+ * @param fn
+ * @returns {function(): *}
+ */
+const once = (fn) => ((ran = false) => () => ran ? fn : ((ran = !ran), (fn = fn())))();
