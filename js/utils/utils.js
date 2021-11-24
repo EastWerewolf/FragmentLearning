@@ -163,3 +163,14 @@ const isFunction = (v) => ['[object Function]', '[object GeneratorFunction]', '[
  * @returns {function(): *}
  */
 const once = (fn) => ((ran = false) => () => ran ? fn : ((ran = !ran), (fn = fn())))();
+/**
+ * Memoize a function
+ * @param fn
+ * @returns {function(*=): *}
+ */
+const memoize = (fn) =>
+    (
+        (cache = Object.create(null)) =>
+            (arg) =>
+                cache[arg] || (cache[arg] = fn(arg))
+    )();
