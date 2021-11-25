@@ -174,3 +174,7 @@ const memoize = (fn) =>
             (arg) =>
                 cache[arg] || (cache[arg] = fn(arg))
     )();
+/**
+ * Clear all cookies
+ */
+const clearCookies = () => document.cookie.split(';').forEach((c) => (document.cookie = c.replace(/^ +/, '').replace(/=.*/, `=;expires=${new Date().toUTCString()};path=/`)));
