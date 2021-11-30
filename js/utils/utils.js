@@ -187,3 +187,9 @@ const uppercaseWords = (str) =>
 
 // Or
 const uppercaseWords = (str) => str.replace(/^(.)|\s+(.)/g, (c) => c.toUpperCase());
+
+/**
+ * Generate a random hex color
+ * @returns {string}
+ */
+const randomColor = () => `#${Math.random().toString(16).slice(2, 8).padEnd(6, '0')}`;
