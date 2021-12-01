@@ -193,3 +193,12 @@ const uppercaseWords = (str) => str.replace(/^(.)|\s+(.)/g, (c) => c.toUpperCase
  * @returns {string}
  */
 const randomColor = () => `#${Math.random().toString(16).slice(2, 8).padEnd(6, '0')}`;
+
+/**
+ * Check if an object is empty
+ * @param obj
+ * @returns {boolean|boolean}
+ */
+const isEmpty = (obj) => Reflect.ownKeys(obj).length === 0 && obj.constructor === Object;
+// Or for enumerable property names only
+const isEmpty = (obj) => JSON.stringify(obj) === '{}';
