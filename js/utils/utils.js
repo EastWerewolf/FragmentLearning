@@ -202,3 +202,19 @@ const randomColor = () => `#${Math.random().toString(16).slice(2, 8).padEnd(6, '
 const isEmpty = (obj) => Reflect.ownKeys(obj).length === 0 && obj.constructor === Object;
 // Or for enumerable property names only
 const isEmpty = (obj) => JSON.stringify(obj) === '{}';
+
+/**
+ * Check if an array contains a value matching some criterias
+ * @param arr
+ * @param criteria
+ * @returns {boolean}
+ */
+const contains = (arr, criteria) => arr.some((v) => criteria(v));
+// Or
+const contains = (arr, criteria) => arr.some(criteria);
+// Or
+const contains = (arr, criteria) => arr.filter(criteria).length > 0;
+// example
+contains([10, 20, 30], (v) => v > 25); // true
+contains([10, 20, 30], (v) => v > 100 || v < 15); // true
+contains([10, 20, 30], (v) => v > 100); // false
