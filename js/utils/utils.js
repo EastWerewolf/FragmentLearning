@@ -235,3 +235,10 @@ const isLeapYear = (year) => new Date(year, 1, 29).getDate() === 29;
  * @returns {boolean}
  */
 const isBase64 = (value) => /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/.test(value);
+
+/**
+ * Check if a value is an object
+ * @param v
+ * @returns {boolean|boolean}
+ */
+const isObject = (v) => v !== null && typeof v === 'object';
