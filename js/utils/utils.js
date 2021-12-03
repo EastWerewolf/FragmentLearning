@@ -228,3 +228,10 @@ const isLeapYear = (year) => (year % 4 === 0 && year % 100 !== 0) || year % 400 
 // Or
 // Get the number of days in February
 const isLeapYear = (year) => new Date(year, 1, 29).getDate() === 29;
+
+/**
+ * Check if a value is base64 encoded
+ * @param value
+ * @returns {boolean}
+ */
+const isBase64 = (value) => /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/.test(value);
