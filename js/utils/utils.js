@@ -242,3 +242,19 @@ const isBase64 = (value) => /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z
  * @returns {boolean|boolean}
  */
 const isObject = (v) => v !== null && typeof v === 'object';
+
+/**
+ * 获取链接c参数
+ * @param {*} url 
+ * @returns 
+ */
+
+const getURLParameters = url =>
+  (url.match(/([^?=&]+)(=([^&]*))/g) || []).reduce(
+    (a, v) => (
+      (a[v.slice(0, v.indexOf('='))] = v.slice(v.indexOf('=') + 1)), a
+    ),
+    {}
+  );
+getURLParameters('google.com'); // {}
+getURLParameters('http://url.com/page?name=Adam&surname=Smith');
