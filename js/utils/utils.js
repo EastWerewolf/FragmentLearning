@@ -289,3 +289,10 @@ const copyToClipboard = str => {
  * @returns {function(*=): boolean}
  */
 const containsWhitespace = (str) => (str) => /\s/.test(str);
+
+/**
+ * Check if a string contains only letters
+ * @param str
+ * @returns {boolean}
+ */
+const isAlpha = (str) => /^[A-Z]+$/i.test(str);
