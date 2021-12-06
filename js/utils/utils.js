@@ -245,8 +245,8 @@ const isObject = (v) => v !== null && typeof v === 'object';
 
 /**
  * 获取链接c参数
- * @param {*} url 
- * @returns 
+ * @param {*} url
+ * @returns
  */
 
 const getURLParameters = url =>
@@ -261,7 +261,7 @@ getURLParameters('http://url.com/page?name=Adam&surname=Smith');
 
 /**
  * 复制粘贴板内容
- * @param {*} str 
+ * @param {*} str
  */
 const copyToClipboard = str => {
     const el = document.createElement('textarea');
@@ -282,3 +282,10 @@ const copyToClipboard = str => {
       document.getSelection().addRange(selected);
     }
   };
+
+/**
+ * Check if a string contains whitespace
+ * @param str
+ * @returns {function(*=): boolean}
+ */
+const containsWhitespace = (str) => (str) => /\s/.test(str);
