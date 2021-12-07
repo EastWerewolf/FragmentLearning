@@ -296,3 +296,10 @@ const containsWhitespace = (str) => (str) => /\s/.test(str);
  * @returns {boolean}
  */
 const isAlpha = (str) => /^[A-Z]+$/i.test(str);
+
+/**
+ * Check if a string contains only ASCII characters
+ * @param str
+ * @returns {boolean}
+ */
+const isAscii = (str) => /^[\x00-\x7F]+$/.test(str);
