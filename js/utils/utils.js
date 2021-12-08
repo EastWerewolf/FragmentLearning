@@ -303,3 +303,9 @@ const isAlpha = (str) => /^[A-Z]+$/i.test(str);
  * @returns {boolean}
  */
 const isAscii = (str) => /^[\x00-\x7F]+$/.test(str);
+
+/**
+ * Check if the code is running in NodeJS
+ * @type {boolean}
+ */
+const isNode = typeof process !== 'undefined' && process.versions != null && process.versions.node != null;
