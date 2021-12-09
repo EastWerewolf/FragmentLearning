@@ -322,3 +322,12 @@ const unescape = (str) =>
         .replace(/&gt;/g, '>')
         .replace(/&#0*39;/g, "'")
         .replace(/&quot;/g, '"');
+
+/**
+ * Truncate a string at full words
+ * @param str
+ * @param max
+ * @param suffix
+ * @returns {*}
+ */
+const truncate = (str, max, suffix) => (str.length < max ? str : `${str.substr(0, str.substr(0, max - suffix.length).lastIndexOf(' '))}${suffix}`);
