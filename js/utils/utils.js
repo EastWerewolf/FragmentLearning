@@ -309,3 +309,16 @@ const isAscii = (str) => /^[\x00-\x7F]+$/.test(str);
  * @type {boolean}
  */
 const isNode = typeof process !== 'undefined' && process.versions != null && process.versions.node != null;
+
+/**
+ * Unescape HTML special characters
+ * @param str
+ * @returns {string}
+ */
+const unescape = (str) =>
+    str
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&#0*39;/g, "'")
+        .replace(/&quot;/g, '"');
