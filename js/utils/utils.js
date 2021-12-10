@@ -331,3 +331,10 @@ const unescape = (str) =>
  * @returns {*}
  */
 const truncate = (str, max, suffix) => (str.length < max ? str : `${str.substr(0, str.substr(0, max - suffix.length).lastIndexOf(' '))}${suffix}`);
+
+/**
+ * Strip ANSI codes from a string
+ * @param str
+ * @returns {void | string | *}
+ */
+const stripAnsiCodes = (str) => str.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '');
