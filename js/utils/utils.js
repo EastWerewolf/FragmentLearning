@@ -338,3 +338,23 @@ const truncate = (str, max, suffix) => (str.length < max ? str : `${str.substr(0
  * @returns {void | string | *}
  */
 const stripAnsiCodes = (str) => str.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '');
+
+/**
+ * Returns the human-readable format of the given number of milliseconds
+ * @param ms
+ * @returns {string}
+ */
+const formatDuration = ms => {
+    if (ms < 0) ms = -ms;
+    const time = {
+        day: Math.floor(ms / 86400000),
+        hour: Math.floor(ms / 3600000) % 24,
+        minute: Math.floor(ms / 60000) % 60,
+        second: Math.floor(ms / 1000) % 60,
+        millisecond: Math.floor(ms) % 1000
+    };
+    return Object.entries(time)
+        .filter(val => val[1] !== 0)
+        .map(([key, val]) => `${val} ${key}${val !== 1 ? 's' : ''}`)
+        .join(', ');
+};
