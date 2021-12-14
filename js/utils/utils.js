@@ -370,3 +370,10 @@ const gcd = (...arr) => {
 };
 gcd(8, 36); // 4
 gcd(...[12, 8, 32]); // 4
+
+/**
+ * Returns the powerset of a given array of numbers. 全排列
+ * @param arr
+ * @returns {*}
+ */
+const powerset = arr => arr.reduce((a, v) => a.concat(a.map(r => r.concat(v))), [[]]);
