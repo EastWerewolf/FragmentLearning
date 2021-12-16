@@ -396,3 +396,18 @@ const hashBrowser = val =>
 hashBrowser(
     JSON.stringify({ a: 'a', b: [1, 2, 3, 4], foo: { c: 'bar' } })
 ).then(console.log);
+
+/**
+ * Parses an HTTP Cookie header string, returning an object of all cookie name-value pairs.
+ * @param str
+ * @returns {unknown}
+ */
+const parseCookie = str =>
+    str
+        .split(';')
+        .map(v => v.split('='))
+        .reduce((acc, v) => {
+            acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+            return acc;
+        }, {});
+parseCookie('foo=bar; equation=E%3Dmc%5E2');
