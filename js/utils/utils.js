@@ -450,3 +450,14 @@ const myElement = {
 };
 
 renderElement(myElement, document.body);
+
+/**
+ * Encodes a set of form elements as a query string.
+ * @param {*} form 
+ * @returns 
+ */
+const serializeForm = form =>
+  Array.from(new FormData(form), field =>
+    field.map(encodeURIComponent).join('=')
+  ).join('&');
+serializeForm(document.querySelector('#form'));
