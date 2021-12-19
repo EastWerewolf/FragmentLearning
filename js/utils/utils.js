@@ -414,8 +414,8 @@ parseCookie('foo=bar; equation=E%3Dmc%5E2');
 
 /**
  * Renders the given DOM tree in the specified DOM element.
- * @param {*} param0 
- * @param {*} container 
+ * @param {*} param0
+ * @param {*} container
  */
 const renderElement = ({ type, props = {} }, container) => {
   const isTextElement = !type;
@@ -453,11 +453,30 @@ renderElement(myElement, document.body);
 
 /**
  * Encodes a set of form elements as a query string.
- * @param {*} form 
- * @returns 
+ * @param {*} form
+ * @returns
  */
 const serializeForm = form =>
   Array.from(new FormData(form), field =>
     field.map(encodeURIComponent).join('=')
   ).join('&');
 serializeForm(document.querySelector('#form'));
+
+/**
+ * Adds multiple event listeners with the same handler to an element.
+ * @param el
+ * @param types
+ * @param listener
+ * @param options
+ * @param useCapture
+ */
+const addMultipleListeners = (el, types, listener, options, useCapture) => {
+    types.forEach(type =>
+        el.addEventListener(type, listener, options, useCapture)
+    );
+};
+addMultipleListeners(
+    document.querySelector('.my-element'),
+    ['click', 'mousedown'],
+    () => { console.log('hello!') }
+);
