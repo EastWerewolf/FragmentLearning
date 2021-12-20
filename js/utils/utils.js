@@ -516,3 +516,18 @@ hub.emit('increment'); // `increment` variable is now 1
 
 // Unsubscribe: stop a specific handler from listening to the 'message' event
 hub.off('message', handler);
+
+const escapeHTML = str =>
+    str.replace(
+        /[&<>'"]/g,
+        tag =>
+            ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                "'": '&#39;',
+                '"': '&quot;'
+            }[tag] || tag)
+    );
+escapeHTML('<a href="#">Me & you</a>');
+// '&lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;'
