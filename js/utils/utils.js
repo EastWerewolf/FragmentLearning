@@ -545,3 +545,18 @@ const UUIDGeneratorBrowser = () =>
     ).toString(16)
   );
 UUIDGeneratorBrowser(); // '7982fcfe-5721-4632-bede-6000885be57d'
+
+/**
+ * Fetches all images from within an element and puts them into an array.
+ * @param el
+ * @param includeDuplicates
+ * @returns {string[]}
+ */
+const getImages = (el, includeDuplicates = false) => {
+    const images = [...el.getElementsByTagName('img')].map(img =>
+        img.getAttribute('src')
+    );
+    return includeDuplicates ? images : [...new Set(images)];
+};
+getImages(document, true); // ['image1.jpg', 'image2.png', 'image1.png', '...']
+getImages(document, false); // ['image1.jpg', 'image2.png', '...']
