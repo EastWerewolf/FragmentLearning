@@ -560,3 +560,17 @@ const getImages = (el, includeDuplicates = false) => {
 };
 getImages(document, true); // ['image1.jpg', 'image2.png', 'image1.png', '...']
 getImages(document, false); // ['image1.jpg', 'image2.png', '...']
+
+/**
+ * Injects the given CSS code into the current document
+ * @param css
+ * @returns {HTMLStyleElement}
+ */
+const injectCSS = css => {
+    let el = document.createElement('style');
+    el.type = 'text/css';
+    el.innerText = css;
+    document.head.appendChild(el);
+    return el;
+};
+injectCSS('body { background-color: #000 }');
