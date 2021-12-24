@@ -589,3 +589,11 @@ listenOnce(
     'click',
     () => console.log('Hello world')
 ); // 'Hello world' will only be logged on the first click
+
+/**
+ * Checks if the given element has the specified class.
+ * @param el
+ * @param className
+ * @returns {boolean}
+ */
+const hasClass = (el, className) => el.classList.contains(className);
