@@ -597,3 +597,32 @@ listenOnce(
  * @returns {boolean}
  */
 const hasClass = (el, className) => el.classList.contains(className);
+
+/**
+ * Invokes the provided callback on each animation frame.
+ * @param {*} callback 
+ * @param {*} autoStart 
+ * @returns 
+ */
+const recordAnimationFrames = (callback, autoStart = true) => {
+  let running = false,
+    raf;
+  const stop = () => {
+    if (!running) return;
+    running = false;
+    cancelAnimationFrame(raf);
+  };
+  const start = () => {
+    if (running) return;
+    running = true;
+    run();
+  };
+  const run = () => {
+    raf = requestAnimationFrame(() => {
+      callback();
+      if (running) run();
+    });
+  };
+  if (autoStart) start();
+  return { start, stop };
+};
