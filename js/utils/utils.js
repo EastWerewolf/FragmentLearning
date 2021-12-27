@@ -597,3 +597,14 @@ listenOnce(
  * @returns {boolean}
  */
 const hasClass = (el, className) => el.classList.contains(className);
+
+/**
+ * Smoothly scrolls the element on which it's called into the visible area of the browser window.
+ * @param element
+ */
+const smoothScroll = element =>
+    document.querySelector(element).scrollIntoView({
+        behavior: 'smooth'
+    });
+smoothScroll('#fooBar'); // scrolls smoothly to the element with the id fooBar
+smoothScroll('.fooBar');
