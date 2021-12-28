@@ -637,4 +637,12 @@ const recordAnimationFrames = (callback, autoStart = true) => {
   if (autoStart) start();
   return { start, stop };
 };
-
+/**
+ * Returns the scroll position of the current page.
+ * @param el
+ * @returns {{x: (number), y: (number)}}
+ */
+const getScrollPosition = (el = window) => ({
+    x: el.pageXOffset !== undefined ? el.pageXOffset : el.scrollLeft,
+    y: el.pageYOffset !== undefined ? el.pageYOffset : el.scrollTop
+});
