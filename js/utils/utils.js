@@ -669,3 +669,33 @@ const formatDuration = ms => {
 formatDuration(1001); // '1 second, 1 millisecond'
 formatDuration(34325055574);
 // '397 days, 6 hours, 44 minutes, 15 seconds, 574 milliseconds'
+
+/**
+ * implement a sleep function in JavaScript
+ * @param ms
+ */
+const sleepSync = (ms) => {
+    const end = new Date().getTime() + ms;
+    while (new Date().getTime() < end) { /* do nothing */ }
+}
+
+const printNums = () => {
+    console.log(1);
+    sleepSync(500);
+    console.log(2);
+    console.log(3);
+};
+
+printNums(); // Logs: 1, 2, 3 (2 and 3 log after 500ms)
+
+const sleep = (ms) =>
+    new Promise(resolve => setTimeout(resolve, ms));
+
+const printNums1 = async() => {
+    console.log(1);
+    await sleep(500);
+    console.log(2);
+    console.log(3);
+};
+
+printNums1(); // Logs: 1, 2, 3 (2 and 3 log after 500ms)
