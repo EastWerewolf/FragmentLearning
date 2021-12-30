@@ -699,3 +699,36 @@ const printNums1 = async() => {
 };
 
 printNums1(); // Logs: 1, 2, 3 (2 and 3 log after 500ms)
+
+/**
+ * implement a singleton in JavaScript
+ * @param className
+ * @returns {*}
+ */
+const singletonify = (className) => {
+    return new Proxy(className.prototype.constructor, {
+        instance: null,
+        construct: (target, argumentsList) => {
+            if (!this.instance)
+                this.instance = new target(...argumentsList);
+            return this.instance;
+        }
+    });
+}
+
+class MyClass {
+    constructor(msg) {
+        this.msg = msg;
+    }
+
+    printMsg() {
+        console.log(this.msg);
+    }
+}
+
+const MySingletonClass = singletonify(MyClass);
+
+const myObj = new MySingletonClass('first');
+myObj.printMsg();           // 'first'
+const myObj2 = new MySingletonClass('second');
+myObj2.printMsg();           // 'first'
