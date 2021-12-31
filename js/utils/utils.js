@@ -732,3 +732,31 @@ const myObj = new MySingletonClass('first');
 myObj.printMsg();           // 'first'
 const myObj2 = new MySingletonClass('second');
 myObj2.printMsg();           // 'first'
+
+/**
+ * How can I define an enum in JavaScript
+ */
+class Enum {
+    constructor(...keys) {
+        keys.forEach((key, i) => {
+            this[key] = i;
+        });
+        Object.freeze(this);
+    }
+
+    *[Symbol.iterator]() {
+        for (let key of Object.keys(this)) yield key;
+    }
+}
+
+const daysEnum = new Enum(
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+    'sunday'
+);
+
+const days = [...daysEnum]; // Array of the enum values as strings
