@@ -750,3 +750,14 @@ const countSubstrings = (str, searchValue) => {
 };
 countSubstrings('tiktok tok tok tik tok tik', 'tik'); // 3
 countSubstrings('tutut tut tut', 'tut'); // 4
+
+/**
+ * Calculates the distance between two points in any number of dimensions.
+ * @param {*} a 
+ * @param {*} b 
+ * @returns 
+ */
+const euclideanDistance = (a, b) =>
+  Math.hypot(...Object.keys(a).map(k => b[k] - a[k]));
+euclideanDistance([1, 1], [2, 3]); // ~2.2361
+euclideanDistance([1, 1, 1], [2, 3, 2]); // ~2.4495
