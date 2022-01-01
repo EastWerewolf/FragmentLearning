@@ -732,3 +732,21 @@ const myObj = new MySingletonClass('first');
 myObj.printMsg();           // 'first'
 const myObj2 = new MySingletonClass('second');
 myObj2.printMsg();           // 'first'
+
+/**
+ * Counts the occurrences of a substring in a given string
+ * @param {*} str 
+ * @param {*} searchValue 
+ * @returns 
+ */
+const countSubstrings = (str, searchValue) => {
+  let count = 0,
+    i = 0;
+  while (true) {
+    const r = str.indexOf(searchValue, i);
+    if (r !== -1) [count, i] = [count + 1, r + 1];
+    else return count;
+  }
+};
+countSubstrings('tiktok tok tok tik tok tik', 'tik'); // 3
+countSubstrings('tutut tut tut', 'tut'); // 4
