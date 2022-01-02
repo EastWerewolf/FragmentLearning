@@ -761,3 +761,18 @@ const euclideanDistance = (a, b) =>
   Math.hypot(...Object.keys(a).map(k => b[k] - a[k]));
 euclideanDistance([1, 1], [2, 3]); // ~2.2361
 euclideanDistance([1, 1, 1], [2, 3, 2]); // ~2.4495
+
+/**
+ * Finds the first index of a given element in an array using the linear search algorithm
+ * @param {*} arr 
+ * @param {*} item 
+ * @returns 
+ */
+const linearSearch = (arr, item) => {
+  for (const i in arr) {
+    if (arr[i] === item) return +i;
+  }
+  return -1;
+};
+linearSearch([2, 9, 9], 9); // 1
+linearSearch([2, 9, 9], 7); // -1
