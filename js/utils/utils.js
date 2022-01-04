@@ -734,6 +734,49 @@ const myObj2 = new MySingletonClass('second');
 myObj2.printMsg();           // 'first'
 
 /**
+ * Counts the occurrences of a substring in a given string
+ * @param {*} str
+ * @param {*} searchValue
+ * @returns
+ */
+const countSubstrings = (str, searchValue) => {
+  let count = 0,
+    i = 0;
+  while (true) {
+    const r = str.indexOf(searchValue, i);
+    if (r !== -1) [count, i] = [count + 1, r + 1];
+    else return count;
+  }
+};
+countSubstrings('tiktok tok tok tik tok tik', 'tik'); // 3
+countSubstrings('tutut tut tut', 'tut'); // 4
+
+/**
+ * Calculates the distance between two points in any number of dimensions.
+ * @param {*} a
+ * @param {*} b
+ * @returns
+ */
+const euclideanDistance = (a, b) =>
+  Math.hypot(...Object.keys(a).map(k => b[k] - a[k]));
+euclideanDistance([1, 1], [2, 3]); // ~2.2361
+euclideanDistance([1, 1, 1], [2, 3, 2]); // ~2.4495
+
+/**
+ * Finds the first index of a given element in an array using the linear search algorithm
+ * @param {*} arr
+ * @param {*} item
+ * @returns
+ */
+const linearSearch = (arr, item) => {
+  for (const i in arr) {
+    if (arr[i] === item) return +i;
+  }
+  return -1;
+};
+linearSearch([2, 9, 9], 9); // 1
+linearSearch([2, 9, 9], 7); // -1
+/**
  * How can I define an enum in JavaScript
  */
 class Enum {
