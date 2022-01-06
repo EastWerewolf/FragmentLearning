@@ -101,3 +101,41 @@ class BinaryTree {
         return undefined;
     }
 }
+
+/*
+创建class了BinaryTreeNode一个constructor初始化适当key，value，parent，left和right属性。
+定义一个isLeafgetter，Array.prototype.length用于检查left和right是否为空。
+定义一个hasChildrengetter，也就是getter的反面isLeaf。
+使用初始化二叉树的aclass来创建 a 。BinaryTreeconstructorroot
+定义一个preOrderTraversal()预先遍历二叉树的生成器方法，使用yield*语法递归地将遍历委托给自身。
+定义一个postOrderTraversal()以后序遍历二叉树的生成器方法，使用yield*语法递归地将遍历委托给自身。
+定义一个inOrderTraversal()按顺序遍历二叉树的生成器方法，使用yield*语法递归地将遍历委托给自身。
+定义一个insert()方法，该preOrderTraversal()方法使用该方法查找给定的父节点并根据传递的选项对象插入一个新的子节点BinaryTreeNode作为left或right子节点。
+定义一个remove()方法，该preOrderTraversal()方法使用该方法并从二叉树中Array.prototype.filter()删除 a BinaryTreeNode。
+定义一个find()方法，该preOrderTraversal()方法使用该方法检索二叉树中的给定节点。
+ */
+const tree = new BinaryTree(1, 'AB');
+
+tree.insert(1, 11, 'AC');
+tree.insert(1, 12, 'BC');
+tree.insert(12, 121, 'BG', { right: true });
+
+[...tree.preOrderTraversal()].map(x => x.value);
+// ['AB', 'AC', 'BC', 'BCG']
+
+[...tree.inOrderTraversal()].map(x => x.value);
+// ['AC', 'AB', 'BC', 'BG']
+
+console.log(tree.root.value);                // 'AB'
+tree.root.hasChildren;          // true
+
+tree.find(12).isLeaf;           // false
+tree.find(121).isLeaf;          // true
+tree.find(121).parent.value;    // 'BC'
+tree.find(12).left;             // null
+tree.find(12).right.value;      // 'BG'
+
+tree.remove(12);
+
+[...tree.postOrderTraversal()].map(x => x.value);
+// ['AC', 'AB']
