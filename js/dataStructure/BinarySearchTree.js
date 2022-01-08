@@ -136,3 +136,66 @@ class BinarySearchTree {
         }
     }
 }
+
+/**
+ * 创建class了BinarySearchTreeNode一个constructor初始化适当key，value，parent，left和right属性。
+ 定义一个isLeafgetter，Array.prototype.length用于检查left和right是否为空。
+ 定义一个hasChildrengetter，也就是getter的反面isLeaf。
+ 使用初始化二叉搜索树的aclass来创建 a 。BinarySearchTreeconstructorroot
+ 定义一个preOrderTraversal()生成器方法，它以预序遍历二叉搜索树，使用yield*语法递归地将遍历委托给自身。
+ 定义一个postOrderTraversal()以后序遍历二叉搜索树的生成器方法，使用yield*语法递归地将遍历委托给自身。
+ 定义一个inOrderTraversal()按顺序遍历二叉搜索树的生成器方法，使用yield*语法将遍历委托给自身。
+ 定义一个insert()方法，该方法使用while循环搜索二叉搜索树，遍历每个节点的子节点，直到找到合适的位置以插入新的子节点BinarySearchTreeNode作为left或right子节点，具体取决于给定的key。
+ 定义一个has()方法，该preOrderTraversal()方法使用该方法检查给定节点是否存在于二叉搜索树中。
+ 定义一个find()方法，该preOrderTraversal()方法使用该方法检索二叉搜索树中的给定节点。
+ 定义一个remove()方法，BinarySearchTreeNode从二叉搜索树中删除给定，删除任何链接并更新二叉搜索树以保持其顺序。
+ */
+
+const tree = new BinarySearchTree(30);
+
+tree.insert(10);
+tree.insert(15);
+tree.insert(12);
+tree.insert(40);
+tree.insert(35);
+tree.insert(50);
+
+[...tree.preOrderTraversal()].map(x => x.value);
+// [30, 10, 15, 12, 40, 35, 50]
+
+[...tree.inOrderTraversal()].map(x => x.value);
+// [10, 12, 15, 30, 35, 40, 50]
+
+[...tree.postOrderTraversal()].map(x => x.value);
+// [12, 15, 10, 35, 50, 40, 30]
+
+tree.root.value;                // 30
+tree.root.hasChildren;          // true
+
+tree.find(12).isLeaf;           // true
+tree.find(40).isLeaf;           // false
+tree.find(50).parent.value;     // 40
+tree.find(15).left.value;       // 12
+tree.find(12).right;            // null
+
+tree.remove(12);
+
+[...tree.preOrderTraversal()].map(x => x.value);
+// [30, 10, 15, 40, 35, 50]
+
+tree.remove(10);
+
+[...tree.preOrderTraversal()].map(v => ({
+    key: v.key,
+    parent: v.parent ? v.parent.key : null,
+})); // [30, 15, 40, 35, 50]
+
+tree.remove(40);
+
+[...tree.preOrderTraversal()].map(x => x.value);
+// [30, 15, 40, 35, 50]
+
+tree.remove(30);
+
+[...tree.preOrderTraversal()].map(x => x.value);
+// [15, 35, 50]
