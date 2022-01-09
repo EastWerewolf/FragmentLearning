@@ -859,3 +859,31 @@ JSONtoCSV(
     ['a', 'b'],
     ';'
 ); // 'a;b\n"1";"2"\n"3";"4"\n"6";""\n"";"7"'
+
+/**
+ * compare two objects in JavaScript
+ * @param {*} a 
+ * @param {*} b 
+ * @returns 
+ */
+const equals = (a, b) => {
+  if (a === b) return true;
+  if (a instanceof Date && b instanceof Date)
+    return a.getTime() === b.getTime();
+  if (!a || !b || (typeof a !== 'object' && typeof b !== 'object'))
+    return a === b;
+  if (a.prototype !== b.prototype) return false;
+  const keys = Object.keys(a);
+  if (keys.length !== Object.keys(b).length) return false;
+  return keys.every(k => equals(a[k], b[k]));
+};
+
+const a = { name: 'John', age: 26 };
+const b = { name: 'John', age: 26 };
+
+equals(a, b); // true
+
+const c = { name: 'John' };
+const d = { name: 'John', age: undefined };
+
+equals(c, d); // false
