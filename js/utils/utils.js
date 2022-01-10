@@ -862,9 +862,9 @@ JSONtoCSV(
 
 /**
  * compare two objects in JavaScript
- * @param {*} a 
- * @param {*} b 
- * @returns 
+ * @param {*} a
+ * @param {*} b
+ * @returns
  */
 const equals = (a, b) => {
   if (a === b) return true;
@@ -887,3 +887,15 @@ const c = { name: 'John' };
 const d = { name: 'John', age: undefined };
 
 equals(c, d); // false
+
+/**
+ * queryStringToObject
+ * @param url
+ * @returns {*}
+ */
+const queryStringToObject = url =>
+    [...new URLSearchParams(url.split('?')[1])].reduce(
+        (a, [k, v]) => ((a[k] = v), a),
+        {}
+    );
+queryStringToObject('https://google.com?page=1&count=10');
