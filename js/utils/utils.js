@@ -967,3 +967,32 @@ const data = {
 };
 dig(data, 'level3'); // 'some data'
 dig(data, 'level4'); // undefined
+
+/**
+ * Checks if the target value exists in a JSON object
+ * @param obj
+ * @param keys
+ * @returns {boolean}
+ */
+const hasKey = (obj, keys) => {
+    return (
+        keys.length > 0 &&
+        keys.every(key => {
+            if (typeof obj !== 'object' || !obj.hasOwnProperty(key)) return false;
+            obj = obj[key];
+            return true;
+        })
+    );
+};
+let obj = {
+    a: 1,
+    b: { c: 4 },
+    'b.d': 5
+};
+hasKey(obj, ['a']); // true
+hasKey(obj, ['b']); // true
+hasKey(obj, ['b', 'c']); // true
+hasKey(obj, ['b.d']); // true
+hasKey(obj, ['d']); // false
+hasKey(obj, ['c']); // false
+hasKey(obj, ['b', 'f']); // false
