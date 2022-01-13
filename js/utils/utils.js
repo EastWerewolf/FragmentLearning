@@ -996,3 +996,25 @@ hasKey(obj, ['b.d']); // true
 hasKey(obj, ['d']); // false
 hasKey(obj, ['c']); // false
 hasKey(obj, ['b', 'f']); // false
+
+/**
+ * Nests recursively objects linked to one another in a flat array
+ * @param items
+ * @param id
+ * @param link
+ * @returns {(T | {children: *})[]}
+ */
+const nest = (items, id = null, link = 'parent_id') =>
+    items
+        .filter(item => item[link] === id)
+        .map(item => ({ ...item, children: nest(items, item.id, link) }));
+const comments = [
+    { id: 1, parent_id: null },
+    { id: 2, parent_id: 1 },
+    { id: 3, parent_id: 1 },
+    { id: 4, parent_id: 2 },
+    { id: 5, parent_id: 4 }
+];
+const nestedComments = nest(comments);
+// [{ id: 1, parent_id: null, children: [...] }]
+
