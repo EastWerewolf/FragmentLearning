@@ -901,6 +901,26 @@ const queryStringToObject = url =>
 queryStringToObject('https://google.com?page=1&count=10');
 
 /**
+ * Generates a query string from the key-value pairs of the given object
+ * @param queryParameters
+ * @returns {string}
+ */
+const objectToQueryString = queryParameters => {
+    return queryParameters
+        ? Object.entries(queryParameters).reduce(
+            (queryString, [key, val], index) => {
+                const symbol = queryString.length === 0 ? '?' : '&';
+                queryString +=
+                    typeof val === 'string' ? `${symbol}${key}=${val}` : '';
+                return queryString;
+            },
+            ''
+        )
+        : '';
+};
+objectToQueryString({ page: '1', size: '2kg', key: undefined });
+
+/**
  * Deep maps an object's keys
  * @param obj
  * @param fn
