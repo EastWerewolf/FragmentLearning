@@ -1038,3 +1038,16 @@ const comments = [
 const nestedComments = nest(comments);
 // [{ id: 1, parent_id: null, children: [...] }]
 
+/**
+ * Checks if the passed value is an object or not
+ * @param {*} obj 
+ * @returns 
+ */
+const isObject = obj => obj === Object(obj);
+isObject([1, 2, 3, 4]); // true
+isObject([]); // true
+isObject(['Hello!']); // true
+isObject({ a: 1 }); // true
+isObject({}); // true
+isObject(true); // false
+
