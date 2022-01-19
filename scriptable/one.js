@@ -6,12 +6,6 @@
 if (typeof require === 'undefined') require = importModule
 const { Base,Running } = require("./base")
 
-/**
- * 用户配置区域
- * location 天气预报 定位
- * name 显示名称
- */
-
 // @组件代码开始
 class Widget extends Base {
     /**
