@@ -1,12 +1,6 @@
 // Variables used by Scriptable.
 // These must be at the very top of the file. Do not edit.
 // icon-color: deep-gray; icon-glyph: code-branch;
-//
-// 「小件件」
-// 开发环境，用于小组件调用
-// https://x.im3x.cn
-// https://github.com/im3x/Scriptables
-//
 
 // 组件基础类
 const RUNTIME_VERSION = 20201209
@@ -145,6 +139,7 @@ class Base {
             FileManager.local().writeImage(cacheFile, img)
             return img
         } catch (e) {
+            console.log(e,'图片下载失败')
             // 没有缓存+失败情况下，返回自定义的绘制图片（红色背景）
             let ctx = new DrawContext()
             ctx.size = new Size(100, 100)
@@ -383,8 +378,6 @@ var mul_table=[512,512,456,512,328,456,335,512,405,328,271,456,388,335,292,512,4
             // return cropImage(imageFromData)
             return imageFromData
         }
-
-
         // Pixel sizes and positions for widgets on all supported phones.
         function phoneSizes() {
             let phones = {
@@ -616,6 +609,67 @@ var mul_table=[512,512,456,512,328,456,335,512,405,328,271,456,388,335,292,512,4
         return res
     }
 
+    /**
+     * 获取图片的主要色调
+     * @param img
+     * @returns {Promise<void>}
+     */
+    async getImageMainColor(img){
+        // Convert the images and create the HTML.
+        const ImgData = Data.fromPNG(img).toBase64String()
+        const js =
+           `var canvas=document.getElementById('myCanvas');
+            var img=document.getElementById('imgs');
+            function getImageColor(canvas, img) {
+                canvas.width = img.width;
+                canvas.height = img.height;
+        
+                var context = canvas.getContext("2d");
+        
+                context.drawImage(img, 0, 0,canvas.width,canvas.height);
+        
+                // 获取像素数据
+                var data = context.getImageData(0, 0, img.width, img.height).data;
+                console.log(data)
+                var r=1,g=1,b=1;
+                // 取所有像素的平均值
+                for (var row = 0; row < img.height; row++) {
+                    for (var col = 0; col < img.width; col++) {
+                // console.log(data[((img.width * row) + col) * 4])
+                        if(row==0){
+                            r += data[((img.width * row) + col)];
+                            g += data[((img.width * row) + col) + 1];
+                            b += data[((img.width * row) + col) + 2];
+                        }else{
+                            r += data[((img.width * row) + col) * 4];
+                            g += data[((img.width * row) + col) * 4 + 1];
+                            b += data[((img.width * row) + col) * 4 + 2];
+                        }
+                    }
+                }
+        
+                console.log(r,g,b)
+                // 求取平均值
+                r /= (img.width * img.height);
+                g /= (img.width * img.height);
+                b /= (img.width * img.height);
+        
+                // 将最终的值取整
+                r = Math.round(r);
+                g = Math.round(g);
+                b = Math.round(b);
+                return "#" + r.toString(16) + g.toString(16) + b.toString(16)
+                // return "rgb(" + r + "," + g + "," + b + ")";
+            }
+            getImageColor(canvas,img)`
+        let html = `
+          <img id="blurImg" src="data:image/png;base64,${ImgData}" alt="" />
+          <canvas id="mainCanvas" />`
+        // Make the web view and get its return value.
+        let view = new WebView()
+        await view.loadHTML(html)
+        return await view.evaluateJavaScript(js)
+    }
     /**
      * 获取当前插件的设置
      * @param {boolean} json 是否为json格式
