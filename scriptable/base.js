@@ -620,7 +620,7 @@ var mul_table=[512,512,456,512,328,456,335,512,405,328,271,456,388,335,292,512,4
         const ImgData = Data.fromPNG(img).toBase64String()
         const js =
            `var canvas=document.getElementById('myCanvas');
-            var img=document.getElementById('imgs');
+            var img=document.getElementById('img');
             function getImageColor(canvas, img) {
                 canvas.width = img.width;
                 canvas.height = img.height;
@@ -664,8 +664,8 @@ var mul_table=[512,512,456,512,328,456,335,512,405,328,271,456,388,335,292,512,4
             }
             getImageColor(canvas,img)`
         let html = `
-          <img id="blurImg" src="data:image/png;base64,${ImgData}" alt="" />
-          <canvas id="mainCanvas" />`
+          <img id="img" src="data:image/png;base64,${ImgData}" alt="" />
+          <canvas id="myCanvas" />`
         // Make the web view and get its return value.
         let view = new WebView()
         await view.loadHTML(html)
@@ -699,12 +699,19 @@ var mul_table=[512,512,456,512,328,456,335,512,405,328,271,456,388,335,292,512,4
      * @returns {string[]}
      */
     getColorList(str,count = 20) {
-        const [r,g,b] = hexToRGB(str).filter(i=>!!i)
+        const [r,g,b] = this.hexToRGB(str).filter(i=>!!i)
         const rDistance = Math.floor((255 - r) / count)
         const gDistance = Math.floor((255 - g) / count)
         const bDistance = Math.floor((255 - b) / count)
-        return Array.from({length: count}).map((i, d) =>
-            '#' + (r + rDistance * d).toString(16) + (g + gDistance * d).toString(16) + (b + bDistance * d).toString(16))
+        return Array.from({length: count}).map((i,d)=> {
+            const red = (r+rDistance*d).toString(16)
+            const green = (g+gDistance*d).toString(16)
+            const black = (b+bDistance*d).toString(16)
+            const R = red.length < 2 ? '0' + red :  red
+            const G = green.length < 2 ? '0' + green :  green
+            const B = black.length < 2 ? '0' + black :  black
+            return '#' + R + G + B
+        })
     }
     /**
      * 获取当前插件的设置
