@@ -113,6 +113,7 @@ class Widget extends Base {
                 row = w.addStack()
             }
             const cell = row.addStack()
+            cell.size = new Size(12,14)
             const t = cell.addText(i)
             t.font = Font.lightSystemFont(12)
             t.textColor = new Color(colorList[fontColorIndex])
