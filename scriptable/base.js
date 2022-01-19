@@ -611,11 +611,12 @@ var mul_table=[512,512,456,512,328,456,335,512,405,328,271,456,388,335,292,512,4
 
     /**
      * 获取图片的主要色调
-     * @param img
      * @returns {Promise<void>}
+     * @param imgSrc
      */
-    async getImageMainColor(img){
+    async getImageMainColor(imgSrc){
         // Convert the images and create the HTML.
+        const img = await this.getImageByUrl(imgSrc)
         const ImgData = Data.fromPNG(img).toBase64String()
         const js =
            `var canvas=document.getElementById('myCanvas');
@@ -669,6 +670,41 @@ var mul_table=[512,512,456,512,328,456,335,512,405,328,271,456,388,335,292,512,4
         let view = new WebView()
         await view.loadHTML(html)
         return await view.evaluateJavaScript(js)
+    }
+
+    /**
+     * 16进制color转rgb10进制
+     * @param hex
+     * @returns {(number|string)[]}
+     */
+    hexToRGB (hex) {
+        let alpha = false, h = hex.slice(hex.startsWith('#') ? 1 : 0);
+        if (h.length === 3) h = [...h].map(x => x + x).join('');
+        else if (h.length === 8) alpha = true;
+        h = parseInt(h, 16);
+        return (
+            [
+            (h >>> (alpha ? 24 : 16)),
+            ((h & (alpha ? 0x00ff0000 : 0x00ff00)) >>> (alpha ? 16 : 8)),
+            ((h & (alpha ? 0x0000ff00 : 0x0000ff)) >>> (alpha ? 8 : 0)),
+            (alpha ? `, ${h & 0x000000ff}` : '')
+            ]
+        );
+    };
+
+    /**
+     * 根据给定的rgb颜色 生成一系列的渐变色
+     * @param str
+     * @param count
+     * @returns {string[]}
+     */
+    getColorList(str,count = 20) {
+        const [r,g,b] = hexToRGB(str).filter(i=>!!i)
+        const rDistance = Math.floor((255 - r) / count)
+        const gDistance = Math.floor((255 - g) / count)
+        const bDistance = Math.floor((255 - b) / count)
+        return Array.from({length: count}).map((i, d) =>
+            '#' + (r + rDistance * d).toString(16) + (g + gDistance * d).toString(16) + (b + bDistance * d).toString(16))
     }
     /**
      * 获取当前插件的设置
