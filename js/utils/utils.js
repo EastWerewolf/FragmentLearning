@@ -1076,3 +1076,26 @@ const hexToRGB = hex => {
     );
 };
 
+/**
+ * Generate a series of colors from a given color
+ * @param str
+ * @param count
+ * @returns {string[]}
+ */
+const getColorList = (str,count = 20) =>{
+    const [r,g,b] = hexToRGB(str).filter(i=>!!i)
+    const rDistance = Math.floor((255 - r) / count)
+    const gDistance = Math.floor((255 - g) / count)
+    const bDistance = Math.floor((255 - b) / count)
+    return Array.from({length:count}).map((i,d)=> {
+        const red = (r+rDistance*d).toString(16)
+        const green = (g+gDistance*d).toString(16)
+        const black = (b+bDistance*d).toString(16)
+        const R = red.length < 2 ? '0' + red :  red
+        const G = green.length < 2 ? '0' + green :  green
+        const B = black.length < 2 ? '0' + black :  black
+        return '#' + R + G + B
+    })
+
+}
+
