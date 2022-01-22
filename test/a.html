@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #list{
+            display: flex;
+            height: 200px;
+        }
+        #list > div{
+            width: 5%;
+        }
+    </style>
+</head>
+<body>
+    <div id="list">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</body>
+<script>
+    function hexToRGB (hex) {
+        let alpha = false, h = hex.slice(hex.startsWith('#') ? 1 : 0);
+        if (h.length === 3) h = [...h].map(x => x + x).join('');
+        else if (h.length === 8) alpha = true;
+        h = parseInt(h, 16);
+        return (
+            [
+                (h >>> (alpha ? 24 : 16)),
+                ((h & (alpha ? 0x00ff0000 : 0x00ff00)) >>> (alpha ? 16 : 8)),
+                ((h & (alpha ? 0x0000ff00 : 0x0000ff)) >>> (alpha ? 8 : 0)),
+                (alpha ? `, ${h & 0x000000ff}` : '')
+            ]
+        );
+    }
+    function getColorList(str,count = 20) {
+        const [r,g,b] = hexToRGB(str).filter(i=>!!i)
+        const rDistance = Math.floor((255 - r) / count)
+        const gDistance = Math.floor((255 - g) / count)
+        const bDistance = Math.floor((255 - b) / count)
+        const arr = Array.from({length:count}).map((i,d)=> {
+            const red = (r+rDistance*d).toString(16)
+            const green = (g+gDistance*d).toString(16)
+            const black = (b+bDistance*d).toString(16)
+            const R = red.length < 2 ? '0' + red :  red
+            const G = green.length < 2 ? '0' + green :  green
+            const B = black.length < 2 ? '0' + black :  black
+            return '#' + R + G + B
+        })
+        console.log(arr,'123123')
+        const ele = [...document.querySelectorAll('#list > div')]
+        ele.forEach((i,d) => i.style.backgroundColor = arr[d])
+    }
+    // getColorList('#1e80ff')
+    // getColorList('#F56C6C')
+    // getColorList('#fbdd08')
+    getColorList('#3821be')
+</script>
+</html>
