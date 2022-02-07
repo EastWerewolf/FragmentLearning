@@ -1096,6 +1096,18 @@ const getColorList = (str,count = 20) =>{
         const B = black.length < 2 ? '0' + black :  black
         return '#' + R + G + B
     })
-
 }
+/**
+ * Checks if two URLs are on the same origin
+ * @param origin
+ * @param destination
+ * @returns {boolean|boolean}
+ */
+const isSameOrigin = (origin, destination) =>
+    origin.protocol === destination.protocol && origin.host === destination.host;
+const origin = new URL('https://www.30secondsofcode.org/about');
+const destination = new URL('https://www.30secondsofcode.org/contact');
+isSameOrigin(origin, destination); // true
+const other = new URL('https://developer.mozilla.org);
+isSameOrigin(origin, other); // false
 
