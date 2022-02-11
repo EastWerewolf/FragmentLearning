@@ -15,6 +15,8 @@ const todo: TodoPreview = {
     completed: false,
 }
 
+
+
 // 不要使用内置的Readonly<T>，自己实现一个。
 // 该 Readonly 会接收一个 泛型参数，并返回一个完全一样的类型，只是所有属性都会被 readonly 所修饰。
 // 也就是不可以再对该对象的属性赋值。
@@ -34,6 +36,8 @@ const todo1: MyReadonly<Todo1> = {
 todo1.title = "Hello" // Error: cannot reassign a readonly property
 todo1.description = "barFoo" // Error: cannot reassign a readonly property
 
+
+
 // 传入一个元组类型，将这个元组类型转换为对象类型，这个对象类型的键/值都是从元组中遍历出来。
 
 const tuple = ['tesla', 'model 3', 'model X', 'model Y'] as const
@@ -42,3 +46,14 @@ type TupleToObject<T extends readonly (string | number | symbol)[]> = {
     [P in T[number]]: P
 }
 type result = TupleToObject<typeof tuple> // expected { tesla: 'tesla', 'model 3': 'model 3', 'model X': 'model X', 'model Y': 'model Y'}
+
+
+// 实现一个通用First<T>，它接受一个数组T并返回它的第一个元素的类型。
+type arr1 = ['a', 'b', 'c']
+type arr2 = [3, 2, 1]
+
+// 答案
+type First<T extends any[]> = T extends never[] ? never : T[0]
+
+type head1 = First<arr1> // expected to be 'a'
+type head2 = First<arr2> // expected to be 3
