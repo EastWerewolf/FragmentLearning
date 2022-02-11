@@ -4,7 +4,7 @@ interface Todo {
     description: string
     completed: boolean
 }
-// your answers
+// 答案
 type MyPick<T, K extends keyof T> = {
     [P in K]: T[P]
 }
@@ -22,6 +22,7 @@ interface Todo1 {
     title: string
     description: string
 }
+//答案
 type MyReadonly<T> = {
     readonly [P in keyof T]:T[P]
 }
@@ -32,3 +33,12 @@ const todo1: MyReadonly<Todo1> = {
 
 todo1.title = "Hello" // Error: cannot reassign a readonly property
 todo1.description = "barFoo" // Error: cannot reassign a readonly property
+
+// 传入一个元组类型，将这个元组类型转换为对象类型，这个对象类型的键/值都是从元组中遍历出来。
+
+const tuple = ['tesla', 'model 3', 'model X', 'model Y'] as const
+// 答案
+type TupleToObject<T extends readonly (string | number | symbol)[]> = {
+    [P in T[number]]: P
+}
+type result = TupleToObject<typeof tuple> // expected { tesla: 'tesla', 'model 3': 'model 3', 'model X': 'model X', 'model Y': 'model Y'}
