@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2022-02-13 20:22:40
+ * @LastEditTime: 2022-02-13 20:23:07
+ * @LastEditors: your name
+ * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @FilePath: \FragmentLearning\ts\lesson1.ts
+ */
 // 实现 TS 内置的 Pick<T, K>，但不可以使用它。
 interface Todo {
     title: string
@@ -69,3 +77,10 @@ type Length<T extends readonly any[]> = T['length']
 
 type teslaLength = Length<tesla> // expected 4
 type spaceXLength = Length<spaceX> // expected 5
+
+
+// 实现内置的Exclude <T，U>类型，但不能直接使用它本身。
+// 从联合类型T中排除U的类型成员，来构造一个新的类型。
+
+// 答案
+type MyExclude<T, U> = T extends U ? never : T
