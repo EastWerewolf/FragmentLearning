@@ -97,3 +97,11 @@ type MyAwaited <T extends Promise<unknown>> = T extends Promise<infer U> ? U ext
 // 这样不管传入的是多少成 Promise 都能进行解析出来
 type MyAwaited1<T extends Promise<unknown>> = T extends Promise<infer R> ? R extends Promise<unknown> ? MyAwaited1<R>:R : never;
 
+
+// 实现一个 IF 类型，它接收一个条件类型 C ，一个判断为真时的返回类型 T ，以及一个判断为假时的返回类型 F。 C 只能是 true 或者 false， T 和 F 可以是任意类型。
+
+// 答案
+type If<C extends boolean, T, F> = C extends true ? T : F
+// 举例:
+type A1 = If<true, 'a', 'b'>  // expected to be 'a'
+type B1 = If<false, 'a', 'b'> // expected to be 'b'
