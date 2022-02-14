@@ -84,3 +84,16 @@ type spaceXLength = Length<spaceX> // expected 5
 
 // 答案
 type MyExclude<T, U> = T extends U ? never : T
+
+
+// 假如我们有一个 Promise 对象，这个 Promise 对象会返回一个类型。在 TS 中，我们用 Promise 中的 T 来描述这个 Promise 返回的类型。请你实现一个类型，可以获取这个类型。
+// 比如：Promise<ExampleType>，请你返回 ExampleType 类型。
+
+// 1. 等于左边 T extends Promise<unknown> 是先校验传入的类型是否是 Promise
+// 2. 使用 infer 来获取 Promise 内的类型
+// 3. 通过 extends 来进行判断 这里只判断到第二层的类型是否是 Promise 如 =》Promise<Promise<string>>
+type MyAwaited <T extends Promise<unknown>> = T extends Promise<infer U> ? U extends Promise<infer P> ? P : U : never
+// 获取 R 的类型后在通过 extends 判断是否是Promise类型 如果是则再进行递归调用 MyAwaited，
+// 这样不管传入的是多少成 Promise 都能进行解析出来
+type MyAwaited1<T extends Promise<unknown>> = T extends Promise<infer R> ? R extends Promise<unknown> ? MyAwaited1<R>:R : never;
+
