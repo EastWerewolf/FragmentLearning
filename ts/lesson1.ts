@@ -105,3 +105,10 @@ type If<C extends boolean, T, F> = C extends true ? T : F
 // 举例:
 type A1 = If<true, 'a', 'b'>  // expected to be 'a'
 type B1 = If<false, 'a', 'b'> // expected to be 'b'
+
+
+// 在类型系统里实现 JavaScript 内置的 Array.concat 方法，这个类型接受两个参数，返回的新数组类型应该按照输入参数从左到右的顺序合并为一个新的数组。
+
+// 答案
+type Concat<T extends unknown[], K extends unknown[]> = [...T, ...K]
+type Result = Concat<[1], [2]> // expected to be [1, 2]
