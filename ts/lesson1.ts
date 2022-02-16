@@ -123,6 +123,16 @@ type isPillarMen = Includes<['Kars', 'Esidisi', 'Wamuu', 'Santana'], 'Dio'> // e
 
 
 // 在类型系统里实现通用的 Array.push 。
+
+// 答案
 type Push<T extends any[], U> = [...T,U]
 // 举例如下，
 type Result = Push<[1, 2], '3'> // [1, 2, '3']
+
+
+// 实现类型版本的 Array.unshift。
+
+// 答案
+type Unshift<T extends unknown[], U> = [U, ...T];
+// 举例，
+type Result = Unshift<[1, 2], 0> // [0, 1, 2,]
