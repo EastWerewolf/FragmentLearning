@@ -136,3 +136,9 @@ type Result = Push<[1, 2], '3'> // [1, 2, '3']
 type Unshift<T extends unknown[], U> = [U, ...T];
 // 举例，
 type Result = Unshift<[1, 2], 0> // [0, 1, 2,]
+
+
+// 实现内置的 Parameters 类型，而不是直接使用它
+
+// 答案
+type MyParameters<T extends (...args: any[]) => any> = T extends (...args: infer P) => any ? P : never
