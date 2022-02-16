@@ -112,3 +112,8 @@ type B1 = If<false, 'a', 'b'> // expected to be 'b'
 // 答案
 type Concat<T extends unknown[], K extends unknown[]> = [...T, ...K]
 type Result = Concat<[1], [2]> // expected to be [1, 2]
+
+// 在类型系统里实现 JavaScript 的 Array.includes 方法，这个类型接受两个参数，返回的类型要么是 true 要么是 false。
+type Includes<T extends readonly any[], U extends any> = T extends [infer F, ...infer R] ? (Equal<F, U> extends true ? true : Includes<R, U>) : false
+// 举例来说，
+type isPillarMen = Includes<['Kars', 'Esidisi', 'Wamuu', 'Santana'], 'Dio'> // expected to be `false`
