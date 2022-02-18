@@ -157,3 +157,25 @@ const fn = (v: boolean) => {
 }
 
 type a = MyReturnType<typeof fn> // 应推导出 "1 | 2"
+
+
+// 不使用 Omit 实现 TypeScript 的 Omit<T, K> 范型。
+// Omit 会创建一个省略 K 中字段的 T 对象。
+
+
+// 答案
+type MyOmit<T, K extends keyof T> = {
+    [P in Exclude<keyof T, K>]: T[P]
+}
+// 例如：
+interface Todo {
+    title: string
+    description: string
+    completed: boolean
+}
+
+type TodoPreview1 = MyOmit<Todo, 'description' | 'title'>
+
+const todo2: TodoPreview1 = {
+    completed: false,
+}
