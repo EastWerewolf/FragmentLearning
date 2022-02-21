@@ -179,3 +179,33 @@ type TodoPreview1 = MyOmit<Todo, 'description' | 'title'>
 const todo2: TodoPreview1 = {
     completed: false,
 }
+
+
+// 实现一个通用MyReadonly2<T, K>，它带有两种类型的参数T和K。
+// K指定应设置为Readonly的T的属性集。如果未提供K，则应使所有属性都变为只读，就像普通的Readonly<T>一样。
+
+// 你答案
+// 通过& 合并只读和非只读，给K提供默认值，让第二个参数非必传
+type MyReadonly2<T, K extends keyof T = keyof T> = {
+    readonly [p in K] : T[p]
+} & {
+    [p in Exclude<keyof T ,K>] :T[p]
+}
+
+
+// 例如
+interface Todo {
+    title: string
+    description: string
+    completed: boolean
+}
+
+const todo3: MyReadonly2<Todo, 'title' | 'description'> = {
+    title: "Hey",
+    description: "foobar",
+    completed: false,
+}
+
+todo3.title = "Hello" // Error: cannot reassign a readonly property
+todo3.description = "barFoo" // Error: cannot reassign a readonly property
+todo3.completed = true // OK
