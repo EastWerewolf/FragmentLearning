@@ -253,9 +253,21 @@ const result1:Result1 = config
 type Last<T extends any[]> = T extends [...infer X , infer Result] ? Result : unknown;
 // 例如
 
-type arr1 = ['a', 'b', 'c']
-type arr2 = [3, 2, 1]
+type arr3 = ['a', 'b', 'c']
+type arr4 = [3, 2, 1]
 
-type tail1 = Last<arr1> // expected to be 'c'
-type tail2 = Last<arr2> // expected to be 1
+type tail1 = Last<arr3> // expected to be 'c'
+type tail2 = Last<arr4> // expected to be 1
 
+
+// 实现一个通用Pop<T>，它接受一个数组T并返回一个没有最后一个元素的数组。
+
+// 答案
+type Pop<T extends any[]> = T extends [...infer R, infer _] ? R : never;
+
+// 例如
+type arr5 = ['a', 'b', 'c', 'd']
+type arr6 = [3, 2, 1]
+
+type re1 = Pop<arr5> // expected to be ['a', 'b', 'c']
+type re2 = Pop<arr6> // expected to be [3, 2]
