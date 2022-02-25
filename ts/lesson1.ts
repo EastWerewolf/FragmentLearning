@@ -271,3 +271,21 @@ type arr6 = [3, 2, 1]
 
 type re1 = Pop<arr5> // expected to be ['a', 'b', 'c']
 type re2 = Pop<arr6> // expected to be [3, 2]
+
+// 键入函数PromiseAll，它接受PromiseLike对象数组，返回值应为Promise<T>，其中T是解析的结果数组。
+declare function PromiseAll<V extends any[]>(values: readonly [...V]):
+    Promise<{
+        [K in keyof V]: V[K] extends Promise<infer R>
+            ? R
+            : V[K]
+    }>;
+
+const promise1 = Promise.resolve(3);
+const promise2 = 42;
+const promise3 = new Promise<string>((resolve, reject) => {
+    setTimeout(resolve, 100, 'foo');
+});
+
+// expected to be `Promise<[number, number, string]>`
+const p = Promise.all([promise1, promise2, promise3] as const)
+const p1 = PromiseAll([promise1, promise2, promise3] as const)
