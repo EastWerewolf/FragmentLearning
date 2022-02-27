@@ -311,9 +311,19 @@ interface Cat {
   type MyDog = LookUp<Cat | Dog, 'dog'> // expected to be `Dog`
 
 
+
 //   实现 TrimLeft<T> ，它接收确定的字符串类型并返回一个新的字符串，其中新返回的字符串删除了原字符串开头的空白字符串。
 
 // 答案
 type TrimLeft<S extends string> = S extends `${' ' | '\n' | '\t'}${infer T}` ? TrimLeft<T> : S;
 
 type trimed = TrimLeft<'  Hello World  '> // 应推导出 'Hello World  '
+
+
+// 实现TrimRight<T>，它采用精确的字符串类型，并返回一个新字符串，其中删除了空格结尾。
+
+// 答案
+type TrimRight<S extends string> = S extends `${infer Rest}${' ' | '\t' | '\n'}` ? TrimRight<Rest> : S
+
+// 例如
+type Trimed = TrimRight<'   Hello World    '> // expected to be '   Hello World'
