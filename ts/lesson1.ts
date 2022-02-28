@@ -301,13 +301,13 @@ interface Cat {
     type: 'cat'
     breeds: 'Abyssinian' | 'Shorthair' | 'Curl' | 'Bengal'
   }
-  
+
   interface Dog {
     type: 'dog'
     breeds: 'Hound' | 'Brittany' | 'Bulldog' | 'Boxer'
     color: 'brown' | 'white' | 'black'
   }
-  
+
   type MyDog = LookUp<Cat | Dog, 'dog'> // expected to be `Dog`
 
 
@@ -327,3 +327,11 @@ type TrimRight<S extends string> = S extends `${infer Rest}${' ' | '\t' | '\n'}`
 
 // 例如
 type Trimed = TrimRight<'   Hello World    '> // expected to be '   Hello World'
+
+
+// 实现Trim<T>，它接受一个精确的字符串类型，并返回一个新字符串，其中删除了两端的空格。
+
+// 答案
+type Trim<S extends string> = TrimRight<TrimLeft<S>>;
+
+type trimed1 = Trim<'  Hello World  '> // expected to be 'Hello World'
