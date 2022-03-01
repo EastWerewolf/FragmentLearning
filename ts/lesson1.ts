@@ -335,3 +335,11 @@ type Trimed = TrimRight<'   Hello World    '> // expected to be '   Hello World'
 type Trim<S extends string> = TrimRight<TrimLeft<S>>;
 
 type trimed1 = Trim<'  Hello World  '> // expected to be 'Hello World'
+
+
+// 实现大写<T>，将字符串的第一个字母转换为大写，其余字母保持原样。
+
+type Capitalize<T extends string> = T extends `${infer First}${infer Rest}` ? `${Uppercase<First>}${Rest}` : never;
+
+// For example
+type capitalized = Capitalize<'hello world'> // expected to be 'Hello world'
