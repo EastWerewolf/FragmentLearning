@@ -347,6 +347,22 @@ type capitalized = Capitalize<'hello world'> // expected to be 'Hello world'
 
 // 实现 Replace<S, From, To> 将字符串 S 中的第一个子字符串 From 替换为 To 。
 
+
+// 答案
 type Replace<S extends string, From extends string, To extends string> = From extends '' ? S : S extends `${infer F}${From}${infer L}` ? `${F}${To}${L}` : S;
+
 // 例如
 type replaced = Replace<'types are fun!', 'fun', 'awesome'> // 期望是 'types are awesome!'
+
+
+// 实现 ReplaceAll<S, From, To> 将一个字符串 S 中的所有子字符串 From 替换为 To。
+
+
+type ReplaceAll<S extends string, From extends string, To extends string> = From extends '' ? S :
+S extends ${infer L}${From}${infer R}
+?
+R extends ${infer L1}${From}${infer R1} ? ${L}${To}${L1}${To}${ReplaceAll<${R1}, From, To>} : ${L}${To}${R}
+: S
+// 例如
+
+type replaced1= ReplaceAll<'t y p e s', ' ', ''> // 期望是 'types'
