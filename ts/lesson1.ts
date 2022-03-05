@@ -375,3 +375,11 @@ type Fn = (a: number, b: string) => number
 
 type Result11 = AppendArgument<Fn, boolean> 
 // 期望是 (a: number, b: string, x: boolean) => number
+
+
+// 实现将联合类型转换为包含联合排列的数组的排列类型。
+
+// 答案
+type Permutation<T, U = T> = [T] extends [never] ? [] : T extends U ? [T, ...Permutation<Exclude<U, T>>] : T
+
+type perm = Permutation<'A' | 'B' | 'C'>; // ['A', 'B', 'C'] | ['A', 'C', 'B'] | ['B', 'A', 'C'] | ['B', 'C', 'A'] | ['C', 'A', 'B'] | ['C', 'B', 'A']
