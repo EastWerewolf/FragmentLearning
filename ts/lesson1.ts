@@ -383,3 +383,13 @@ type Result11 = AppendArgument<Fn, boolean>
 type Permutation<T, U = T> = [T] extends [never] ? [] : T extends U ? [T, ...Permutation<Exclude<U, T>>] : T
 
 type perm = Permutation<'A' | 'B' | 'C'>; // ['A', 'B', 'C'] | ['A', 'C', 'B'] | ['B', 'A', 'C'] | ['B', 'C', 'A'] | ['C', 'A', 'B'] | ['C', 'B', 'A']
+
+
+// 计算字符串文字的长度，其行为类似于字符串#长度。
+
+// 方式一
+type LengthOfString1<S extends string, T extends string[] = []> = S extends `${infer F}${infer L}` ? LengthOfString1<L, [F, ...T]> : T['length'];
+
+// 方式二
+type TransformArray<S extends string> = S extends `${infer F}${infer L}` ? [F, ...TransformArray<L>] : [];
+type LengthOfString2<S extends string> = TransformArray<S>["length"];
