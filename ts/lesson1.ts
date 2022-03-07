@@ -373,7 +373,7 @@ type replaced1= ReplaceAll<'t y p e s', ' ', ''> // 期望是 'types'
 type AppendArgument<Fn, A> = Fn extends (...args: infer R) => infer T ? (...args: [...R, A]) => T : never;
 type Fn = (a: number, b: string) => number
 
-type Result11 = AppendArgument<Fn, boolean> 
+type Result11 = AppendArgument<Fn, boolean>
 // 期望是 (a: number, b: string, x: boolean) => number
 
 
@@ -393,3 +393,18 @@ type LengthOfString1<S extends string, T extends string[] = []> = S extends `${i
 // 方式二
 type TransformArray<S extends string> = S extends `${infer F}${infer L}` ? [F, ...TransformArray<L>] : [];
 type LengthOfString2<S extends string> = TransformArray<S>["length"];
+
+
+// 在这个挑战中，您需要编写一个类型，该类型接受一个数组并发出扁平数组类型。
+
+// 答案
+type Flatten<T extends any[]> = T extends [infer F, ...infer R]
+    ? F extends any[]
+        ? R['length'] extends 0
+            ? [...Flatten<F>]
+            : [...Flatten<F>, ...Flatten<R>]
+        : [F,...Flatten<R>]
+    : []
+
+// 例如
+type flatten = Flatten<[1, 2, [3, 4], [[[5]]]]> // [1, 2, 3, 4, 5]
