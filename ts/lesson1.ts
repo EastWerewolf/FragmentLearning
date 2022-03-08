@@ -408,3 +408,14 @@ type Flatten<T extends any[]> = T extends [infer F, ...infer R]
 
 // 例如
 type flatten = Flatten<[1, 2, [3, 4], [[[5]]]]> // [1, 2, 3, 4, 5]
+
+
+// 实现向接口添加新字段的类型。类型接受三个参数。输出应该是具有新字段的对象。
+
+// 答案
+type AppendToObject<T, U extends string, V> = {
+    [P in keyof T | U]: P extends keyof T ? T[P] : V;
+}
+
+type Test = { id: '1' }
+type Result = AppendToObject<Test, 'value', 4> // expected to be { id: '1', value: 4 }
