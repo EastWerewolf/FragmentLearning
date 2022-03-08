@@ -419,3 +419,12 @@ type AppendToObject<T, U extends string, V> = {
 
 type Test = { id: '1' }
 type Result = AppendToObject<Test, 'value', 4> // expected to be { id: '1', value: 4 }
+
+
+// 实现绝对类型。接受字符串、数字或bigint的类型。输出应该是正数字符串
+
+// 答案
+type Absolute<T extends number | string | bigint> = `${T}` extends `-${infer U}` ? U : `${T}`
+
+type Test = -100;
+type Result = Absolute<Test>; // expected to be "100"
