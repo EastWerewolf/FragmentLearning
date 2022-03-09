@@ -428,3 +428,13 @@ type Absolute<T extends number | string | bigint> = `${T}` extends `-${infer U}`
 
 type Test = -100;
 type Result = Absolute<Test>; // expected to be "100"
+
+
+// 实现字符串到联合类型。输入take字符串参数。输出应该是输入字母的并集
+
+//  答案 
+type StringToUnion<T extends string> = T extends `${infer First}${infer Rest}`? First | StringToUnion<Rest> : never
+
+// 例如
+type Test = '123';
+type Result = StringToUnion<Test>; // expected to be "1" | "2" | "3"
