@@ -438,3 +438,11 @@ type StringToUnion<T extends string> = T extends `${infer First}${infer Rest}`? 
 // 例如
 type Test = '123';
 type Result = StringToUnion<Test>; // expected to be "1" | "2" | "3"
+
+
+// 将两种类型合并为一种新类型。第二种类型的键将覆盖第一种类型的键。
+
+// 答案
+type Merge<F, S> = {
+    [P in (keyof F | keyof S)]: P extends keyof S ? S[P] : P extends keyof F ? F[P] : never
+  };
