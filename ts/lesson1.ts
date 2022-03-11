@@ -445,4 +445,16 @@ type Result = StringToUnion<Test>; // expected to be "1" | "2" | "3"
 // 答案
 type Merge<F, S> = {
     [P in (keyof F | keyof S)]: P extends keyof S ? S[P] : P extends keyof F ? F[P] : never
-  };
+};
+
+
+  // CamelCase
+  // for-bar-baz -> forBarBaz
+
+
+type CamelCase<S> = S extends 
+    `${infer F}-${infer E}`
+    ?  E extends `${Capitalize<E>}`
+  ? `${F}-${CamelCase<E>}`
+  : `${F}${CamelCase<Capitalize<E>>}`
+: S
