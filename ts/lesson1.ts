@@ -458,3 +458,10 @@ type CamelCase<S> = S extends
   ? `${F}-${CamelCase<E>}`
   : `${F}${CamelCase<Capitalize<E>>}`
 : S
+
+
+// kebabCase
+// FooBarBaz -> foo-bar-baz
+
+type MyLowercase<T extends string> = Lowercase<T> extends T ? Capitalize<T> extends T ? T : Lowercase<T>:`-${Lowercase<T>}` 
+type KebabCase<S extends string, head = true> = S extends `${infer A}${infer B}` ? head extends true ? `${Lowercase<A>}${KebabCase<B, false>}` : `${MyLowercase<A>}${KebabCase<B, false>}` :  S
