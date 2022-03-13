@@ -465,3 +465,12 @@ type CamelCase<S> = S extends
 
 type MyLowercase<T extends string> = Lowercase<T> extends T ? Capitalize<T> extends T ? T : Lowercase<T>:`-${Lowercase<T>}` 
 type KebabCase<S extends string, head = true> = S extends `${infer A}${infer B}` ? head extends true ? `${Lowercase<A>}${KebabCase<B, false>}` : `${MyLowercase<A>}${KebabCase<B, false>}` :  S
+
+
+// 获取一个对象，该对象是O和O1之间的差异
+
+type Diff<O, O1> = O extends O1 ? {
+    [P in Exclude<keyof O, keyof O1>]: O[P]
+    } : {
+    [P in Exclude<keyof O1, keyof O>]: O1[P]
+    }
