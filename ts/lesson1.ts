@@ -474,3 +474,19 @@ type Diff<O, O1> = O extends O1 ? {
     } : {
     [P in Exclude<keyof O1, keyof O>]: O1[P]
     }
+
+//  实现 Python 喜欢类型系统中的任何函数。 一个类型接受 Array 并在 Array 的任何元素为 true 时返回 true。 如果 Array 为空，则返回 false。
+
+// 答案
+type AnyOf<T extends readonly any[]> = 
+  | T[number] extends 0
+  | ''
+  | false
+  | never[]
+  | Record<string| number | symbol, never> // ATTENTION:  Record<never, never> is wrong!
+  ? false : true;
+
+// 例如：
+
+type Sample1 = AnyOf<[1, "", false, [], {}]>; // expected to be true.
+type Sample2 = AnyOf<[0, "", false, [], {}]>; // expected to be false.
