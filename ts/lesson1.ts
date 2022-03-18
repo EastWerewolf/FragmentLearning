@@ -504,3 +504,15 @@ type B = IsNever<undefined> // expected to be false
 type C = IsNever<null> // expected to be false
 type D = IsNever<[]> // expected to be false
 type E = IsNever<number> // expected to be false
+
+
+// 实现一个类型IsUnion，它接受输入类型T并返回T是否解析为联合类型。
+
+// 答案
+type IsUnion<T> = IsUnion0<T>
+type IsUnion0<T, U extends T = T> = T extends unknown ? [U] extends [T] ? false : true : false
+
+// 例如
+type case1 = IsUnion<string>  // false
+type case2 = IsUnion<string|number>  // true
+type case3 = IsUnion<[string|number]>  // false
