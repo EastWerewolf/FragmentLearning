@@ -555,6 +555,15 @@ type NodeA = {
 
 //   实现RemoveIndexSignature<T>，从对象类型中排除索引签名。
 
-
+// 答案
+type RemoveIndexSignature<T> = {
+    [P in keyof T as P extends `${infer R}` ? P : never]: T[P]
+}
 
 // 例如：
+type Foo = {
+    [key: string]: any;
+    foo(): void;
+}
+
+type A11 = RemoveIndexSignature<Foo>  // expected { foo(): void }
