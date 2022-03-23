@@ -17,3 +17,13 @@ type R2 = PercentageParser<PString2>  // expected ["+", "85", "%"]
 type R3 = PercentageParser<PString3>  // expected ["-", "85", "%"]
 type R4 = PercentageParser<PString4>  // expected ["", "85", "%"]
 type R5 = PercentageParser<PString5>  // expected ["", "85", ""]
+
+
+// 从字符串中删除指定的字符。
+
+// 答案
+type DropChar<S, C, T extends string = ''> = S extends `${infer H}${infer R}` ? (H extends C ? DropChar<R, C, T> : DropChar<R, C , `${T}${H}`>) : T
+
+// 例如：
+type Butterfly = DropChar<' b u t t e r f l y ! ', ' '> // 'butterfly!'
+
