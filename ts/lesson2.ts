@@ -27,3 +27,13 @@ type DropChar<S, C, T extends string = ''> = S extends `${infer H}${infer R}` ? 
 // 例如：
 type Butterfly = DropChar<' b u t t e r f l y ! ', ' '> // 'butterfly!'
 
+
+// 给定一个数字（总是正数）作为类型。你的类型应该返回减少1的数字。
+
+// 答案
+type MinusOne<T extends number, P extends any[] = []> = [...P, unknown]['length'] extends T ? P['length'] : MinusOne<T, [...P, unknown]>
+
+// 例如：
+type Zero = MinusOne<1> // 0
+type FiftyFour = MinusOne<55> // 54
+
