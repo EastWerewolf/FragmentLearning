@@ -37,3 +37,21 @@ type MinusOne<T extends number, P extends any[] = []> = [...P, unknown]['length'
 type Zero = MinusOne<1> // 0
 type FiftyFour = MinusOne<55> // 54
 
+
+
+// 从T中，选择一组类型可分配给U的属性。
+
+// 答案
+type PickByType<T, U> = {
+  [K in keyof T as T[K] extends U ? K : never]: T[K]
+}
+
+// 例如
+
+type OnlyBoolean = PickByType<{
+  name: string
+  count: number
+  isReadonly: boolean
+  isEnable: boolean
+}, boolean> // { isReadonly: boolean; isEnable: boolean; }
+
