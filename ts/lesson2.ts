@@ -55,3 +55,15 @@ type OnlyBoolean = PickByType<{
   isEnable: boolean
 }, boolean> // { isReadonly: boolean; isEnable: boolean; }
 
+
+// 实现 StartsWith<T, U> ，它接受两个确切的字符串类型并返回 T 是否以 U 开头
+
+// 答案
+type StartsWith<T extends string, U extends string> = T extends `${U}${infer R}` ? true : false
+
+// 例如
+
+type a = StartsWith<'abc', 'ac'> // expected to be false
+type b = StartsWith<'abc', 'ab'> // expected to be true
+type c = StartsWith<'abc', 'abcd'> // expected to be false
+
