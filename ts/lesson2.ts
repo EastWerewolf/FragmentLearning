@@ -71,3 +71,7 @@ type c = StartsWith<'abc', 'abcd'> // expected to be false
 // 实现 EndsWith<T, U> ，它接受两个确切的字符串类型并返回 T 是否以 U 结尾
 type EndsWith<T extends string, U extends string> = T extends `${string}${U}` ? true : false;
 
+
+
+
+
