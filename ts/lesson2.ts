@@ -72,6 +72,8 @@ type c = StartsWith<'abc', 'abcd'> // expected to be false
 type EndsWith<T extends string, U extends string> = T extends `${string}${U}` ? true : false;
 
 
+// 实现一个通用的 PartialByKeys<T, K>，它接受两个类型参数 T 和 K。
 
+// K 指定应设置为可选的 T 的属性集。 当没有提供 K 时，它应该使所有属性都是可选的，就像普通的 Partial<T> 一样。
 
 
