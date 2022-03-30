@@ -72,8 +72,24 @@ type c = StartsWith<'abc', 'abcd'> // expected to be false
 type EndsWith<T extends string, U extends string> = T extends `${string}${U}` ? true : false;
 
 
-// 实现一个通用的 PartialByKeys<T, K>，它接受两个类型参数 T 和 K。
+// 实现一个通用的 PartialByKeys<T, K>，它接受两个类型参数 T 和 K。K 指定应设置为可选的 T 的属性集。 当没有提供 K 时，它应该使所有属性都是可选的，就像普通的 Partial<T> 一样。
 
-// K 指定应设置为可选的 T 的属性集。 当没有提供 K 时，它应该使所有属性都是可选的，就像普通的 Partial<T> 一样。
+//答案
+type Raw<O> = {
+  [K in keyof O]: O[K]
+}
 
+type PartialByKeys<T, K = keyof any> = Raw<{
+  [Key in Exclude<keyof T, K>]: T[Key]
+} & {
+  // 这里不能使用 T[Key]，需要加个判断，这是为什么？
+  [Key in K as Key extends keyof T ? Key : never]?: Key extends keyof T ? T[Key] : never;
+}>
 
+interface User {
+  name: string
+  age: number
+  address: string
+}
+
+type UserPartialName = PartialByKeys<User, 'name'> // { name?:string; age:number; address:string }
