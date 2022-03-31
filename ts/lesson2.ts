@@ -96,6 +96,22 @@ type UserPartialName = PartialByKeys<User, 'name'> // { name?:string; age:number
 
 // 实现一个通用的RequiredByKeys<T，K>，它接受两个类型参数T和K。 K指定应设置为必需的T的属性集。如果未提供K，则应使所有所需的属性与正常所需的<T>相同。
 
+// 答案
+type Copy<T> = {
+  [K in keyof T]: T[K]
+}
+
+type RequiredByKeys<T, K extends keyof any = ''> = [K] extends ['']
+  ? Required<T>
+  : Copy<
+    {
+      [Key in K as Key extends keyof T ? Key : never]: Key extends keyof T ? Required<T>[Key] : never
+    } & {
+      [Key in Exclude<keyof T, K>]?:T[Key]
+    }
+  >;
+
+  // 例如
 interface User {
   name?: string
   age?: number
@@ -103,4 +119,3 @@ interface User {
 }
 
 type UserPartialName = RequiredByKeys<User, 'name'> // { name: string; age?: number; address?: string }
-// 例如
