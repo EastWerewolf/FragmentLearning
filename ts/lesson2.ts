@@ -93,3 +93,14 @@ interface User {
 }
 
 type UserPartialName = PartialByKeys<User, 'name'> // { name?:string; age:number; address:string }
+
+// 实现一个通用的RequiredByKeys<T，K>，它接受两个类型参数T和K。 K指定应设置为必需的T的属性集。如果未提供K，则应使所有所需的属性与正常所需的<T>相同。
+
+interface User {
+  name?: string
+  age?: number
+  address?: string
+}
+
+type UserPartialName = RequiredByKeys<User, 'name'> // { name: string; age?: number; address?: string }
+// 例如
