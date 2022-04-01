@@ -92,7 +92,7 @@ interface User {
   address: string
 }
 
-type UserPartialName = PartialByKeys<User, 'name'> // { name?:string; age:number; address:string }
+type UserPartialName1 = PartialByKeys<User, 'name'> // { name?:string; age:number; address:string }
 
 // 实现一个通用的RequiredByKeys<T，K>，它接受两个类型参数T和K。 K指定应设置为必需的T的属性集。如果未提供K，则应使所有所需的属性与正常所需的<T>相同。
 
@@ -118,4 +118,20 @@ interface User {
   address?: string
 }
 
-type UserPartialName = RequiredByKeys<User, 'name'> // { name: string; age?: number; address?: string }
+type UserPartialName2 = RequiredByKeys<User, 'name'> // { name: string; age?: number; address?: string }
+
+
+// 实现generic Mutable<T>，它使T中的所有属性都是可变的（而不是只读的）。
+
+type Mutable<T> = {
+  -readonly [key in keyof T]: T[key];
+};
+
+// 例如
+interface Todo {
+  readonly title: string
+  readonly description: string
+  readonly completed: boolean
+}
+
+type MutableTodo = Mutable<Todo> // { title: string; description: string; completed: boolean; }
