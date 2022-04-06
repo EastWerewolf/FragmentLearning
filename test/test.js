@@ -21,7 +21,7 @@
 //         })
 //     }
 // }
-// console.log(obj3)
+console.log(obj3)
 
 
 option = {
