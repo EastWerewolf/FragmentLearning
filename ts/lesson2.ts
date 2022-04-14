@@ -135,3 +135,7 @@ interface Todo {
 }
 
 type MutableTodo = Mutable<Todo> // { title: string; description: string; completed: boolean; }
+
+// 从 T 中选择一组其类型不可分配给 U 的属性。
+
+// 例如
