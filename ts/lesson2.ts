@@ -138,4 +138,15 @@ type MutableTodo = Mutable<Todo> // { title: string; description: string; comple
 
 // 从 T 中选择一组其类型不可分配给 U 的属性。
 
+// 答案
+type OmitByType<T, P> = {
+  [key in keyof T as T[key] extends P ? never : key]: T[key];
+};
+
 // 例如
+type OmitBoolean = OmitByType<{
+  name: string
+  count: number
+  isReadonly: boolean
+  isEnable: boolean
+}, boolean> // { name: string; count: number }
