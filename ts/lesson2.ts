@@ -150,3 +150,23 @@ type OmitBoolean = OmitByType<{
   isReadonly: boolean
   isEnable: boolean
 }, boolean> // { name: string; count: number }
+
+
+// 实现 Object.entries 的类型版本
+
+// 答案
+type ObjectEntries<T, U extends keyof T = keyof T> = U extends unknown 
+? [U, T[U] extends (infer F | undefined) 
+  ? F extends never 
+    ? undefined
+    : F
+  : T[U] ] 
+: never
+
+// 例如
+interface Model {
+  name: string;
+  age: number;
+  locations: string[] | null;
+}
+type modelEntries = ObjectEntries<Model> // ['name', string] | ['age', number] | ['locations', string[] | null];
