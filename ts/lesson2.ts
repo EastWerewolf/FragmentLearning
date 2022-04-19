@@ -178,3 +178,18 @@ type Shift<T> = T extends [infer _F,...infer R] ? R : never
 // 例如
 
 type Result = Shift<[3, 2, 1]> // [2, 1]
+
+
+// 给定一个只包含字符串类型的元组类型 T 和一个类型 U，递归地构建一个对象。
+
+// 答案
+
+type TupleToNestedObject<T extends string[] | unknown[], U> =
+  T extends [infer F, ...infer Rest]
+    ? Record<F & string, TupleToNestedObject<Rest, U>>
+    : U
+
+// 例如
+type a = TupleToNestedObject<['a'], string> // {a: string}
+type b = TupleToNestedObject<['a', 'b'], number> // {a: {b: number}}
+type c = TupleToNestedObject<[], boolean> // boolean. if the tuple is empty, just return the U type
