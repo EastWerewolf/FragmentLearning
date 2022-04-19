@@ -170,3 +170,11 @@ interface Model {
   locations: string[] | null;
 }
 type modelEntries = ObjectEntries<Model> // ['name', string] | ['age', number] | ['locations', string[] | null];
+
+// 实现 Array.shift 的类型版本
+
+type Shift<T> = T extends [infer _F,...infer R] ? R : never
+
+// 例如
+
+type Result = Shift<[3, 2, 1]> // [2, 1]
