@@ -193,3 +193,16 @@ type TupleToNestedObject<T extends string[] | unknown[], U> =
 type a = TupleToNestedObject<['a'], string> // {a: string}
 type b = TupleToNestedObject<['a', 'b'], number> // {a: {b: number}}
 type c = TupleToNestedObject<[], boolean> // boolean. if the tuple is empty, just return the U type
+
+
+// 实现数组的类型版本。逆序
+
+type Reverse<T extends unknown[], Result extends unknown[] = []> =
+  T extends [infer F, ...infer Rest]
+    ? Reverse<Rest, [F, ...Result]>
+    : Result
+
+// 例如：
+
+type a = Reverse<['a', 'b']> // ['b', 'a']
+type b = Reverse<['a', 'b', 'c']> // ['c', 'b', 'a']
