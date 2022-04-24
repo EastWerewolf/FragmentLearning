@@ -54,16 +54,16 @@
 <script>
     var divDom = document.getElementsByClassName("aa")[0];
 
-    divDom.onclick = function (e) {
-        console.log(1)
-        if(e.target.className === "aa"){
-            alert("圓形")
-        }else if(e.target.className === "bb"){
-            alert("正方形")
-        }else{
-            alert( "三角形")
-        }
-    }
+    // divDom.onclick = function (e) {
+    //     console.log(1)
+    //     if(e.target.className === "aa"){
+    //         alert("圓形")
+    //     }else if(e.target.className === "bb"){
+    //         alert("正方形")
+    //     }else{
+    //         alert( "三角形")
+    //     }
+    // }
 
     let request = window.indexedDB.open('myDatabase', 2);
     console.log(request)
