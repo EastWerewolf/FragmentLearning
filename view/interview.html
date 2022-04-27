@@ -65,13 +65,13 @@
         }
     }
 
-    // let request = window.indexedDB.open('myDatabase', 2);
-    // console.log(request)
-    // //数据库打开失败
-    // request.onerror = function(e){
-    //     console.log(e,'数据库打开失败')
-    // };
-    //数据库打开成功
+    let request = window.indexedDB.open('myDatabase', 2);
+    console.log(request)
+    //数据库打开失败
+    request.onerror = function(e){
+        console.log(e,'数据库打开失败')
+    };
+    数据库打开成功
     let DB;
     request.onsuccess = function(e){
         DB = e.target.result;
