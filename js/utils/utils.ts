@@ -46,3 +46,28 @@ const MINEType = {
   '.wax':'audio/x-ms-wax',
   '.wm':'audio/x-ms-wm'
 }
+
+
+
+/**
+ * 由于跨域  暂未使用 支持所有格式
+ * @param url 文件地址
+ */
+ export async function getImage(url: string) {
+  const { data } = await axios.get<any>(url,{responseType: 'blob'});
+  return data;
+}
+export const downloadPreview = (url:string,name?:string) =>{
+  const suffix = url.substring(url.lastIndexOf('.'));
+  const type = MINEType[suffix];
+  getImage(url).then(res => {
+    const fileName = (name || '下载文件') + suffix;
+    const myBlob = new Blob([res], { type });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(myBlob);
+    link.download = fileName;
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(link.href);
+  })
+}
