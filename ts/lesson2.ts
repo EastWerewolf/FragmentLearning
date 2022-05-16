@@ -222,3 +222,18 @@ type FlipArguments<T extends Function> =
 // 例如：
 type Flipped = FlipArguments<(arg0: string, arg1: number, arg2: boolean) => void> 
 // (arg0: boolean, arg1: number, arg2: string) => void
+
+// 递归地将数组展平到深度倍。
+
+// 答案
+type FlattenDepth<T extends any[], I extends number = 1, EI extends any[] = [], EV extends any[] = []> = 
+  EI['length'] extends I
+    ? [...EV, ...T]
+    : T extends [infer R1, ...infer R2] 
+      ? R1 extends any[]
+        ? FlattenDepth<R2, I, EI, FlattenDepth<R1, I, [...EI, 1], EV>>
+        : FlattenDepth<R2, I, EI, [...EV, R1]>
+      : EV
+// 例如：
+type a11 = FlattenDepth<[1, 2, [3, 4], [[[5]]]], 2> // [1, 2, 3, 4, [5]]. flattern 2 times
+type b11 = FlattenDepth<[1, 2, [3, 4], [[[5]]]]> // [1, 2, 3, 4, [[5]]]. Depth defaults to be 1
