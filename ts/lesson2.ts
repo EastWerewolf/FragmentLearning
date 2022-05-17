@@ -237,3 +237,17 @@ type FlattenDepth<T extends any[], I extends number = 1, EI extends any[] = [], 
 // 例如：
 type a11 = FlattenDepth<[1, 2, [3, 4], [[[5]]]], 2> // [1, 2, 3, 4, [5]]. flattern 2 times
 type b11 = FlattenDepth<[1, 2, [3, 4], [[[5]]]]> // [1, 2, 3, 4, [[5]]]. Depth defaults to be 1
+
+
+// 块、元素、修饰符方法（BEM）是CSS中类的常用命名约定。
+
+// 例如，块组件将表示为btn，依赖于块的元素将表示为btn__价格，更改块样式的修改器将表示为btn--大或btn__价格--警告。
+
+// 实现BEM<B，E，M>，从这三个参数生成字符串并集。其中B是字符串文字，E和M是字符串数组（可以为空）。
+
+type EmptyOrBEM<T extends any[], SP extends string> = [T[number]] extends [never] 
+  ? '' 
+  : `${SP}${T[number]}`
+
+type BEM<B extends string, E extends string[], M extends string[]> = 
+  `${B}${EmptyOrBEM<E, '__'>}${EmptyOrBEM<M, '--'>}`
