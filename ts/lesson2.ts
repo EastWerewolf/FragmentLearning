@@ -288,3 +288,17 @@ type Flip<T extends Record<string, string | number | bigint | boolean | null | u
 Flip<{ a: "x", b: "y", c: "z" }>; // {x: 'a', y: 'b', z: 'c'}
 Flip<{ a: 1, b: 2, c: 3 }>; // {1: 'a', 2: 'b', 3: 'c'}
 flip<{ a: false, b: true }>; // {false: 'a', true: 'b'}
+
+
+
+// 实现一个通用的斐波那契（Fibonacci）函数，它取一个数字T并返回它对应的斐波那契数。
+// 序列开始：1，1，2，3，5，8，13，21，34，55，89，144。。。
+
+type Fibonacci<T extends number, U extends unknown[] = [unknown], V extends unknown[] = [unknown], I extends unknown[] = [unknown, unknown]> = 
+T extends I['length']
+  ? V['length']
+  : Fibonacci<T, V, [...U, ...V], [unknown, ...I]>
+
+// 例如
+type Result1 = Fibonacci<3> // 2
+type Result2 = Fibonacci<8> // 21
