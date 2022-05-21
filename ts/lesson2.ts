@@ -302,3 +302,22 @@ T extends I['length']
 // 例如
 type Result1 = Fibonacci<3> // 2
 type Result2 = Fibonacci<8> // 21
+
+
+
+// 实现类型AllCombinations，返回最多一次使用S中字符的所有字符串组合。
+
+// 答案
+type AllCombinations<S, U extends string = ''> = S extends U ? U : S extends ${U}${infer R}${infer Rest} ? '' | R | AllCombinations<S, ${U}${R}> | ${R}${AllCombinations<${U}${Rest}>} : ''
+
+type CharArr<S> = S extends `${infer R}${infer L}` ? [R, ...CharArr<L>] : [S];
+type MakeStr<T extends string, S extends string> = S extends never ? never : T extends CharArr<S>[number] ? T : `${T}${S}`;
+type Combine<T extends string, S extends string, Times extends any[]> =
+  Times extends {length: 0} ? S : 
+  Times extends [...infer L, any] ?
+  Combine<T, MakeStr<T, S>, L> : S;
+type AllCombinations<S extends string> = Combine<CharArr<S>[number]|'', CharArr<S>[number], CharArr<S>>; 
+
+// 例如：
+type AllCombinations_ABC = AllCombinations<'ABC'>;
+// should be '' | 'A' | 'B' | 'C' | 'AB' | 'AC' | 'BA' | 'BC' | 'CA' | 'CB' | 'ABC' | 'ACB' | 'BAC' | 'BCA' | 'CAB' | 'CBA'
