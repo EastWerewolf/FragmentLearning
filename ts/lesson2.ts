@@ -341,3 +341,16 @@ GreaterThan<2, 1> //should be true
 GreaterThan<1, 1> //should be false
 GreaterThan<10, 100> //should be false
 GreaterThan<111, 11> //should be true
+
+
+// 在这个挑战中，你应该实现一个类型 Zip<T, U>，T 和 U 必须是 Tuple
+
+// 答案
+type Zip<A extends any[], B extends any[], R extends any[] = []> = 
+  A extends [infer AR1, ...infer AR2]
+  ? B extends [infer BR1, ...infer BR2]
+    ? Zip<AR2, BR2, [...R, [AR1, BR1]]>
+    : R
+  : R
+// 例如
+type exp = Zip<[1, 2], [true, false]> // expected to be [[1, true], [2, false]]
