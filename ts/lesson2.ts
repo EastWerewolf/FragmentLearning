@@ -321,3 +321,23 @@ type AllCombinations<S extends string> = Combine<CharArr<S>[number]|'', CharArr<
 // 例如：
 type AllCombinations_ABC = AllCombinations<'ABC'>;
 // should be '' | 'A' | 'B' | 'C' | 'AB' | 'AC' | 'BA' | 'BC' | 'CA' | 'CB' | 'ABC' | 'ACB' | 'BAC' | 'BCA' | 'CAB' | 'CBA'
+
+// 在这个挑战中，您应该实现一个大于<T，U>的类型，比如T>U
+
+// 不需要考虑负数。
+
+type NumToArray<T extends number, R extends any[] = []> = T extends R['length']
+  ? R
+  : NumToArray<T, [...R, any]>
+
+type GreaterThan<T extends number, U extends number> = T extends U 
+  ? false
+  : NumToArray<T> extends [...NumToArray<U> extends [...infer R] ? R : never, ...any]
+  ? true 
+  : false
+
+// 例如
+GreaterThan<2, 1> //should be true
+GreaterThan<1, 1> //should be false
+GreaterThan<10, 100> //should be false
+GreaterThan<111, 11> //should be true
