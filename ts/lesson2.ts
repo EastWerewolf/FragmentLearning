@@ -374,3 +374,24 @@ type IsTuple<T> =
 type case1 = IsTuple<[number]> // true
 type case2 = IsTuple<readonly [number]> // true
 type case3 = IsTuple<number[]> // false
+
+
+//你认识洛达斯吗？Chunk是其中一个非常有用的函数，现在让我们来实现它。Chunk接受两个必需的类型参数，T必须是元组，N必须是大于等于1的整数
+
+// 答案
+
+type Chunk<
+  T extends any[],
+  N extends number = 1,
+  Chunked extends any[] = [],
+> = T extends [infer Head, ...infer Tail]
+  ? Chunked['length'] extends N
+    ? [Chunked, ...Chunk<T, N>]
+    : Chunk<Tail, N, [...Chunked, Head]>
+  : Chunked extends []
+  ? Chunked
+  : [Chunked]
+// 例如
+type exp1 = Chunk<[1, 2, 3], 2> // expected to be [[1, 2], [3]]
+type exp2 = Chunk<[1, 2, 3], 4> // expected to be [[1, 2, 3]]
+type exp3 = Chunk<[1, 2, 3], 1> // expected to be [[1], [2], [3]]
