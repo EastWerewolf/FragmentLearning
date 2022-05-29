@@ -395,3 +395,25 @@ type Chunk<
 type exp1 = Chunk<[1, 2, 3], 2> // expected to be [[1, 2], [3]]
 type exp2 = Chunk<[1, 2, 3], 4> // expected to be [[1, 2, 3]]
 type exp3 = Chunk<[1, 2, 3], 1> // expected to be [[1], [2], [3]]
+
+// Fill是一个常见的JavaScript函数，现在让我们用类型来实现它。填充<T，N，开始？，结束？>，如您所见，Fill接受四种类型的参数，
+// 其中T和N是必需参数，Start和End是可选参数。这些参数的要求是：T必须是元组，N可以是任何类型的值，Start和End必须是大于或等于0的整数。
+
+// 答案
+type Fill<
+  T extends unknown[],
+  N,
+  Start extends number = 0,
+  End extends number = T['length'],
+  S extends any[] = [],
+  E extends any[] = []
+> = T extends [infer F, ...infer Rest]
+      ? S['length'] extends Start
+        ? E['length'] extends End 
+          ? [...E, F, ...Rest]
+          : Fill<Rest, N, Start, End, S, [...E, N]>
+        : Fill<Rest, N, Start, End, [...S, F], [...E, F]>
+      : E
+      
+// 例如
+type exp = Fill<[1, 2, 3], 0> // expected to be [0, 0, 0]
