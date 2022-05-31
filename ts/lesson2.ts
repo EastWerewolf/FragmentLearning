@@ -456,3 +456,14 @@ type Without<T extends unknown[], U extends unknown[] | unknown, R extends unkno
 type Res = Without<[1, 2], 1>; // expected to be [2]
 type Res1 = Without<[1, 2, 4, 1, 5], [1, 2]>; // expected to be [4, 5]
 type Res2 = Without<[2, 3, 2, 3, 2, 3, 2, 3], [2, 3]>; // expected to be []
+
+
+
+// 评估实现Math的类型版本。trunc，它接受字符串或数字，并通过删除任何小数位数返回数字的整数部分。
+
+// 答案
+type Trunc<T extends number | string> =
+  `${T}` extends `${infer Integer}.${infer _Fraction}` ? Integer : `${T}`;
+
+// 例如：
+type A = Trunc<12.34> // 12
