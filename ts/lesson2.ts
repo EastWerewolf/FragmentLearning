@@ -467,3 +467,23 @@ type Trunc<T extends number | string> =
 
 // 例如：
 type A = Trunc<12.34> // 12
+
+// 实现 Array.indexOf 的类型版本， indexOf<T, U> 接受一个 Array T，任何 U 并返回 Array T 中第一个 U 的索引。
+
+
+// 答案
+
+export type IndexOf<
+  T extends unknown[],
+  U,
+  Res extends unknown[] = []
+> = T extends [infer F, ...infer TRes]
+  ? Equal<F, U> extends true
+    ? Res["length"]
+    : IndexOf<TRes, U, [...Res, F]>
+  : -1;
+
+//例如
+type Res = IndexOf<[1, 2, 3], 2>; // expected to be 1
+type Res1 = IndexOf<[2,6, 3,8,4,1,7, 3,9], 3>; // expected to be 2
+type Res2 = IndexOf<[0, 0, 0], 2>; // expected to be -1
