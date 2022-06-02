@@ -487,3 +487,16 @@ export type IndexOf<
 type Res = IndexOf<[1, 2, 3], 2>; // expected to be 1
 type Res1 = IndexOf<[2,6, 3,8,4,1,7, 3,9], 3>; // expected to be 2
 type Res2 = IndexOf<[0, 0, 0], 2>; // expected to be -1
+
+// 实现数组的类型版本。join，join<T，U>获取数组T、字符串或数字U，并返回带有U缝合的数组T。
+
+// 答案
+type Join<T extends any[], U extends string | number, Result extends string = ''> = T extends [infer F, ...infer R]
+    ? Join<R, U, `${Result}${Result extends '' ? '' : U}${F & string}`>
+    : Result;
+
+//例如
+type Res = Join<["a", "p", "p", "l", "e"], "-">; // expected to be 'a-p-p-l-e'
+type Res1 = Join<["Hello", "World"], " ">; // expected to be 'Hello World'
+type Res2 = Join<["2", "2", "2"], 1>; // expected to be '21212'
+type Res3 = Join<["o"], "u">; // expected to be 'o'
