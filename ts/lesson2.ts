@@ -500,3 +500,17 @@ type Res = Join<["a", "p", "p", "l", "e"], "-">; // expected to be 'a-p-p-l-e'
 type Res1 = Join<["Hello", "World"], " ">; // expected to be 'Hello World'
 type Res2 = Join<["2", "2", "2"], 1>; // expected to be '21212'
 type Res3 = Join<["o"], "u">; // expected to be 'o'
+
+
+// 实现数组的类型版本。lastIndexOf，lastIndexOf<T，U>获取数组T，任意U，并返回数组T中最后一个U的索引
+
+// 答案
+type LastIndexOf<T extends Array<unknown>, U> = T extends [...infer R, infer L] ?
+  Equal<L, U> extends true ?
+    R['length'] :
+    LastIndexOf<R, U> :
+  -1;
+
+// 例如：
+type Res11 = LastIndexOf<[1, 2, 3, 2, 1], 2> // 3
+type Res21 = LastIndexOf<[0, 0, 0], 2> // -1
