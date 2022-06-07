@@ -540,3 +540,43 @@ type Res1 = Unique<[1, 2, 3, 4, 4, 5, 6, 7]>; // expected to be [1, 2, 3, 4, 5, 
 type Res2 = Unique<[1, "a", 2, "b", 2, "a"]>; // expected to be [1, "a", 2, "b"]
 type Res3 = Unique<[string, number, 1, "a", 1, string, 2, "b", 2, number]>; // expected to be [string, number, 1, "a", 2, "b"]
 type Res4 = Unique<[unknown, unknown, any, any, never, never]>; // expected to be [unknown, any, never]
+
+
+// 实现MapTypes，它将对象T中的类型转换为类型R定义的不同类型，类型R具有以下结构
+type StringToNumber = {
+  mapFrom: string; // value of key which value is string
+  mapTo: number; // will be transformed for number
+}
+
+// 答案
+// your answers
+
+interface Transform {
+  mapFrom: unknown;
+  mapTo: unknown;
+}
+
+// R extends { mapFrom: T[K], mapTo: infer To } -> handle "R: Transform2 | Transform2" situation, make sure we choose the right R and make anothor to be never
+type MapTypes<T extends Record<keyof any, unknown>, R extends Transform> = {
+  [K in keyof T]: T[K] extends R['mapFrom'] ?
+    R extends {
+      mapFrom: T[K],
+      mapTo: infer To
+    } ?
+      To :
+      never :
+    T[K];
+}
+
+// 例如
+type StringToNumber = { mapFrom: string; mapTo: number;}
+MapTypes<{iWillBeANumberOneDay: string}, StringToNumber> // gives { iWillBeANumberOneDay: number; }
+Be aware that user can provide a union of types:
+
+type StringToNumber = { mapFrom: string; mapTo: number;}
+type StringToDate = { mapFrom: string; mapTo: Date;}
+MapTypes<{iWillBeNumberOrDate: string}, StringToDate | StringToNumber> // gives { iWillBeNumberOrDate: number | Date; }
+If the type doesn't exist in our map, leave it as it was:
+
+type StringToNumber = { mapFrom: string; mapTo: number;}
+MapTypes<{iWillBeANumberOneDay: string, iWillStayTheSame: Function}, StringToNumber> // // gives { iWillBeANumberOneDay: number, iWillStayTheSame: Fun
