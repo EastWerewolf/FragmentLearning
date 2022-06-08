@@ -580,3 +580,13 @@ If the type doesn't exist in our map, leave it as it was:
 
 type StringToNumber = { mapFrom: string; mapTo: number;}
 MapTypes<{iWillBeANumberOneDay: string, iWillStayTheSame: Function}, StringToNumber> // // gives { iWillBeANumberOneDay: number, iWillStayTheSame: Fun
+
+
+
+// 构造具有给定长度的元组。
+
+// 答案
+type ConstructTuple<L extends number, T extends any[] = []> = L extends T["length"] ? T : ConstructTuple<L, [...T, unknown]>;
+
+// 例如
+type result = ConstructTuple<2> // expect to be [unknown, unkonwn]
