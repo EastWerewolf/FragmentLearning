@@ -590,3 +590,20 @@ type ConstructTuple<L extends number, T extends any[] = []> = L extends T["lengt
 
 // 例如
 type result = ConstructTuple<2> // expect to be [unknown, unkonwn]
+
+
+
+// 有时我们想限制数字的范围。。。
+
+
+// 答案
+type ArrFrom<N extends number, A extends any[] = []> = N extends A["length"] ? A : ArrFrom<N, [...A, any]>;
+type NumberRange<L extends number, H extends number, A extends any[] = [], R = L> = A["length"] extends H
+  ? (R | A[0] | A["length"])
+  : A["length"] extends 0
+  ? NumberRange<L, H, [L, ...ArrFrom<L, []>], R>
+  : NumberRange<L, H, [A["length"], ...A], R | A[0]>;
+
+  
+// 例如。
+type result = NumberRange<2 , 9> //  | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
