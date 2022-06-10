@@ -637,3 +637,19 @@ type test = Combination<['foo', 'bar', 'baz']>
 // 例如
 // expected to be `"foo" | "bar" | "baz" | "foo bar" | "foo bar baz" | "foo baz" | "foo baz bar" | "bar foo" | "bar foo baz" | "bar baz" | "bar baz foo" | "baz foo" | "baz foo bar" | "baz bar" | "baz bar foo"`
 type Keys = Combination<['foo', 'bar', 'baz']>
+
+
+
+// 给定一个唯一元素数组，返回所有可能的子序列。
+// 子序列是一个序列，可以通过删除一些元素或不删除任何元素而从数组中派生，而不改变其余元素的顺序。
+
+// 例如
+type A = Subsequence<[1, 2] // [] | [1] | [2] | [1, 2]
+
+// 答案
+
+type Subsequence<T extends any[]> = T extends [infer F, ...infer R] ?
+  [F, ...Subsequence<R>] | Subsequence<R> :
+  [];
+
+
