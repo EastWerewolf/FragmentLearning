@@ -607,3 +607,33 @@ type NumberRange<L extends number, H extends number, A extends any[] = [], R = L
   
 // 例如。
 type result = NumberRange<2 , 9> //  | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
+
+
+
+// 给定一个字符串数组，进行置换和组合。它对于像video controlsList这样的道具类型也很有用
+
+
+// 答案
+
+type Subsequence<T extends any[]> = T extends [infer F, ...infer R] ?
+  [F, ...Subsequence<R>] | Subsequence<R> :
+  [];
+
+type Join<T extends Array<unknown>, U extends string | number, S extends string = ''> = 
+  T extends [infer F extends string | number, ...infer R] ?
+    Join<R, U, S extends '' ? `${F}` : `${S}${U}${F}`> :
+    S;
+
+type Permutation<T extends keyof any> = [T] extends [never] ? 
+  [] :
+  {
+    [TT in T]: [TT, ...Permutation<Exclude<T, TT>>]
+  }[T];
+
+type Combination<T extends string[]> = Exclude<Join<Subsequence<Permutation<T[number]>>, ' '>, ''>
+
+type test = Combination<['foo', 'bar', 'baz']>
+
+// 例如
+// expected to be `"foo" | "bar" | "baz" | "foo bar" | "foo bar baz" | "foo baz" | "foo baz bar" | "bar foo" | "bar foo baz" | "bar baz" | "bar baz foo" | "baz foo" | "baz foo bar" | "baz bar" | "baz bar foo"`
+type Keys = Combination<['foo', 'bar', 'baz']>
