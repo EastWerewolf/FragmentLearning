@@ -51,3 +51,28 @@ const instance = SimpleVue({
     }
   }
 })
+
+
+
+
+// [Currying]（https://en.wikipedia.org/wiki/Currying）是一种将带有多个参数的函数转换为每个带有一个参数的函数序列的技术。
+
+// 答案
+
+declare function Currying<T>(arg: T):
+  T extends (...args: infer P) => infer R ? (
+    P extends [infer P1, ...infer P2] ? (
+      (arg: P1) => ReturnType<typeof Currying<(...args: P2) => R>>
+    ) : R
+  ) : never
+
+// 例如：
+
+const add = (a: number, b: number) => a + b
+const three = add(1, 2)
+
+const curriedAdd = Currying(add)
+// const five = curriedAdd(2)(3)
+// 传递给Currying的函数可能有多个参数，您需要正确键入它。
+
+// 在此挑战中，curried函数一次仅接受一个参数。分配完所有参数后，它应返回其结果。
