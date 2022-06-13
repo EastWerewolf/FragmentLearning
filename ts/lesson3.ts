@@ -76,3 +76,13 @@ const curriedAdd = Currying(add)
 // 传递给Currying的函数可能有多个参数，您需要正确键入它。
 
 // 在此挑战中，curried函数一次仅接受一个参数。分配完所有参数后，它应返回其结果。
+
+
+// 实现高级util类型UnionToIntersection<U>
+
+// 答案
+type UnionToIntersection<U> =
+  (U extends infer V ? (_: V) => 0 : never) extends (_: infer V) => 0 ? V : never;
+
+// 例如
+type I = Union2Intersection<'foo' | 42 | true> // expected to be 'foo' & 42 & true
