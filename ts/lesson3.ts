@@ -97,3 +97,15 @@ type GetRequired<T extends Record<string, any>> = {
 
 // 例如
 type I = GetRequired<{ foo: number, bar?: string }> // expected to be { foo: number }
+
+
+// 实现高级util类型GetOptional<T>，该类型保留所有可选字段
+
+// 答案
+type GetOptional<T> = {[
+  P in keyof T as
+  undefined extends {[P in keyof T]: 1}[P] ? P : never
+  ]: T[P]}
+
+// 例如
+type I = GetOptional<{ foo: number, bar?: string }> // expected to be { bar?: string }
