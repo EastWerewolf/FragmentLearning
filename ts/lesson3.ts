@@ -86,3 +86,14 @@ type UnionToIntersection<U> =
 
 // 例如
 type I = Union2Intersection<'foo' | 42 | true> // expected to be 'foo' & 42 & true
+
+
+// 实现高级util类型GetRequired<T>，该类型保留所有必填字段
+
+// 答案
+type GetRequired<T extends Record<string, any>> = {
+  [K in keyof T as {} extends Pick<T, K> ? never : K]: T[K];
+};
+
+// 例如
+type I = GetRequired<{ foo: number, bar?: string }> // expected to be { foo: number }
