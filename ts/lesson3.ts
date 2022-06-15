@@ -109,3 +109,16 @@ type GetOptional<T> = {[
 
 // 例如
 type I = GetOptional<{ foo: number, bar?: string }> // expected to be { bar?: string }
+
+// 实现高级util类型RequiredKeys<T>，该类型将所有必需的键都选择为一个并集。
+
+
+// 答案
+type RequiredKeys<T> = keyof {
+  [K in keyof T as T[K] extends Required<T>[K] ? K : never]: T[K];
+};
+
+// 例如
+
+type Result = RequiredKeys<{ foo: number; bar?: string }>;
+// expected to be “foo”
