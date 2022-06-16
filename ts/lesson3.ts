@@ -122,3 +122,14 @@ type RequiredKeys<T> = keyof {
 
 type Result = RequiredKeys<{ foo: number; bar?: string }>;
 // expected to be “foo”
+
+// 实现高级 util 类型OptionalKeys<T>，该类型将 T 中所有可选属性的键合并为一个联合类型。
+
+// 答案
+type OptionalKeys<T> = keyof {
+  [K in keyof T as T[K] extends Required<T>[K] ? never : K]: T[K];
+};
+
+type Result1 = OptionalKeys<{ foo: number; bar?: string }>;
+// expected to be “bar”
+
