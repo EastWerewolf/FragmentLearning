@@ -133,3 +133,18 @@ type OptionalKeys<T> = keyof {
 type Result1 = OptionalKeys<{ foo: number; bar?: string }>;
 // expected to be “bar”
 
+
+// 实现CapitalizeWords，它将字符串中每个单词的第一个字母转换为大写，其余字母保持原样。
+
+// 答案
+type CapitalizeWord<S> = S extends `${infer First}${infer Rest}`
+  ? `${First}${CapitalizeWord<
+      Uppercase<First> extends Lowercase<First> ? Capitalize<Rest> : Rest
+    >}`
+  : S;
+
+type CapitalizeWords<S extends string> = CapitalizeWord<Capitalize<S>>;
+
+// 例如
+type capitalized = CapitalizeWords<'hello world, my friends'> // expected to be 'Hello World, My Friends'
+
