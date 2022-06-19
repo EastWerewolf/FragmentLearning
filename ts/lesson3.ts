@@ -148,3 +148,17 @@ type CapitalizeWords<S extends string> = CapitalizeWord<Capitalize<S>>;
 // 例如
 type capitalized = CapitalizeWords<'hello world, my friends'> // expected to be 'Hello World, My Friends'
 
+
+// 实现CamelCase，将snake\u case字符串转换为CamelCase。
+
+// 答案
+type Help<S extends string> = S extends `${infer L}_${infer R}`
+  ? `${L}${Help<Capitalize<R>>}`
+  : S;
+
+type CamelCase<S extends string> = Help<Lowercase<S>>;
+
+// 例如
+type camelCase1 = CamelCase<'hello_world_with_types'> // expected to be 'helloWorldWithTypes'
+type camelCase2 = CamelCase<'HELLO_WORLD_WITH_TYPES'> // expected to be same as previous one
+
