@@ -162,3 +162,32 @@ type CamelCase<S extends string> = Help<Lowercase<S>>;
 type camelCase1 = CamelCase<'hello_world_with_types'> // expected to be 'helloWorldWithTypes'
 type camelCase2 = CamelCase<'HELLO_WORLD_WITH_TYPES'> // expected to be same as previous one
 
+// C语言中有一个函数：printf。此函数允许我们打印具有格式的内容。这样地：
+
+
+
+// printf（“结果为%d.”，42）；
+
+// 此质询要求您分析输入字符串并提取格式占位符，如%d和%f。例如，如果输入字符串为“结果为%d.”，则分析的结果为元组['dec'。
+
+// 答案
+
+type ParsePrintFormat<S extends string> = S extends `${string}%${infer A}`
+  ? A extends `${infer F}${infer R}`
+    ? [
+        ...(F extends keyof ControlsMap ? [ControlsMap[F]] : []),
+        ...ParsePrintFormat<R>
+      ]
+    : []
+  : [];
+
+// 以下是映射：
+type ControlsMap = {
+  c: 'char',
+  s: 'string',
+  d: 'dec',
+  o: 'oct',
+  h: 'hex',
+  f: 'float',
+  p: 'pointer',
+}
