@@ -191,3 +191,95 @@ type ControlsMap = {
   f: 'float',
   p: 'pointer',
 }
+
+
+
+// 这个挑战从6个简单的Vue开始，您应该先完成这一个，然后根据它修改代码以开始这个挑战。
+
+
+
+// 除了简单的Vue之外，我们现在在选项中还有一个新的道具字段。这是Vue道具选项的简化版本。这里有一些规则。
+
+
+
+// 道具是一个对象，包含每个字段，作为注入该字段的真实道具的键。注入的道具可以在所有上下文中访问，包括数据、计算和方法。
+
+
+
+// 属性将由构造函数或具有包含构造函数的类型字段的对象定义。
+
+
+
+// 例如
+
+
+
+props: {
+  foo: Boolean
+}
+// or
+props: {
+  foo: { type: Boolean }
+}
+
+// 应推断为类型Props={foo:boolean}。
+
+
+
+// 传递多个构造函数时，应将类型推断为一个联合。
+
+
+props: {
+  foo: { type: [Boolean, Number, String] }
+}
+// -->
+type Props = { foo: boolean | number | string }
+
+// 传递空对象时，应将键推断为any。
+
+
+
+// 有关更多指定的案例，请查看测试案例部分。
+
+
+
+// 此挑战中不考虑Vue中的必需、默认和阵列道具。
+
+
+// your answers
+// your answers
+
+type GetInstanceType<T> = 
+  // String, Boolean, Number
+  T extends () => infer R ?
+    R :
+    // union props
+    T extends Array<unknown> ?
+      GetInstanceType<T[number]> :
+      // user defined ctors
+      T extends new (...args: any) => infer R ?
+        R :
+        never;
+
+
+type PropsType<P> = {
+  // deal with empty {}
+  [K in keyof P]: {} extends P[K] ?
+    any :
+    // deal with {type: ...}
+    P[K] extends Record<'type', infer T> ?
+      GetInstanceType<T> :
+      // deal with single ctor
+      GetInstanceType<P[K]>;
+}
+
+declare function VueBasicProps<P, D, C, M>(options: {
+  props: P
+  data: (this:PropsType<P>) => D,
+  computed: C & ThisType<D>,
+  methods: M & ThisType<PropsType<P> & D & M & {
+    [K in keyof C]: C[K] extends (...args: any[]) => unknown ?
+      ReturnType<C[K]> :
+      never;
+  }>
+}): any
