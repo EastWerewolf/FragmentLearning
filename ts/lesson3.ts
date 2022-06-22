@@ -283,3 +283,12 @@ declare function VueBasicProps<P, D, C, M>(options: {
       never;
   }>
 }): any
+
+
+
+// 有时，检测是否有任何类型的值很有用。这在使用第三方Typescript模块时尤其有用，因为第三方Typescript模块可以导出模块API中的任何值。当您禁止隐式检查时，了解任何隐式检查也很好。
+
+
+
+// 因此，让我们编写一个实用程序类型IsAny，它接受输入类型T。如果T为any，则返回true，否则返回false。
+type IsAny<T> = 0 extends (1 & T) ? true : false;
