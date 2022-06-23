@@ -292,3 +292,32 @@ declare function VueBasicProps<P, D, C, M>(options: {
 
 // 因此，让我们编写一个实用程序类型IsAny，它接受输入类型T。如果T为any，则返回true，否则返回false。
 type IsAny<T> = 0 extends (1 & T) ? true : false;
+
+
+
+// lodash 中的 get 函数是访问 JavaScript 中嵌套值的非常方便的助手。 然而，当我们来到 TypeScript 时，使用这样的函数会让你丢失类型信息。 借助 TS 4.1 即将推出的 Template Literal Types 功能，正确键入 get 成为可能。 你能实现吗？
+
+// 例如，
+type Data = {
+  foo: {
+    bar: {
+      value: 'foobar',
+      count: 6,
+    },
+    included: true,
+  },
+  hello: 'world'
+}
+  
+
+//  答案
+type Get<T, K> = K extends `${infer A}.${infer B}`
+  ? A extends keyof T
+    ? Get<T[A], B>
+    : never
+  : K extends keyof T
+  ? T[K]
+  : never;
+type A = Get<Data, 'hello'> // 'world'
+type B = Get<Data, 'foo.bar.count'> // 6
+type C = Get<Data, 'foo.bar'> // { value: 'foobar', count: 6 }
