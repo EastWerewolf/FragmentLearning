@@ -321,3 +321,11 @@ type Get<T, K> = K extends `${infer A}.${infer B}`
 type A = Get<Data, 'hello'> // 'world'
 type B = Get<Data, 'foo.bar.count'> // 6
 type C = Get<Data, 'foo.bar'> // { value: 'foobar', count: 6 }
+
+
+// 将字符串文字转换为数字，其行为类似于数字。parseInt。
+
+type ToNumber<
+  S extends string,
+  U extends unknown[] = []
+> = S extends `${U["length"]}` ? U["length"] : ToNumber<S, [...U, unknown]>;
