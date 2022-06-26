@@ -329,3 +329,19 @@ type ToNumber<
   S extends string,
   U extends unknown[] = []
 > = S extends `${U["length"]}` ? U["length"] : ToNumber<S, [...U, unknown]>;
+
+
+
+// 实现一个类型FilterOut，它从元组T中过滤出给定类型F的项。
+
+// 答案
+type FilterOut<T extends any[], F> = T extends [infer First, ...infer Rest]
+  ? [First] extends [F]
+    ? FilterOut<Rest, F>
+    : [First, ...FilterOut<Rest, F>]
+  : [];
+
+
+
+// 例如
+type Filtered = FilterOut<[1, 2, null, 3], null> // [1, 2, 3]
