@@ -345,3 +345,39 @@ type FilterOut<T extends any[], F> = T extends [infer First, ...infer Rest]
 
 // 例如
 type Filtered = FilterOut<[1, 2, null, 3], null> // [1, 2, 3]
+
+
+
+// 枚举是TypeScript的原始语法（JavaScript中不存在）。因此，由于透明化，它被转换为如下形式：
+
+let OperatingSystem;
+(function (OperatingSystem) {
+    OperatingSystem[OperatingSystem["MacOS"] = 0] = "MacOS";
+    OperatingSystem[OperatingSystem["Windows"] = 1] = "Windows";
+    OperatingSystem[OperatingSystem["Linux"] = 2] = "Linux";
+})(OperatingSystem || (OperatingSystem = {}));
+// 在这个问题中，类型应该将给定的字符串元组转换为行为类似于枚举的对象。此外，枚举的属性优选为pascal情况。
+
+
+// 答案
+
+type GetIndex<T extends ReadonlyArray<unknown>, P extends string, ACC extends Array<unknown> = []> =
+  T extends readonly [infer F, ...infer R] ?
+    [P] extends [F] ?
+      ACC['length'] :
+      GetIndex<R, P, [...ACC, 0]> :
+    never;
+
+type Enum<T extends readonly string[], N extends boolean = false> = {
+    readonly [P in T[number] as P extends string ? Capitalize<P> : P]: 
+      N extends true ?
+        GetIndex<T, P> :
+        P;
+  }
+
+Enum<["macOS", "Windows", "Linux"]>
+// -> { readonly MacOS: "macOS", readonly Windows: "Windows", readonly Linux: "Linux" }
+// 如果第二个参数中给出true，则该值应为数字文字。
+
+Enum<["macOS", "Windows", "Linux"], true>
+// -> { readonly MacOS: 0, readonly Windows: 1, readonly Linux: 2 }
