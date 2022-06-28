@@ -381,3 +381,26 @@ Enum<["macOS", "Windows", "Linux"]>
 
 Enum<["macOS", "Windows", "Linux"], true>
 // -> { readonly MacOS: 0, readonly Windows: 1, readonly Linux: 2 }
+
+
+
+// 实现格式<扩展字符串>通用。
+
+// 答案
+type PrintMap = {
+  s: string;
+  d: number;
+};
+
+type Format<T extends string> = T extends `${string}%${infer A}${infer B}`
+  ? A extends keyof PrintMap
+    ? (a: PrintMap[A]) => Format<B>
+    : Format<B>
+  : string;
+
+// 例如
+
+type FormatCase1 = Format<"%sabc"> // FormatCase1 : string => string
+type FormatCase2 = Format<"%s%dabc"> // FormatCase2 : string => number => string
+type FormatCase3 = Format<"sdabc"> // FormatCase3 :  string
+type FormatCase4 = Format<"sd%abc"> // FormatCase4 :  string
