@@ -404,3 +404,35 @@ type FormatCase1 = Format<"%sabc"> // FormatCase1 : string => string
 type FormatCase2 = Format<"%s%dabc"> // FormatCase2 : string => number => string
 type FormatCase3 = Format<"sdabc"> // FormatCase3 :  string
 type FormatCase4 = Format<"sd%abc"> // FormatCase4 :  string
+
+
+
+// TypeScript具有结构类型系统，但有时您希望函数只接受一些以前定义良好的唯一对象（如在标称类型系统中），而不接受任何具有必需字段的对象。
+// 创建一个类型，该类型接受对象并使其和其中所有深度嵌套的对象唯一，同时保留所有对象的字符串键和数字键以及这些键上所有属性的值。
+// 原始类型和生成的唯一类型必须可以相互分配，但不能完全相同。
+
+// 答案
+type DeepObjectToUniq<O extends object> = {
+  [K in keyof O]: O[K] extends object
+    ? DeepObjectToUniq<O[K] & { _?: [O, K] }>
+    : O[K];
+};
+
+// 例如
+import { Equal } from "@type-challenges/utils"
+
+type Foo = { foo: 2; bar: { 0: 1 }; baz: { 0: 1 } }
+
+type UniqFoo = DeepObjectToUniq<Foo>
+
+declare let foo: Foo
+declare let uniqFoo: UniqFoo
+
+uniqFoo = foo // ok
+foo = uniqFoo // ok
+
+type T0 = Equal<UniqFoo, Foo> // false
+type T1 = UniqFoo["foo"] // 2
+type T2 = Equal<UniqFoo["bar"], UniqFoo["baz"]> // false
+type T3 = UniqFoo["bar"][0] // 1
+type T4 = Equal<keyof Foo & string, keyof UniqFoo & string> // true
