@@ -436,3 +436,18 @@ type T1 = UniqFoo["foo"] // 2
 type T2 = Equal<UniqFoo["bar"], UniqFoo["baz"]> // false
 type T3 = UniqFoo["bar"][0] // 1
 type T4 = Equal<keyof Foo & string, keyof UniqFoo & string> // true
+
+
+// 实现计算模板字符串长度的类型 LengthOfString<S>（如 298 - 字符串长度）：
+
+// 答案
+type LengthOfString<
+  S extends string,
+  A extends unknown[] = []
+> = S extends `${infer First}${infer Rest}`
+  ? LengthOfString<Rest, [...A, unknown]>
+  : A["length"];
+
+type T0 = LengthOfString<"foo"> // 3
+
+// 该类型必须支持数百个字符长的字符串（通常的字符串长度递归计算受限于 TS 中递归函数调用的深度，即它支持最多大约 45 个字符长的字符串）。
