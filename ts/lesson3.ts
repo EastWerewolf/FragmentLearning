@@ -450,4 +450,49 @@ type LengthOfString<
 
 type T0 = LengthOfString<"foo"> // 3
 
-// 该类型必须支持数百个字符长的字符串（通常的字符串长度递归计算受限于 TS 中递归函数调用的深度，即它支持最多大约 45 个字符长的字符串）。
+// 该类型必须支持数百个字符长的字符串（通常的字符串长度递归计算受限于 TS 中递归函数调用的深度，即它支持最多大约 45 个字符长的字符串）
+
+
+// 实现一个类型UnionToTuple，该类型将联合转换为元组。
+// 正如我们所知，联合是一种无序结构，但元组是一种有序结构，这意味着我们不应该预先假设在创建或转换联合时，
+// 在一个联合的术语之间会保留任何顺序。
+// 因此，在这个挑战中，输出元组中元素的任何排列都是可以接受的。
+
+// 答案
+
+// 'a' | 'b' | 'c' => ()=>'a' & ()=>'b' & ()=>'c'
+// 知识点：函数参数类型是逆变的
+type UnionToIntersectionFn<U> = (U extends unknown ?
+  (k: () => U) => void : 
+  never) extends (k: infer I) => void ?
+    I :
+    never;
+
+// ()=>'a' & ()=>'b' & ()=>'c' => 'c'
+// 知识点1：函数交叉类型与函数重载本质上一样
+// 知识点2: https://github.com/Microsoft/TypeScript/issues/24275#issuecomment-390701982
+type GetLastReturnType<U> = UnionToIntersectionFn<U> extends ()=>infer R ?
+  R :
+  never;
+  
+
+type UnionToTuple<U, T extends Array<unknown> = []> = [U] extends [never] ?
+  T :
+  UnionToTuple<Exclude<U, GetLastReturnType<U>>, [...T, GetLastReturnType<U>]>;
+
+// 您的类型应该解析为以下两种类型之一，而不是它们的联合！
+UnionToTuple<1>           // [1], and correct
+UnionToTuple<'any' | 'a'> // ['any','a'], and correct
+// 或
+UnionToTuple<1>           // [1], and correct
+UnionToTuple<'any' | 'a'> // ['any','a'], and correct
+
+//它不应该是所有可接受元组的联合。。。
+UnionToTuple<'any' | 'a'> // ['a','any'] | ['any','a'], 这是不对的
+
+// 一个结合可能会崩溃，这意味着一些类型可以吸收（或被吸收）其他类型，没有办法阻止这种吸收。请参见以下示例：
+
+Equal<UnionToTuple<any | 'a'>,       UnionToTuple<any>>         // will always be a true
+Equal<UnionToTuple<unknown | 'a'>,   UnionToTuple<unknown>>     // will always be a true
+Equal<UnionToTuple<never | 'a'>,     UnionToTuple<'a'>>         // will always be a true
+Equal<UnionToTuple<'a' | 'a' | 'a'>, UnionToTuple<'a'>>         // will always be a true
