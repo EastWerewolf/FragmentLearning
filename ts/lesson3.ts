@@ -496,3 +496,30 @@ Equal<UnionToTuple<any | 'a'>,       UnionToTuple<any>>         // will always b
 Equal<UnionToTuple<unknown | 'a'>,   UnionToTuple<unknown>>     // will always be a true
 Equal<UnionToTuple<never | 'a'>,     UnionToTuple<'a'>>         // will always be a true
 Equal<UnionToTuple<'a' | 'a' | 'a'>, UnionToTuple<'a'>>         // will always be a true
+
+
+
+
+
+// 创建一个类型安全的字符串连接实用程序，可以这样使用：
+
+// 答案
+type ReturnType<T extends string, P> = P extends [infer First extends string, ...infer Rest]
+  ? `${First}${Rest extends [] ? "" : `${T}${ReturnType<T, Rest>}`}`
+  : "";
+
+declare function join<T extends string>(
+  delimiter: T
+): <P extends string[]>(...parts: P) => ReturnType<T, P>;
+
+const hyphenJoiner = join('-')
+const result = hyphenJoiner('a', 'b', 'c'); // = 'a-b-c'
+Or alternatively:
+
+join('#')('a', 'b', 'c') // = 'a#b#c'
+// 当我们传递一个空分隔符（即“”）进行连接时，我们应该按原样连接字符串，即：
+
+join('')('a', 'b', 'c') // = 'abc'
+// 当只传递了一个项时，我们应该返回原始项（不添加任何分隔符）：
+
+join('-')('a') // = 'a'
