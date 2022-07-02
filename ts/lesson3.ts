@@ -523,3 +523,41 @@ join('')('a', 'b', 'c') // = 'abc'
 // 当只传递了一个项时，我们应该返回原始项（不添加任何分隔符）：
 
 join('-')('a') // = 'a'
+
+
+
+// 实现一个类型DeepPick，它扩展了实用程序类型Pick。类型具有两个参数。
+
+// 答案
+type UnionToIntersection<U, P = U> = (
+  U extends P ? (a: U) => void : never
+) extends (a: infer A) => void
+  ? A
+  : never;
+
+type DeepPick<O, U> = UnionToIntersection<
+  U extends `${infer A extends keyof O & string}.${infer Rest}`
+  ? { [K in A]: DeepPick<O[A], Rest> }
+  : U extends keyof O
+  ? { [K in U]: O[U] }
+  : never
+>;
+
+// 例如：
+
+type obj = {
+  name: 'hoge', 
+  age: 20,
+  friend: {
+    name: 'fuga',
+    age: 30,
+    family: {
+      name: 'baz',  
+      age: 1 
+    }
+  }
+}
+
+type T1 = DeepPick<obj, 'name'>   // { name : 'hoge' }
+type T2 = DeepPick<obj, 'name' | 'friend.name'>  // { name : 'hoge' } & { friend: { name: 'fuga' }}
+type T3 = DeepPick<obj, 'name' | 'friend.name' |  'friend.family.name'>  // { name : 'hoge' } &  { friend: { name: 'fuga' }} & { friend: { family: { name: 'baz' }}}
