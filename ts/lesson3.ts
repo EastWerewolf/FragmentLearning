@@ -561,3 +561,64 @@ type obj = {
 type T1 = DeepPick<obj, 'name'>   // { name : 'hoge' }
 type T2 = DeepPick<obj, 'name' | 'friend.name'>  // { name : 'hoge' } & { friend: { name: 'fuga' }}
 type T3 = DeepPick<obj, 'name' | 'friend.name' |  'friend.family.name'>  // { name : 'hoge' } &  { friend: { name: 'fuga' }} & { friend: { family: { name: 'baz' }}}
+
+
+
+
+// 创建一个类型类似于 Pinia 库的类型级函数。您实际上不需要实现功能，只需添加类型即可。
+
+// 概述
+// 该函数只接收一个类型为对象的参数。该对象包含 4 个属性：
+
+// id - 只是一个字符串（必需）
+// state - 一个将对象作为商店状态返回的函数（必需）
+// getters - 一个对象，其方法类似于 Vue 的计算值或 Vuex 的 getter，详细信息如下（可选）
+// 动作 - 具有可以产生副作用和改变状态的方法的对象，详细信息如下（可选）
+// 吸气剂
+// 当您像这样定义商店时：
+
+const store = defineStore({
+  // ...other required fields
+  getters: {
+    getSomething() {
+      return 'xxx'
+    }
+  }
+})
+// 你应该像这样使用它：
+store.getSomething
+代替：
+store.getSomething() // 错误
+// 此外，getter 可以通过它访问 state 和/或其他 getter，但 state 是只读的。
+
+// 行动
+// 当您像这样定义商店时：
+
+const store = defineStore({
+  // ...other required fields
+  actions: {
+    doSideEffect() {
+      this.xxx = 'xxx'
+      return 'ok'
+    }
+  }
+})
+// 使用它只是调用它：
+
+const returnValue = store.doSideEffect()
+// 动作可以返回任何值或不返回任何值，它可以接收任意数量的不同类型的参数。参数类型和返回类型不能丢失，这意味着类型检查必须在调用端可用。
+
+// 可以通过它访问和改变状态。 Getter 可以通过它访问，但它们是只读的。
+
+
+// 答案
+
+declare function defineStore<S, G, A>(store: {
+  id: string;
+  state: () => S;
+  getters: G &
+    ThisType<
+      Readonly<S> & { [K in keyof G]: G[K] extends () => infer R ? R : never }
+    >;
+  actions: A & ThisType<S & A>;
+}): S & { [K in keyof G]: G[K] extends () => infer R ? R : never } & A;
