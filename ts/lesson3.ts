@@ -622,3 +622,37 @@ declare function defineStore<S, G, A>(store: {
     >;
   actions: A & ThisType<S & A>;
 }): S & { [K in keyof G]: G[K] extends () => infer R ? R : never } & A;
+
+
+// 实现 Camelize，将对象从 snake_case 转换为 camelCase
+
+// 答案
+type Transform<K extends string> = K extends `${infer A}_${infer B}`
+  ? `${Capitalize<A>}${Transform<B>}`
+  : Capitalize<K>;
+
+type CamelizeArr<T> = T extends [infer First, ...infer Rest]
+  ? [Camelize<First>, ...CamelizeArr<Rest>]
+  : [];
+
+type Camelize<T> = T extends object
+  ? {
+      [K in keyof T as K extends `${infer A}_${infer B}`
+        ? `${A}${Transform<B>}`
+        : K]: T[K] extends unknown[] ? CamelizeArr<T[K]> : Camelize<T[K]>;
+    }
+  : T;
+
+//  例如
+Camelize<{
+  some_prop: string, 
+  prop: { another_prop: string },
+  array: [{ snake_case: string }]
+}>
+
+// expected to be
+// {
+//   someProp: string, 
+//   prop: { anotherProp: string },
+//   array: [{ snakeCase: string }]
+// }
