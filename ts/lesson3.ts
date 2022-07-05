@@ -656,3 +656,16 @@ Camelize<{
 //   prop: { anotherProp: string },
 //   array: [{ snakeCase: string }]
 // }
+
+
+// 从字符串中删除指定的字符。
+
+// 答案 
+type DropString<S, R extends string> = R extends `${infer A}${infer B}`
+  ? S extends `${infer C}${A}${infer Rest}`
+    ? DropString<`${C}${DropString<Rest, A>}`, B>
+    : S
+  : S;
+
+// 例如：
+type Butterfly = DropString<'foobar!', 'fb'> // 'ooar!'
