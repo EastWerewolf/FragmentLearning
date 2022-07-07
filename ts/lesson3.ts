@@ -669,3 +669,14 @@ type DropString<S, R extends string> = R extends `${infer A}${infer B}`
 
 // 例如：
 type Butterfly = DropString<'foobar!', 'fb'> // 'ooar!'
+
+
+// 众所周知的split（）方法通过查找分隔符将字符串拆分为子字符串数组，并返回新数组。这个挑战的目标是通过使用分隔符拆分字符串，但在类型系统中！
+
+// 答案
+
+type Split<S extends string, SEP extends string,Res extends string[] = []> = string extends S ? string[] : S extends SEP ? Res : S extends `${infer First}${SEP}${infer Last}` ? Split<Last,SEP,[...Res,First]> : [...Res,S]
+
+
+// 例如：
+type result = Split<'Hi! How are you?', ' '>  // should be ['Hi!', 'How', 'are', 'you?']
