@@ -680,3 +680,20 @@ type Split<S extends string, SEP extends string,Res extends string[] = []> = str
 
 // 例如：
 type result = Split<'Hi! How are you?', ' '>  // should be ['Hi!', 'How', 'are', 'you?']
+
+
+// 实现泛型类公钥，它返回一个类的所有公钥。
+
+type ClassPublicKeys<T> = keyof T;
+
+// 例如：
+class A {
+  public str: string
+  protected num: number
+  private bool: boolean
+  getNum() {
+    return Math.random()
+  }
+}
+
+type publicKyes = ClassPublicKeys<A> // 'str' | 'getNum'
