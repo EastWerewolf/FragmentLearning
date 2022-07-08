@@ -697,3 +697,17 @@ class A {
 }
 
 type publicKyes = ClassPublicKeys<A> // 'str' | 'getNum'
+
+
+// 实现一个通用IsRequiredKey<T，K>，返回K是否是T的必需键。
+
+type IsRequiredKey<
+  TObject,
+  TKey extends keyof TObject,
+  TRequiredObject extends TObject = Required<TObject>
+> = TObject[TKey] extends TRequiredObject[TKey] ? true : false
+
+// 例如
+type A = IsRequiredKey<{ a: number, b?: string },'a'> // true
+type B = IsRequiredKey<{ a: number, b?: string },'b'> // false
+type C = IsRequiredKey<{ a: number, b?: string },'b' | 'a'> // false
