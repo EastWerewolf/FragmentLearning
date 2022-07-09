@@ -711,3 +711,24 @@ type IsRequiredKey<
 type A = IsRequiredKey<{ a: number, b?: string },'a'> // true
 type B = IsRequiredKey<{ a: number, b?: string },'b'> // false
 type C = IsRequiredKey<{ a: number, b?: string },'b' | 'a'> // false
+
+
+// 实现 Object.fromEntries 的类型版本
+
+// 答案
+
+type ObjectFromEntries<TEntries extends [string, unknown]> = {
+  [key in TEntries[0]]: TEntries extends [key, infer Value] ? Value : never;
+};
+
+// 例如：
+
+interface Model {
+  name: string;
+  age: number;
+  locations: string[] | null;
+}
+
+type ModelEntries = ['name', string] | ['age', number] | ['locations', string[] | null];
+
+type result = ObjectFromEntries<ModelEntries> // expected to be Model
