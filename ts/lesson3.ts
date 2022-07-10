@@ -732,3 +732,19 @@ interface Model {
 type ModelEntries = ['name', string] | ['age', number] | ['locations', string[] | null];
 
 type result = ObjectFromEntries<ModelEntries> // expected to be Model
+
+
+// 实现类型 IsPalindrome<T> 以检查字符串或数字是否为回文。
+
+
+type Reverse<TValue extends string> = TValue extends `${infer First}${infer Rest}`
+  ? `${Reverse<Rest>}${First}`
+  : TValue;
+
+type IsPalindrome<TValue extends string | number> = `${TValue}` extends Reverse<`${TValue}`>
+  ? true
+  : false;
+// 例如：
+
+IsPalindrome<'abc'> // false
+IsPalindrome<121> // true
