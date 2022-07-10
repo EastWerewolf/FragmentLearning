@@ -736,7 +736,7 @@ type result = ObjectFromEntries<ModelEntries> // expected to be Model
 
 // 实现类型 IsPalindrome<T> 以检查字符串或数字是否为回文。
 
-
+// 答案
 type Reverse<TValue extends string> = TValue extends `${infer First}${infer Rest}`
   ? `${Reverse<Rest>}${First}`
   : TValue;
@@ -748,3 +748,24 @@ type IsPalindrome<TValue extends string | number> = `${TValue}` extends Reverse<
 
 IsPalindrome<'abc'> // false
 IsPalindrome<121> // true
+
+
+// 实现高级实用程序类型 MutableKeys，它将所有可变（非只读）键选择到一个联合中。
+
+// 答案
+type MutableKeys<T> =
+  keyof {
+    [
+    K in keyof T as
+    MyEqual<{ [P in K]: T[P] }, { readonly [P in K]: T[P] }> extends true ? (
+      never
+    ) : K
+    ]: T[K]
+  }
+
+type MyEqual<A, B> = (<T>() => T extends A ? 1 : 0) extends (<T>() => T extends B ? 1 : 0) ? true : false
+
+// 例如：
+
+type Keys = MutableKeys<{ readonly foo: string; bar: number }>;
+// expected to be “bar”
