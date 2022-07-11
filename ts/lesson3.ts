@@ -769,3 +769,20 @@ type MyEqual<A, B> = (<T>() => T extends A ? 1 : 0) extends (<T>() => T extends 
 
 type Keys = MutableKeys<{ readonly foo: string; bar: number }>;
 // expected to be “bar”
+
+
+// 实现 Lodash.intersection 的类型版本，略有不同。 Intersection 接受一个包含多个数组或任何类型元素（包括联合类型）的 Array T，并返回一个包含所有交集元素的新联合。
+
+
+// 答案
+type Intersection<T> = T extends [infer First, ...infer Rest]
+  ? (First extends unknown[] ? First[number] : First) & Intersection<Rest>
+  : unknown;
+
+// 例如
+type Res = Intersection<[[1, 2], [2, 3], [2, 2]]>; // expected to be 2
+type Res1 = Intersection<[[1, 2, 3], [2, 3, 4], [2, 2, 3]]>; // expected to be 2 | 3
+type Res2 = Intersection<[[1, 2], [3, 4], [5, 6]]>; // expected to be never
+type Res3 = Intersection<[[1, 2, 3], [2, 3, 4], 3]>; // expected to be 3
+type Res4 = Intersection<[[1, 2, 3], 2 | 3 | 4, 2 | 3]>; // expected to be 2 | 3
+type Res5 = Intersection<[[1, 2, 3], 2, 3]>; // expected to be never
