@@ -786,3 +786,18 @@ type Res2 = Intersection<[[1, 2], [3, 4], [5, 6]]>; // expected to be never
 type Res3 = Intersection<[[1, 2, 3], [2, 3, 4], 3]>; // expected to be 3
 type Res4 = Intersection<[[1, 2, 3], 2 | 3 | 4, 2 | 3]>; // expected to be 2 | 3
 type Res5 = Intersection<[[1, 2, 3], 2, 3]>; // expected to be never
+
+
+// 实现 BinaryToDecimal<S>，它接受由 0 和 1 组成的精确字符串类型 S，并在 S 被视为二进制时返回与 S 对应的精确数字类型。 您可以假设 S 的长度等于或小于 8 并且 S 不为空。
+
+
+// 答案
+type BinaryToDecimal<S extends string, Count extends 1[] = []> =
+  S extends `${infer First extends '0' | '1'}${infer Rest}` ? (
+    BinaryToDecimal<Rest, [...(First extends '1' ? [1] : []),...Count, ...Count]>
+  ) : Count['length']
+
+
+// 例如，
+type Res1 = BinaryToDecimal<'10'>; // expected to be 2
+type Res2 = BinaryToDecimal<'0011'>; // expected to be 3
