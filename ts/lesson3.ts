@@ -801,3 +801,32 @@ type BinaryToDecimal<S extends string, Count extends 1[] = []> =
 // 例如，
 type Res1 = BinaryToDecimal<'10'>; // expected to be 2
 type Res2 = BinaryToDecimal<'0011'>; // expected to be 3
+
+
+// 获取所有可能被_调用的路径。获取（lodash函数）以获取对象的值
+
+// 答案
+type ObjectKeyPaths<T extends object, P extends string = never> =
+  P | {
+    [K in keyof T & (string | number)]:
+    T[K] extends object ? (
+      ObjectKeyPaths<T[K], AddPrefix<P, K>>
+     ) : AddPrefix<P, K>
+  }[keyof T & (string | number)]
+
+type AddPrefix<P extends string, Path extends  & string | number> =
+  [P] extends [never] ? (
+    `${Path}`
+  ) : Path extends number ? (
+    `${P}.${Path}` | `${P}[${Path}]` | `${P}.[${Path}]`
+  ) : `${P}.${Path}`
+
+// 例如
+type T1 = ObjectKeyPaths<{ name: string; age: number }>; // expected to be 'name' | 'age'
+type T2 = ObjectKeyPaths<{
+  refCount: number;
+  person: { name: string; age: number };
+}>; // expected to be 'refCount' | 'person' | 'person.name' | 'person.age'
+type T3 = ObjectKeyPaths<{ books: [{ name: string; price: number }] }>; // expected to be the superset of 'books' | 'books.0' | 'books[0]' | 'books.[0]' | 'books.0.name' | 'books.0.price' | 'books.length' | 'books.find'
+
+
