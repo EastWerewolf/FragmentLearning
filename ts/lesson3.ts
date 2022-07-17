@@ -830,3 +830,18 @@ type T2 = ObjectKeyPaths<{
 type T3 = ObjectKeyPaths<{ books: [{ name: string; price: number }] }>; // expected to be the superset of 'books' | 'books.0' | 'books[0]' | 'books.[0]' | 'books.0.name' | 'books.0.price' | 'books.length' | 'books.find'
 
 
+// 给定一个整数nums数组和一个整数目标，如果两个数字相加到目标，则返回true。
+
+type N2Array<N extends number, A extends any[] = []> = A['length'] extends N ? A : N2Array<N, [...A, 1]>
+
+type SubN<A extends number, B extends number> = 
+  N2Array<A> extends [...N2Array<B>, ...infer F]
+    ? F['length']
+    : never
+
+type TwoSum<T extends number[], U extends number, M extends number = -1> = 
+  T extends [infer F extends number, ...infer Rest  extends number[]]
+    ? F extends M
+      ? true
+      : TwoSum<Rest, U, M | SubN<U, F>>
+    : false
