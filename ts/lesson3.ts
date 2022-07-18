@@ -845,3 +845,70 @@ type TwoSum<T extends number[], U extends number, M extends number = -1> =
       ? true
       : TwoSum<Rest, U, M | SubN<U, F>>
     : false
+
+
+
+// 实现ValidDate类型，该类型接受输入类型T并返回T是否为有效日期。
+
+
+
+// 答案
+
+type ValidDate<T extends string> = T extends `${infer M1}${infer M2}${infer D1}${infer D2}${infer Rest}` ? Rest extends '' ?
+  `${M1}${M2}` extends keyof MonthDays ?
+    `${D1}${D2}` extends '00' ? false :
+      InRange<MonthDays[`${M1}${M2}`], `${D1}${D2}`>
+  : false
+: false : false;
+
+type MonthDays = {
+  '01': '31',
+  '02': '28',
+  '03': '31',
+  '04': '30',
+  '05': '31',
+  '06': '30',
+  '07': '31',
+  '08': '31',
+  '09': '30',
+  '10': '31',
+  '11': '30',
+  '12': '31',
+}
+
+type GreaterMap = {
+  '0': [],
+  '1': ['0'],
+  '2': ['1', '0'],
+  '3': ['2', '1', '0'],
+  '4': ['3', '2', '1', '0'],
+  '5': ['4', '3', '2', '1', '0'],
+  '6': ['5', '4', '3', '2', '1', '0'],
+  '7': ['6', '5', '4', '3', '2', '1', '0'],
+  '8': ['7', '6', '5', '4', '3', '2', '1', '0'],
+  '9': ['8', '7', '6', '5', '4', '3', '2', '1', '0'],
+}
+
+type Greater<A extends string, B extends string> = A extends keyof GreaterMap ? Contains<B, GreaterMap[A]> : never;
+type Contains<B extends string, ARR extends any[]> = ARR extends [infer Head, ...infer Rest] ?
+  Eq<B, Head> extends true ? true : Contains<B, Rest>
+: false;
+type GreaterOrEq<A extends string, B extends string> = Greater<A, B> extends true ? true : Eq<A, B>;
+type Eq<A extends any, B extends any> = A extends B ? B extends A ? true : false : false;
+
+type InRange<R extends string, T extends string> = R extends `${infer R1}${infer R2}` ?
+  T extends `${infer T1}${infer T2}` ?
+    Greater<R1, T1> extends true ? true : Eq<R1, T1> extends true ? GreaterOrEq<R2, T2> : false
+  : never
+: never;
+
+// 不考虑闰年
+
+// 例如
+ValidDate<'0102'> // true
+ValidDate<'0131'> // true
+ValidDate<'1231'> // true
+ValidDate<'0229'> // false
+ValidDate<'0100'> // false
+ValidDate<'0132'> // false
+ValidDate<'1301'> // false
