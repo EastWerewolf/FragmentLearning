@@ -912,3 +912,36 @@ ValidDate<'0229'> // false
 ValidDate<'0100'> // false
 ValidDate<'0132'> // false
 ValidDate<'1301'> // false
+
+
+
+// 您有一个目标对象和一个对象的源数组。您需要将属性从源复制到目标，如果它与源具有相同的属性，则应始终保留源属性，并删除目标属性。（受Object.assign API启发）
+
+
+// 答案
+type Copy<T> = {
+	[P in keyof T]: T[P]
+}
+
+type Assign<T extends Record<string, unknown>, U extends unknown[]> =
+U extends [infer F, ...infer Rest]
+? F extends Record<string, unknown> 
+	? Copy<Assign<Omit<T, keyof F> & F, Rest>>
+	: Copy<Assign<T, Rest>>
+: T
+
+// 例如
+
+type Target = {
+  a: 'a'
+}
+
+type Origin1 = {
+  b: 'b'
+}
+
+// type Result = Assign<Target, [Origin1]>
+type Result = {
+  a: 'a'
+  b: 'b'
+}
