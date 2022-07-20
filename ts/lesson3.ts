@@ -945,3 +945,19 @@ type Result = {
   a: 'a'
   b: 'b'
 }
+
+// 将对象的键大写，如果值是数组，则遍历数组中的对象。
+
+// 答案
+
+type CapitalizeArr<T,Res extends any[] = []> 
+= T extends [infer Start,...infer End] 
+? CapitalizeArr<End,[...Res,CapitalizeNestObjectKeys<Start> ]>
+: Res
+
+type CapitalizeNestObjectKeys<T>
+ = T extends any[] 
+? CapitalizeArr<T> 
+: {
+   [key in keyof T as Capitalize<key & string>]: CapitalizeNestObjectKeys<T[key]>
+ }
