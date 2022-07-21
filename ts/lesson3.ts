@@ -961,3 +961,21 @@ type CapitalizeNestObjectKeys<T>
 : {
    [key in keyof T as Capitalize<key & string>]: CapitalizeNestObjectKeys<T[key]>
  }
+
+
+//  实现泛型GetReadonlyKeys<T>，GetReadonlyKeys<T>返回由对象 T 所有只读属性的键组成的联合类型。
+
+// 答案
+type GetReadonlyKeys<T> = keyof {
+  [K in keyof T as Equal<T[K], Readonly<T[K]>> extends true ? K : never]: T[K]
+}
+
+// 例如
+
+interface Todo {
+  readonly title: string
+  readonly description: string
+  completed: boolean
+}
+
+type Keys = GetReadonlyKeys<Todo> // expected to be "title" | "description"
