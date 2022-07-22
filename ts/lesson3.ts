@@ -979,3 +979,51 @@ interface Todo {
 }
 
 type Keys = GetReadonlyKeys<Todo> // expected to be "title" | "description"
+
+
+
+// 您需要实现类型级解析器，将URL查询字符串解析为对象文字类型。
+
+
+
+// 一些详细要求：
+
+
+
+// 查询字符串中键的值可以忽略，但仍可以解析为true。例如，“key”没有值，因此解析器结果为{key:true}。
+
+// 重复的密钥必须合并为一个密钥。如果同一个键有不同的值，则必须将值合并为元组类型。
+
+// 当一个键只有一个值时，该值不能包装为元组类型。
+
+// 如果具有相同键的值出现多次，则必须将其视为一次。例如，键=值&键=值必须仅视为键=值。
+
+
+// 答案
+
+type Merge<A, B, AKey extends keyof A = keyof A, BKey extends keyof B = keyof B> = {
+  [K in AKey | BKey]: K extends AKey
+    ? K extends BKey
+      ? B[K] extends A[K]
+        ? B[K]
+        : [B[K], A[K]]
+      : A[K]
+    : K extends BKey
+      ? B[K]
+      : never
+}
+
+type ParseQueryStringItem<T extends string> = T extends `${infer K}=${infer V}`
+  ? { [k in K]: V }
+  : { [k in T]: true }
+
+type ParseQueryString<
+  T extends string,
+  Obj extends Record<string, any> = {}
+> = T extends ''
+  ? Obj
+  : T extends `${infer V}&${infer Rest}`
+    ? ParseQueryString<Rest, Merge<ParseQueryStringItem<V>, Obj>>
+    : ParseQueryString<'', Merge<ParseQueryStringItem<T>, Obj>>
+
+type Test = ParseQueryString<'k1=v1&k2=v2&k1=v2'>;
