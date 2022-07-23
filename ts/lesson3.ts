@@ -1027,3 +1027,115 @@ type ParseQueryString<
     : ParseQueryString<'', Merge<ParseQueryStringItem<T>, Obj>>
 
 type Test = ParseQueryString<'k1=v1&k2=v2&k1=v2'>;
+
+
+
+// 实现JavaScript数组。类型系统中的切片函数。Slice<Arr，Start，End>接受三个参数。从索引开始到结束，输出应该是Arr的子阵列。带负数的索引应从相反方向计数。
+
+// 答案 
+/* utils */
+
+type Get<T, K> = K extends keyof T ? T[K] : never;
+
+type IsNegative<T> = T extends `-${string}` ? true : false;
+
+type ToUnion<Arr> = Arr extends unknown[] ? Arr[number] : never;
+
+/* WithIndices */
+
+type Reverse<Arr> = Arr extends [infer First, ...infer Rest]
+  ? [...Reverse<Rest>, First]
+  : [];
+
+type Shift<Arr> = Arr extends [unknown, ...infer Rest] ? Rest : never;
+
+type Unshift<Arr, T = unknown> = Arr extends unknown[] ? [T, ...Arr] : never;
+
+type WithIndex<Arr> = {
+  [Key in keyof Arr]: {
+    index: Key;
+    value: Arr[Key];
+  };
+};
+
+type WithNegativeIndex<WithIndexArr> = {
+  [Key in keyof WithIndexArr]: {
+    indices:
+      | Get<WithIndexArr[Key], 'index'>
+      | `-${Key extends string ? Key : never}`;
+    value: Get<WithIndexArr[Key], 'value'>;
+  };
+};
+
+type WithIndices<Arr> = Reverse<
+  Shift<WithNegativeIndex<Unshift<Reverse<WithIndex<Arr>>>>>
+>;
+
+/* helpers */
+
+type PickIndices<WithIndicesArr> = {
+  [Key in keyof WithIndicesArr]: Get<WithIndicesArr[Key], 'indices'>;
+};
+
+type ExtractIndices<WithIndicesArr, Indices> = WithIndicesArr extends [
+  infer First,
+  ...infer Rest,
+]
+  ? Get<First, 'indices'> extends Indices
+    ? [Get<First, 'value'>, ...ExtractIndices<Rest, Indices>]
+    : ExtractIndices<Rest, Indices>
+  : [];
+
+/* main */
+
+type Slice<
+  Arr,
+  Start extends number = 0,
+  End extends number | string = '',
+> = InnerSlice<WithIndices<Arr>, `${Start}`, `${End}`>;
+
+type InnerSlice<
+  WithIndicesArr,
+  Start,
+  End,
+  IndicesArr = PickIndices<WithIndicesArr>,
+> = ExtractIndices<
+  WithIndicesArr,
+  TakeFrom<IndicesArr, Start> &
+    (End extends '' ? ToUnion<IndicesArr> : TakeTo<IndicesArr, End>)
+>;
+
+type TakeFrom<IndicesArr, From> = From extends ToUnion<IndicesArr>
+  ? InnerTakeFrom<IndicesArr, From>
+  : IsNegative<From> extends true
+  ? ToUnion<IndicesArr>
+  : never;
+
+type InnerTakeFrom<IndicesArr, From> = IndicesArr extends [
+  infer First,
+  ...infer Rest,
+]
+  ? From extends First
+    ? ToUnion<IndicesArr>
+    : TakeFrom<Rest, From>
+  : never;
+
+type TakeTo<IndicesArr, To> = To extends ToUnion<IndicesArr>
+  ? InnerTakeTo<IndicesArr, To>
+  : IsNegative<To> extends true
+  ? never
+  : ToUnion<IndicesArr>;
+
+type InnerTakeTo<IndicesArr, To> = IndicesArr extends [
+  ...infer Rest,
+  infer Last,
+]
+  ? To extends Last
+    ? ToUnion<Rest>
+    : TakeTo<Rest, To>
+  : never;
+
+// 例如
+
+type Arr = [1, 2, 3, 4, 5]
+type Result = Slice<Arr, 2, 4> // expected to be [3, 4]
