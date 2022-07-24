@@ -1139,3 +1139,46 @@ type InnerTakeTo<IndicesArr, To> = IndicesArr extends [
 
 type Arr = [1, 2, 3, 4, 5]
 type Result = Slice<Arr, 2, 4> // expected to be [3, 4]
+
+
+
+// 实现一个类型级整数比较器。我们提供了一个枚举来指示比较结果，如下所示：
+
+
+
+// 如果a大于b，则类型应为Comparison.greater。
+
+// 如果a和b相等，则类型应为Comparison.equal。
+
+// 如果a低于b，则类型应为Comparison.lower。
+
+// 注意，a和b可以是正整数、负整数或零，甚至一个是正的，而另一个是负的。
+
+enum Comparison {
+  Greater,
+  Equal,
+  Lower,
+}
+
+type Comparator_ToNumber<A extends string, T extends any[] = []> = `${T['length']}` extends `${A}` ? T['length'] : Comparator_ToNumber<A, [...T, 1]>
+type Comparator_ABS<A extends number> = `${A}` extends `-${infer U}` ? Comparator_ToNumber<U> : A
+// A 正 B 负
+// A 负 B 正
+// 比较两个正整数，数组从 0 开始，如果先匹配 A ，说明 B 大，先匹配 B，说明 A 大
+type Comparator_CORE<A extends number, B extends number, T extends any[] = []> =
+  T['length'] extends A
+    ? T['length'] extends B
+      ? Comparison.Equal
+      : Comparison.Lower
+    : T['length'] extends B
+      ? Comparison.Greater
+      : Comparator_CORE<A, B, [...T, 1]>
+
+type Comparator<A extends number, B extends number> =
+  A extends Comparator_ABS<A>
+    ? B extends Comparator_ABS<B>
+      ? Comparator_CORE<A, B> // A 正 B 正
+      : Comparison.Greater
+    : B extends Comparator_ABS<B>
+      ? Comparison.Lower
+      : Comparator_CORE<Comparator_ABS<B>, Comparator_ABS<A>> // A 负 B 负
