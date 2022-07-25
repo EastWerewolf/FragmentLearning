@@ -1235,3 +1235,93 @@ type CurriedType<Ret, Params, Current = []> = Params extends [
           [Last, ...(Current extends unknown[] ? Current : never)]
         >
   : never;
+
+
+  // 实现一个类型Sum<a，B>，将两个非负整数相加，并将总和作为字符串返回。数字可以指定为字符串、数字或bigint。
+
+// 答案
+/* utils */
+
+type Get<T, K> = K extends keyof T ? T[K] : never;
+
+type AsStr<T> = T extends string ? T : never;
+
+type Reverse<S> = S extends `${infer First}${infer Rest}`
+  ? `${Reverse<Rest>}${First}`
+  : '';
+
+type Head<S> = S extends `${infer First}${string}` ? First : never;
+type Tail<S> = S extends `${string}${infer Rest}` ? Rest : never;
+
+type Replace<S, C extends string> = S extends `${string}${infer Rest}`
+  ? `${C}${Replace<Rest, C>}`
+  : '';
+
+type Rotate<S> = `${Tail<S>}${Head<S>}`;
+
+type Zip<From, To> = From extends `${infer First}${infer Rest}`
+  ? Record<First, Head<To>> & Zip<Rest, Tail<To>>
+  : {};
+
+/* digits */
+
+type Digits = '0123456789';
+
+type Zero = Head<Digits>;
+type One = Head<Tail<Digits>>;
+
+/* helpers */
+
+type GenerateAdd<
+  To,
+  Current = Digits,
+> = Current extends `${infer First}${infer Rest}`
+  ? Record<First, Zip<Digits, To>> & GenerateAdd<Rotate<To>, Rest>
+  : {};
+type InnerAdd = GenerateAdd<Digits>;
+type Add<A, B> = AsStr<Get<Get<InnerAdd, A>, B>>;
+
+type GenerateCarry<
+  To,
+  Current = Digits,
+> = Current extends `${infer First}${infer Rest}`
+  ? Record<First, Zip<Digits, To>> & GenerateCarry<`${Tail<To>}${One}`, Rest>
+  : {};
+type CarryWithZero = GenerateCarry<Replace<Digits, Zero>>;
+type CarryWithOne = GenerateCarry<`${Tail<Replace<Digits, Zero>>}${One}`>;
+type Carry<A, B, C> = C extends Zero
+  ? AsStr<Get<Get<CarryWithZero, A>, B>>
+  : AsStr<Get<Get<CarryWithOne, A>, B>>;
+
+/* main */
+
+type Sum<
+  A extends string | number | bigint,
+  B extends string | number | bigint,
+> = Reverse<InnerSum<Reverse<`${A}`>, Reverse<`${B}`>>>;
+
+type InnerSum<
+  A extends string,
+  B extends string,
+  C extends string = Zero,
+> = A extends `${infer FirstA}${infer RestA}`
+  ? B extends `${infer FirstB}${infer RestB}`
+    ? `${Add<Add<FirstA, FirstB>, C>}${InnerSum<
+        RestA,
+        RestB,
+        Carry<FirstA, FirstB, C>
+      >}`
+    : InnerSum<A, C>
+  : B extends ''
+  ? C extends Zero
+    ? ''
+    : C
+  : InnerSum<B, C>;
+
+
+// 例如
+
+type T0 = Sum<2, 3> // '5'
+type T1 = Sum<'13', '21'> // '34'
+type T2 = Sum<'328', 7> // '335'
+type T3 = Sum<1_000_000_000_000n, '123'> // '1000000000123'
