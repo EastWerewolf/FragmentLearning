@@ -1182,3 +1182,56 @@ type Comparator<A extends number, B extends number> =
     : B extends Comparator_ABS<B>
       ? Comparison.Lower
       : Comparator_CORE<Comparator_ABS<B>, Comparator_ABS<A>> // A 负 B 负
+
+
+
+// curry是一种将具有多个参数的函数转换为一系列函数的技术，每个函数都具有一个参数。
+
+
+
+// 但在我们的日常生活中，currying动态参数也很常用，例如函数。绑定（this，[…params]）API。
+
+const func = (a: number, b: number, c: number) => {
+  return a + b + c
+}
+
+const bindFunc = func(null, 1, 2)
+
+const result = bindFunc(3) // result: 6
+
+// 因此，基于curry 1，我们需要动态参数版本：
+
+const add = (a: number, b: number, c: number) => a + b + c
+const three = add(1, 1, 1) 
+
+const curriedAdd = DynamicParamsCurrying(add)
+const six = curriedAdd(1, 2, 3)
+const seven = curriedAdd(1, 2)(4)
+const eight = curriedAdd(2)(3)(4)
+
+
+// 在这个挑战中，dynamicparamscrurrying可能需要一个具有零到多个参数的函数，您需要正确地键入它。返回的函数可以接受至少一个参数。当所有参数都满足时，它应该正确地生成原始函数的返回类型。
+
+//答案
+
+declare function DynamicParamsCurrying<Fn extends (...args: any) => any>(
+  fn: Fn,
+): CurriedType<ReturnType<Fn>, Parameters<Fn>>;
+
+type Func<Params, Ret> = (
+  ...params: Params extends unknown[] ? Params : never
+) => Ret;
+
+type CurriedType<Ret, Params, Current = []> = Params extends [
+  ...infer Rest,
+  infer Last,
+]
+  ? Rest extends []
+    ? Func<Params, Current extends [] ? Ret : CurriedType<Ret, Current>>
+    : Func<Params, Current extends [] ? Ret : CurriedType<Ret, Current>> &
+        CurriedType<
+          Ret,
+          Rest,
+          [Last, ...(Current extends unknown[] ? Current : never)]
+        >
+  : never;
