@@ -1325,3 +1325,155 @@ type T0 = Sum<2, 3> // '5'
 type T1 = Sum<'13', '21'> // '34'
 type T2 = Sum<'328', 7> // '335'
 type T3 = Sum<1_000_000_000_000n, '123'> // '1000000000123'
+
+
+
+// 这个挑战从476-Sum开始，建议您首先完成这个挑战，并在此基础上修改代码以开始这个挑战。
+
+
+
+// 实现一个乘法类型，将两个非负整数相乘，并将其乘积作为字符串返回。数字可以指定为string、number或bigint。
+
+
+// 答案
+/* utils */
+
+type Get<T, K> = K extends keyof T ? T[K] : never;
+
+type AsStr<T> = T extends string ? T : never;
+
+type Reverse<S> = S extends `${infer First}${infer Rest}`
+  ? `${Reverse<Rest>}${First}`
+  : '';
+
+type Head<S> = S extends `${infer First}${string}` ? First : never;
+type Tail<S> = S extends `${string}${infer Rest}` ? Rest : never;
+
+type Replace<S, C extends string> = S extends `${string}${infer Rest}`
+  ? `${C}${Replace<Rest, C>}`
+  : '';
+
+type Rotate<S> = `${Tail<S>}${Head<S>}`;
+
+type Zip<From, To> = From extends `${infer First}${infer Rest}`
+  ? Record<First, Head<To>> & Zip<Rest, Tail<To>>
+  : {};
+
+/* digits */
+
+type Digits = '0123456789';
+
+type Zero = Head<Digits>;
+type One = Head<Tail<Digits>>;
+
+/* helpers */
+
+type GenerateAdd<
+  To,
+  Current = Digits,
+> = Current extends `${infer First}${infer Rest}`
+  ? Record<First, Zip<Digits, To>> & GenerateAdd<Rotate<To>, Rest>
+  : {};
+type InnerAdd = GenerateAdd<Digits>;
+type Add<A, B> = AsStr<Get<Get<InnerAdd, A>, B>>;
+
+type GenerateCarry<
+  To,
+  Current = Digits,
+> = Current extends `${infer First}${infer Rest}`
+  ? Record<First, Zip<Digits, To>> & GenerateCarry<`${Tail<To>}${One}`, Rest>
+  : {};
+type CarryWithZero = GenerateCarry<Replace<Digits, Zero>>;
+type CarryWithOne = GenerateCarry<`${Tail<Replace<Digits, Zero>>}${One}`>;
+type Carry<A, B, C> = C extends Zero
+  ? AsStr<Get<Get<CarryWithZero, A>, B>>
+  : AsStr<Get<Get<CarryWithOne, A>, B>>;
+
+/* sum main */
+
+// type Sum<
+//   A extends string | number | bigint,
+//   B extends string | number | bigint,
+// > = Reverse<InnerSum<Reverse<`${A}`>, Reverse<`${B}`>>>;
+
+type InnerSum<
+  A extends string,
+  B extends string,
+  C extends string = Zero,
+> = A extends `${infer FirstA}${infer RestA}`
+  ? B extends `${infer FirstB}${infer RestB}`
+    ? `${Add<Add<FirstA, FirstB>, C>}${InnerSum<
+        RestA,
+        RestB,
+        Carry<FirstA, FirstB, C>
+      >}`
+    : InnerSum<A, C>
+  : B extends ''
+  ? C extends Zero
+    ? ''
+    : C
+  : InnerSum<B, C>;
+
+/* multiply utils */
+
+type ZipArr<From, ToArr> = ToArr extends [infer First, ...infer Rest]
+  ? Record<Head<From>, First> & ZipArr<Tail<From>, Rest>
+  : {};
+
+type ToArr<S> = S extends `${infer First}${infer Rest}`
+  ? [First, ...ToArr<Rest>]
+  : [];
+
+/* multiply helpers */
+
+type DigitArr = ToArr<Digits>;
+type AddDigitArr<Arr> = {
+  [Key in keyof Arr]: InnerSum<AsStr<Arr[Key]>, Get<DigitArr, Key>>;
+};
+
+type GenerateMulTable<
+  ToArr,
+  Current = Digits,
+> = Current extends `${infer First}${infer Rest}`
+  ? Record<First, ZipArr<Digits, ToArr>> &
+      GenerateMulTable<AddDigitArr<ToArr>, Rest>
+  : {};
+type InnerMulTable = GenerateMulTable<ToArr<Replace<Digits, Zero>>>;
+type MulTable<A, B> = AsStr<Get<Get<InnerMulTable, A>, B>>;
+
+type TrimEndZeros<S> = S extends `${infer T}0` ? TrimEndZeros<T> : S;
+
+/* main */
+
+type Multiply<
+  A extends string | number | bigint,
+  B extends string | number | bigint,
+> = Reverse<InnerMultiply<Reverse<`${A}`>, Reverse<`${B}`>>>;
+
+type InnerMultiply<
+  A extends string,
+  B extends string,
+> = A extends `${infer FirstA}${infer RestA}`
+  ? B extends `${infer FirstB}${infer RestB}`
+    ? InnerSum<
+        MulTable<FirstA, FirstB>,
+        InnerSum<
+          TrimEndZeros<`${Zero}${InnerMultiply<RestA, FirstB>}`>,
+          InnerSum<
+            TrimEndZeros<`${Zero}${InnerMultiply<RestB, FirstA>}`>,
+            TrimEndZeros<`${Zero}${Zero}${InnerMultiply<RestB, RestA>}`>
+          >
+        >
+      >
+    : ''
+  : '';
+
+
+// 例如
+
+type T0 = Multiply<2, 3> // '6'
+type T1 = Multiply<3, '5'> // '15'
+type T2 = Multiply<'4', 10> // '40'
+type T3 = Multiply<0, 16> // '0'
+type T4 = Multiply<'13', '21'> // '273'
+type T5 = Multiply<'43423', 321543n> // '13962361689'
