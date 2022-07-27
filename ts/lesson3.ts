@@ -1477,3 +1477,129 @@ type T2 = Multiply<'4', 10> // '40'
 type T3 = Multiply<0, 16> // '0'
 type T4 = Multiply<'13', '21'> // '273'
 type T5 = Multiply<'43423', 321543n> // '13962361689'
+
+
+
+// 尽管TypeScript中有结构类型系统，但有时用标记标记某些类型是很方便的，这样这些标记就不会干扰将这些类型的值分配给彼此的能力。
+
+
+
+// 答案
+type GetTags<B> =
+  Tagged extends keyof IfNeverOrAny<B, unknown> ? (
+    IfUndefined<B[Tagged], never> extends infer TagValue ? (
+      IfUndefined<TagValue[keyof TagValue & string], never>
+    ) : never
+  ) : []
+
+type Tag<B, T extends string> =
+  [IfNeverOrAny<B, unknown>] extends [null | undefined] ? (
+    B
+  ) : { readonly [Tag in Tagged]?: GetTagValue<[...GetTags<B>, T]> }
+  & { [K in keyof IfNeverOrAny<B, unknown> as K extends Tagged ? never : K]: B[K] } extends infer TaggedB ? (
+    { [K in keyof TaggedB]: TaggedB[K] }
+  ) : never
+
+type UnTag<B> =
+  Tagged extends keyof IfNeverOrAny<B, unknown> ? (
+    { [K in keyof B as K extends Tagged ? never : K]: B[K] }
+  ) : B
+
+type HasTag<B, T extends string> =
+  `\n${GetSerializedTags<B>}` extends `${string}\n${T}\n${string}` ? true : false
+
+type HasTags<B, T extends readonly string[]> =
+  `\n${GetSerializedTags<B>}` extends `${string}\n${SerializeTags<T>}${string}` ? true : false
+
+type HasExactTags<B, T extends readonly string[]> =
+  `${GetSerializedTags<B>}` extends `${SerializeTags<T>}` ? true : false
+
+declare const TaggedSymbol: unique symbol
+
+type Tagged = typeof TaggedSymbol
+type IfUndefined<T, Replacement> = T extends undefined ? Replacement : T
+type IfNeverOrAny<T, Replacement> = [T] extends [never] ? Replacement : 1 extends T & 0 ? Replacement : T
+
+type GetSerializedTags<B> =
+  Tagged extends keyof IfNeverOrAny<B, unknown> ? (
+    IfUndefined<B[Tagged], never> extends infer TagValue ? (
+      IfNeverOrAny<keyof TagValue & string, ''>
+    ) : never
+  ) : ''
+
+type SerializeTags<Tags extends readonly string[]> =
+  Tags extends [`${infer First}`, ...infer Rest extends string[]] ? (
+    `${First}\n${SerializeTags<Rest>}`
+  ) : ''
+
+type GetTagValue<NewTag extends string[]> =
+  { 1: 1 } & // we need this in order to assign to other Tagged object
+  { [K in SerializeTags<NewTag>]?: NewTag } extends infer TagValue ? (
+    { [K in keyof TagValue as K extends '' ? never : K]: TagValue[K] }
+  ) : never
+
+
+// 例如，使用标记，可以检查某些值是否按正确顺序通过所需函数的调用：
+
+const doA = <T extends string>(x: T) => {
+  const result = x
+
+  return result as Tag<typeof result, 'A'>
+}
+
+const doB = <T extends string>(x: T) => {
+  const result = x
+
+  return result as Tag<typeof result, 'B'>
+};
+
+const a = doA('foo')
+const b = doB(a)
+
+type Check0 = IsTrue<HasTags<typeof b, ['A', 'B']>>
+
+// 编写一个函数标记，它接受除null和未定义之外的类型B，并返回一个用字符串文字类型T标记的类型。
+
+
+
+
+// 标记的类型必须与相应的原始类型相互分配：
+
+declare let x: string
+declare let y: Tag<string, 'A'>
+
+x = y = x
+// 在标记已用标记标记的类型时，必须将新标记添加到该类型的所有标记列表的末尾：
+
+type T0 = Tag<{ foo: string }, 'A'>
+type T1 = Tag<T0, 'B'>
+
+type Check1 = IsTrue<HasExactTags<T1, ['A', 'B']>>
+// 添加一些函数以检查类型标记。
+
+// GetTags检索类型B的所有标记的列表：
+
+type T2 = Tag<number, 'C'>
+
+type Check2 = IsTrue<Equal<GetTags<T2>, ['C']>>
+// HasTag<B，T扩展字符串>检查类型B是否用标记T标记（并返回true或false）：
+
+type T3 = Tag<0 | 1, 'D'>
+
+type Check3 = IsTrue<HasTag<T3, 'D'>>
+// HasTags<B，T扩展只读字符串[]>检查类型B是否连续使用元组T中的标记进行标记：
+
+type T4 = Tag<Tag<Tag<{}, 'A'>, 'B'>, 'C'>
+
+type Check4 = IsTrue<HasTags<T4, ['B', 'C']>>
+// HasExactTags<B，T扩展只读字符串[]>检查类型B的所有标记的列表是否完全等于T元组：
+
+type T5 = Tag<Tag<unknown, 'A'>, 'B'>
+
+type Check5 = IsTrue<HasExactTags<T5, ['A', 'B']>>
+// 最后，添加类型UnTag，从类型B中删除所有标记：
+
+type T6 = Tag<{ bar: number }, 'A'>
+type T7 = UnTag<T6>
+
+type Check6 = IsFalse<HasTag<T7, 'A'>>
