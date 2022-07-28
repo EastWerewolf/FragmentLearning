@@ -1603,3 +1603,78 @@ type T6 = Tag<{ bar: number }, 'A'>
 type T7 = UnTag<T6>
 
 type Check6 = IsFalse<HasTag<T7, 'A'>>
+
+
+
+
+// 类型系统中的递归深度是TypeScript的限制之一，大约为45。
+
+
+
+// 我们需要更深入。我们可以更深入。
+
+
+
+// 在这个挑战中，您将获得一个较低的边界和一个较高的边界，通过该边界，一系列自然数被包括切片。您应该开发一种技术，使您能够进行比限制更深的递归，因为两个边界都在0到200之间变化。
+
+
+
+// 注意，当下限>上限时，输出一个空元组。
+
+// 从TypeScript 4.5开始，编译器对条件类型执行尾部递归消除，任务可以更容易地解决。大多数已发布的解决方案都依赖于问题发布后引入的此功能
+
+
+
+// 带尾部递归消除的解决方案-适用于TypeScript 4.5+
+
+type InclusiveRange<
+  Lower extends number,
+  Higher extends number,
+  Res extends number[] = [],
+  Padding extends 0[] = [],
+  Current extends number = [...Padding, ...Res]['length'] & number
+>
+  = Current extends Higher
+    ? Current extends Lower
+      ? [Current]
+      : Res extends []
+        ? []
+        : [...Res, Current]
+    : Current extends Lower
+      ? InclusiveRange<Lower, Higher, [Current], Padding>
+      : Res extends []
+        ? InclusiveRange<Lower, Higher, [], [...Padding, 0]>
+        : InclusiveRange<Lower, Higher,  [...Res, Current], Padding>
+        
+// 无尾部递归消除的解决方案-适用于TypeScript v4.4.4
+
+type InclusiveRange<
+  Lower extends number,
+  Higher extends number,
+  All extends number[] = [],
+  Res extends number[] = [],
+  Next extends number[] = GetNext6<All>,
+  End extends number[] = LeftOf<Next, Higher>
+>
+  = End extends []
+    ? Res extends []
+      ? InclusiveRange<Lower, Higher, [...All, ...Next], RightOf<Next, Lower>>
+      : InclusiveRange<Lower, Higher, [...All, ...Next], [...Res, ...Next]>
+    : Res extends []
+      ? RightOf<End, Lower>
+      : [...Res, ...End]
+
+// <[1, 2, 3, 4, 5], 3> -> [1, 2, 3]; <[1, 2, 3], 0> -> []; <[1, 2, 3], 5> -> []
+type LeftOf<A, N> = A extends [...infer L, infer R] ? N extends R ? A : LeftOf<L, N> : []
+// <[1, 2, 3, 4, 5], 3> -> [3, 4, 5]; <[1, 2, 3], 0> -> []; <[1, 2, 3], 5> -> []
+type RightOf<A, N> = A extends [infer L, ...infer R] ? N extends L ? A : RightOf<R, N> : []
+
+// <[0, 1, 2, 3, 4, 5]> -> [6, 7, 8, 9, 10, 11]
+type GetNext6<A extends number[]> = [
+  [...A]['length'] & number,
+  [...A, 0]['length'] & number,
+  [...A, 0, 0]['length'] & number,
+  [...A, 0, 0, 0]['length'] & number,
+  [...A, 0, 0, 0, 0]['length'] & number,
+  [...A, 0, 0, 0, 0, 0]['length'] & number,
+];
