@@ -1678,3 +1678,118 @@ type GetNext6<A extends number[]> = [
   [...A, 0, 0, 0, 0]['length'] & number,
   [...A, 0, 0, 0, 0, 0]['length'] & number,
 ];
+
+
+
+
+// 在这个挑战中，您需要按升序或降序对自然数数组进行排序。
+
+// 升序示例：
+
+Sort<[]> // []
+Sort<[1]> // [1]
+Sort<[2, 4, 7, 6, 6, 6, 5, 8, 9]> //  [2, 4, 5, 6, 6, 6, 7, 8, 9]
+// 排序类型也应该接受布尔类型。 如果为真，则排序结果应按下降顺序排列。 一些例子：
+
+Sort<[3, 2, 1], true> // [3, 2, 1]
+Sort<[3, 2, 0, 1, 0, 0, 0], true> // [3, 2, 1, 0, 0, 0, 0]
+// 额外挑战：
+
+// 支持 15 位以上的自然数。
+// 支持浮点数。
+
+
+/*
+  FirstPass<[3, 2, 1]>
+  SecondPass<[3, 2, 1]>
+  [2, SecondPass<[3, 1]>]
+  [2, 1, SecondPass<[3]>]
+  [FirstPass<[2, 1]>, 3]
+  [SecondPass<[2, 1]>, 3]
+  [[1, SecondPass<[2]>], 3]
+  [1, 2, 3]
+*/
+type Sort<T extends number[], Reversed extends boolean = false> =
+  FirstPass<T, Reversed>
+
+type FirstPass<T extends number[], Reversed extends boolean = false> =
+  SecondPass<T, Reversed> extends [...infer Rest extends number[], infer Last extends number] ? (
+    [...FirstPass<Rest, Reversed>, Last]
+  ) : T
+
+type SecondPass<T extends number[], Reversed extends boolean = false> =
+  T extends [infer First extends number, infer Second extends number, ...infer Rest extends number[]] ? (
+    CompareNumbers<First, Second> extends (Reversed extends true ? Comparison.Lower : Comparison.Greater) ? (
+      [Second, ...SecondPass<[First, ...Rest], Reversed>]
+    ) : [First, ...SecondPass<[Second, ...Rest], Reversed>]
+  ) : T
+
+enum Comparison { Greater, Equal, Lower }
+
+// type CompareNumbers<A extends number, B extends number, Count extends 1[] = []> =
+//   A extends B ? (
+//     Comparison.Equal       // A = B
+//   ) : (
+//     Count['length'] extends B ? (
+//       Comparison.Greater   // A > B
+//     ) : Count['length'] extends A ? (
+//       Comparison.Lower     // A < B
+//     ) : CompareNumbers<A, B, [...Count, 1]>
+//  )
+
+// Try solve it w/o recursive counting 1 by 1
+type CompareNumbers<A extends number, B extends number> =
+  `${A}${B}` extends `-${infer NegA}-${infer NegB}` ? (
+    ComparePositiveNumbers<NegB, NegA>        // both negative
+  ) : `${A}` extends `-${string}` ? (
+    Comparison.Lower                          // A is negative
+  ) : `${B}` extends `-${string}` ? (
+    Comparison.Greater                        // B is negative
+  ) : ComparePositiveNumbers<`${A}`, `${B}`>  // both positive
+
+type ComparePositiveNumbers<A extends string, B extends string> =
+  [...SplitFraction<A>, ...SplitFraction<B>] extends [`${infer WholeA}`, `${infer FractionA}`, `${infer WholeB}`, `${infer FractionB}`] ? (
+    WholeA extends WholeB ? (
+      Comparison.Equal                        // A = B
+    ) : CompareByLength<WholeA, WholeB> extends infer Result & (Comparison.Lower | Comparison.Greater) ? (
+      Result                                  // A or B has more digits
+    ) : CompareByDigits<WholeA, WholeB> extends infer Result & (Comparison.Lower | Comparison.Greater) ? (
+      Result                                  // Whole numbers are difference
+    ) : CompareFractionDigits<FractionA, FractionB>
+  ) : never
+
+type SplitFraction<N extends string> = N extends `${infer Whole}.${infer Fraction}` ? [Whole, Fraction] : [N, '']
+
+type CompareByLength<A extends string, B extends string> =
+  `${A}|${B}` extends `${string}${infer RestA}|${string}${infer RestB}` ? (
+    CompareByLength<RestA, RestB>
+  ) : `${A}${B}` extends '' ? (
+    Comparison.Equal      // A & B same number of digits
+  ) : A extends '' ? (
+    Comparison.Lower      // A has less digits
+  ) : Comparison.Greater  // B has less digits
+
+type CompareByDigits<A extends string, B extends string> =
+  `${A}|${B}` extends `${infer DigitA}${infer TailingA}|${infer DigitB}${infer TailingB}` ? (
+    CompareDigits<DigitA, DigitB> extends infer Result & (Comparison.Lower | Comparison.Greater) ? (
+      Result              // When A > B or B > A
+    ) : CompareByDigits<TailingA, TailingB>
+  ) : Comparison.Equal    // Assumed same length, only when A & B are ''
+
+type CompareFractionDigits<A extends string, B extends string> =
+  A extends B ? (
+    Comparison.Equal      // A = B
+  ) : `${A}|${B}` extends `${infer DigitA}${infer TailingA}|${infer DigitB}${infer TailingB}` ? (
+    CompareDigits<DigitA, DigitB> extends infer Result & (Comparison.Lower | Comparison.Greater) ? (
+      Result              // A > B or B > A
+    ) : CompareFractionDigits<TailingA, TailingB>   // check next digit on right
+  ) : A extends '' ? (
+    Comparison.Lower       // A has less digits
+  ) : Comparison.Greater   // B has less digits
+
+type CompareDigits<A extends string, B extends string> =
+  A extends B ? (
+    Comparison.Equal      // A = B
+  ) : '9876543210' extends `${string}${A}${string}${B}${string}` ? (
+    Comparison.Greater    // A > B
+  ) : Comparison.Lower    // B > A
