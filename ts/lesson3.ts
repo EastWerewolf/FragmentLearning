@@ -1793,3 +1793,54 @@ type CompareDigits<A extends string, B extends string> =
   ) : '9876543210' extends `${string}${A}${string}${B}${string}` ? (
     Comparison.Greater    // A > B
   ) : Comparison.Lower    // B > A
+
+
+
+
+
+//   实现一个分布式联合类型，它将包含联合类型的数据结构类型转换为不包含任何联合的所有可能类型的允许数据结构的联合。数据结构可以是任何嵌套级别的对象和元组的任意组合。
+
+// 答案
+
+type DistributeUnions<T>
+  = T extends unknown[] ? DistributeArray<T>
+  : T extends object ? Merge<DistributeObject<T>>
+  : T
+
+type DistributeArray<A extends unknown[]>
+  = A extends [infer H, ...infer T]
+  ? ArrHelper<DistributeUnions<H>, T>
+  : []
+type ArrHelper<H, T extends unknown[]> = H extends H ? [H, ...DistributeArray<T>] : never
+
+type DistributeObject<O extends object, K extends keyof O = keyof O>
+  = [K] extends [never] ? {}
+  : K extends K ? ObjHelper<K, DistributeUnions<O[K]>> & DistributeObject<Omit<O, K>>
+  : never
+type ObjHelper<K, V> = V extends V ? { [k in K & string]: V } : never
+
+type Merge<O> = { [K in keyof O]: O[K] }
+
+// 例如：
+
+type T1 = DistributeUnions<[1 | 2, 'a' | 'b']>
+// =>   [1, 'a'] | [2, 'a'] | [1, 'b'] | [2, 'b']
+
+type T2 = DistributeUnions<{ type: 'a', value: number | string } | { type: 'b', value: boolean }>
+//  =>  | { type 'a', value: number }
+//      | { type 'a', value: string }
+//      | { type 'b', value: boolean }
+
+type T3 = DistributeUnions<[{ value: 'a' | 'b' },  { x: { y: 2 | 3  } }] | 17>
+//  =>  | [{ value: 'a' },  { x: { y: 2  } }]
+//      | [{ value: 'a' },  { x: { y: 3  } }]
+//      | [{ value: 'b' },  { x: { y: 2  } }]
+//      | [{ value: 'b' },  { x: { y: 3  } }]
+// 对于上下文，如果您想排除深度数据结构的案例，这种类型可能非常有用：
+
+type ExcludeDeep<A, B> = Exclude<DistributeUnions<A>, B>
+
+type T0 = ExcludeDeep<[{ value: 'a' | 'b' },  { x: { y: 2 | 3  } }] | 17, [{ value: 'a' },  any]>
+//  =>  | [{ value: 'b' },  { x: { y: 2  } }]
+//      | [{ value: 'b' },  { x: { y: 3  } }]
+//      | 17
