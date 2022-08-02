@@ -2158,3 +2158,21 @@ type ParseObjectResult<T extends Token[], Result extends object = {}, Expected e
       ) : never
     ) : never
   ) : never
+
+
+
+//   使用 BuildTuple 在 Javascript 中实现类型减法。
+
+// 如果被减数小于减数，则永远不会。
+
+// 这是一个简单的版本。
+
+// 答案
+type Arr<X extends number, A extends unknown[]> = A['length'] extends X ? A : Arr<X, [A['length'], ...A]>
+
+type Subtract<M extends number, S extends number> = Exclude<[never, ...Arr<M, []>][S], undefined>
+
+// 例如
+
+Subtract<2, 1> // expect to be 1
+Subtract<1, 2> // expect to be never
