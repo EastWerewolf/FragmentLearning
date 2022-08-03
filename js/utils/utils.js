@@ -1112,3 +1112,24 @@ const other = new URL('https://developer.mozilla.org);
 isSameOrigin(origin, other); // false
 
 
+/**
+ * 各种类型的文件限制
+ * @param limitType 文件类型
+ * @param limitSize 文件大小
+ * @returns
+ */
+ export const beforeUploadCreate = (limitType:string[],limitSize:number = 1024 * 1024 * 50) => {
+    return (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }): Promise<boolean> => {
+      const { type, file } = data.file;
+      if (!limitType.includes(type as string)) {
+        win?.$message.error('文件类型不符合要求');
+        return Promise.resolve(false);
+      }
+      if (file && limitSize < file.size) {
+        win?.$message.error('最大上传50M');
+        // eslint-disable-next-line prefer-promise-reject-errors
+        return Promise.reject(false);
+      }
+      return Promise.resolve(true);
+    };
+  }
