@@ -1133,3 +1133,15 @@ isSameOrigin(origin, other); // false
       return Promise.resolve(true);
     };
   }
+
+
+
+  /**
+ * 字符串下划线转驼峰
+ * @param value
+ * @returns
+ */
+export const formatToHump = (value:string) => {
+    return value.replace(/\_(\w)/g,(_,letter)=>letter.toUpperCase())
+  }
+  
