@@ -1145,3 +1145,11 @@ export const formatToHump = (value:string) => {
     return value.replace(/\_(\w)/g,(_,letter)=>letter.toUpperCase())
   }
   
+  /**
+ * 字符串驼峰转下划线
+ * @param value
+ * @returns
+ */
+export const formatToLine = (value:string) =>{
+    return value.replace(/([A-Z])/g,'_$1').toLowerCase()
+  }
