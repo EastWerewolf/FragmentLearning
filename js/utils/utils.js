@@ -1152,4 +1152,21 @@ export const formatToHump = (value:string) => {
  */
 export const formatToLine = (value:string) =>{
     return value.replace(/([A-Z])/g,'_$1').toLowerCase()
-  }
+}
+
+  /**
+ * 保留 count 位小数
+ * @param value 
+ * @param obj 
+ * @param key 
+ * @param count 
+ */
+export const handleFloatCount = (value: number | null,obj:any,key:string,count:number = 2) => {
+    const x = String(value).indexOf(".") + 1;
+    const y = String(value).length - x;
+    if (y > count && x > 0) {
+      obj[key] = Number(value)?.toFixed(count);
+    } else {
+      obj[key] = value;
+    }
+  };
