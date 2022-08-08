@@ -1204,3 +1204,25 @@ export const handleFloatCount = (value: number | null,obj:any,key:string,count:n
    */
 
   const generateRandomHexColor = () => `#${Math.floor(Math.random() * 0xffffff).toString(16)}`
+
+/**
+ * 检测元素是否在屏幕中
+ * @param {*} entries 
+ */
+  const callback = (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // `entry.target` is the dom element
+        console.log(`${entry.target.id} is visible`);
+      }
+    });
+  };
+  
+  const options = {
+    threshold: 1.0,
+  };
+  const observer = new IntersectionObserver(callback, options);
+  const btn = document.getElementById("btn");
+  const bottomBtn = document.getElementById("bottom-btn");
+  observer.observe(btn);
+  observer.observe(bottomBtn);
