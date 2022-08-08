@@ -1197,3 +1197,10 @@ export const handleFloatCount = (value: number | null,obj:any,key:string,count:n
     }
     return fmt;
   };
+
+  /**
+   * 生成随机色
+   * @returns 
+   */
+
+  const generateRandomHexColor = () => `#${Math.floor(Math.random() * 0xffffff).toString(16)}`
