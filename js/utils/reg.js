@@ -33,3 +33,23 @@ const name = getQueryByName('name')
 const age = getQueryByName('age')
 
 console.log(name, age) // fatfish, 100
+
+
+// 驼峰字符串
+
+// JS 变量最佳是驼峰风格的写法，怎样将类似以下的其它声明风格写法转化为驼峰写法？
+// 1. foo Bar => fooBar
+// 2. foo-bar---- => fooBar
+// 3. foo_bar__ => fooBar
+// 复制代码
+// 正则表达式分分钟教做人：
+const camelCase = (string) => {
+  const camelCaseRegex = /[-_\s]+(.)?/g
+  return string.replace(camelCaseRegex, (match, char) => {
+    return char ? char.toUpperCase() : ''
+  })
+}
+
+console.log(camelCase('foo Bar')) // fooBar
+console.log(camelCase('foo-bar--')) // fooBar
+console.log(camelCase('foo_bar__')) // fooBar
