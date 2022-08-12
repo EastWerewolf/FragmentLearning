@@ -65,3 +65,19 @@ const capitalize = (string) => {
 
 console.log(capitalize('hello world')) // Hello World
 console.log(capitalize('hello WORLD')) // Hello World
+
+
+// 实现 trim()
+// trim() 方法用于删除字符串的头尾空白符，用正则可以模拟实现 trim：
+const trim1 = (str) => {
+  return str.replace(/^\s*|\s*$/g, '') // 或者 str.replace(/^\s*(.*?)\s*$/g, '$1')
+}
+
+const string = '   hello medium   '
+const noSpaceString = 'hello medium'
+const trimString = trim1(string)
+
+console.log(string)
+console.log(trimString, trimString === noSpaceString) // hello medium true
+console.log(string)
+
