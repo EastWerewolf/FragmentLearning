@@ -53,3 +53,15 @@ const camelCase = (string) => {
 console.log(camelCase('foo Bar')) // fooBar
 console.log(camelCase('foo-bar--')) // fooBar
 console.log(camelCase('foo_bar__')) // fooBar
+
+
+
+// 小写转大写
+// 这个需求常见，无需多言，用就完事儿啦：
+const capitalize = (string) => {
+  const capitalizeRegex = /(?:^|\s+)\w/g
+  return string.toLowerCase().replace(capitalizeRegex, (match) => match.toUpperCase())
+}
+
+console.log(capitalize('hello world')) // Hello World
+console.log(capitalize('hello WORLD')) // Hello World
