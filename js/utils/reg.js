@@ -81,3 +81,32 @@ console.log(string)
 console.log(trimString, trimString === noSpaceString) // hello medium true
 console.log(string)
 
+
+// HTML 转义
+// 防止 XSS 攻击的方法之一是进行 HTML 转义，符号对应的转义字符：
+// 正则处理如下：
+const escape = (string) => {
+  const escapeMaps = {
+    '&': 'amp',
+    '<': 'lt',
+    '>': 'gt',
+    '"': 'quot',
+    "'": '#39'
+  }
+  // The effect here is the same as that of /[&amp;<> "']/g
+  const escapeRegexp = new RegExp(`[${Object.keys(escapeMaps).join('')}]`, 'g')
+  return string.replace(escapeRegexp, (match) => `&${escapeMaps[match]};`)
+}
+
+console.log(escape(`
+  <div>
+    <p>hello world</p>
+  </div>
+`))
+/*
+&lt;div&gt;
+  &lt;p&gt;hello world&lt;/p&gt;
+&lt;/div&gt;
+*/
+
+
