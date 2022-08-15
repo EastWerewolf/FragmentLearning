@@ -110,3 +110,31 @@ console.log(escape(`
 */
 
 
+// HTML 反转义
+// 有了正向的转义，就有反向的逆转义，操作如下：
+const unescape = (string) => {
+  const unescapeMaps = {
+    'amp': '&',
+    'lt': '<',
+    'gt': '>',
+    'quot': '"',
+    '#39': "'"
+  }
+  const unescapeRegexp = /&([^;]+);/g
+  return string.replace(unescapeRegexp, (match, unescapeKey) => {
+    return unescapeMaps[ unescapeKey ] || match
+  })
+}
+
+console.log(unescape(`
+  &lt;div&gt;
+    &lt;p&gt;hello world&lt;/p&gt;
+  &lt;/div&gt;
+`))
+/*
+<div>
+  <p>hello world</p>
+</div>
+*/
+
+
