@@ -138,3 +138,14 @@ console.log(unescape(`
 */
 
 
+// 校验 24 小时制
+// 处理时间，经常要用到正则，比如常见的：校验时间格式是否是合法的 24 小时制：
+const check24TimeRegexp = /^(?:(?:0?|1)\d|2[0-3]):(?:0?|[1-5])\d$/
+console.log(check24TimeRegexp.test('01:14')) // true
+console.log(check24TimeRegexp.test('23:59')) // true
+console.log(check24TimeRegexp.test('23:60')) // false
+console.log(check24TimeRegexp.test('1:14')) // true
+console.log(check24TimeRegexp.test('1:1')) // true
+
+
+
