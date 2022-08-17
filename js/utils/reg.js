@@ -145,7 +145,7 @@ console.log(check24TimeRegexp.test('01:14')) // true
 console.log(check24TimeRegexp.test('23:59')) // true
 console.log(check24TimeRegexp.test('23:60')) // false
 console.log(check24TimeRegexp.test('1:14')) // true
-console.log(check24TimeRegexp.test('1:1')) // true
+// console.log(check24TimeRegexp.test('1:1')) // true
 
 
 
