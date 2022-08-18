@@ -148,4 +148,15 @@ console.log(check24TimeRegexp.test('1:14')) // true
 // console.log(check24TimeRegexp.test('1:1')) // true
 
 
+// 校验日期格式
+// 常见的日期格式有：yyyy-mm-dd, yyyy.mm.dd, yyyy/mm/dd 这 3 种，如果有符号乱用的情况，比如2021.08/22，这样就不是合法的日期格式，我们可以通过正则来校验判断：
+const checkDateRegexp = /^\d{4}([-\.\/])(?:0[1-9]|1[0-2])\1(?:0[1-9]|[12]\d|3[01])$/
+
+console.log(checkDateRegexp.test('2021-08-22')) // true
+console.log(checkDateRegexp.test('2021/08/22')) // true
+console.log(checkDateRegexp.test('2021.08.22')) // true
+console.log(checkDateRegexp.test('2021.08/22')) // false
+console.log(checkDateRegexp.test('2021/08-22')) // false
+
+
 
