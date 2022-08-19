@@ -159,4 +159,14 @@ console.log(checkDateRegexp.test('2021.08/22')) // false
 console.log(checkDateRegexp.test('2021/08-22')) // false
 
 
+// 匹配颜色值
+// 在字符串内匹配出 16 进制的颜色值：
+const matchColorRegex = /#(?:[\da-fA-F]{6}|[\da-fA-F]{3})/g
+const colorString = '#12f3a1 #ffBabd #FFF #123 #586'
+
+console.log(colorString.match(matchColorRegex))
+// [ '#12f3a1', '#ffBabd', '#FFF', '#123', '#586' ]
+
+
+
 
