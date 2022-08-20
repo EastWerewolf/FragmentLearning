@@ -168,5 +168,12 @@ console.log(colorString.match(matchColorRegex))
 // [ '#12f3a1', '#ffBabd', '#FFF', '#123', '#586' ]
 
 
+// 判断 HTTPS/HTTP
+// 这个需求也是很常见的，判断请求协议是否是 HTTPS/HTTP
+const checkProtocol = /^https?:/
+
+console.log(checkProtocol.test('https://medium.com/')) // true
+console.log(checkProtocol.test('http://medium.com/')) // true
+console.log(checkProtocol.test('//medium.com/')) // false
 
 
