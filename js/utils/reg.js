@@ -177,3 +177,11 @@ console.log(checkProtocol.test('http://medium.com/')) // true
 console.log(checkProtocol.test('//medium.com/')) // false
 
 
+// 校验版本号
+// 版本号必须采用 x.y.z 格式，其中 XYZ 至少为一位，我们可以用正则来校验：
+// x.y.z
+const versionRegexp = /^(?:\d+\.){2}\d+$/
+
+console.log(versionRegexp.test('1.1.1'))
+console.log(versionRegexp.test('1.000.1'))
+console.log(versionRegexp.test('1.000.1.1'))
