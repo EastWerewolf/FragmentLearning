@@ -185,3 +185,19 @@ const versionRegexp = /^(?:\d+\.){2}\d+$/
 console.log(versionRegexp.test('1.1.1'))
 console.log(versionRegexp.test('1.000.1'))
 console.log(versionRegexp.test('1.000.1.1'))
+
+
+// 获取网页 img 地址
+// 这个需求可能爬虫用的比较多，用正则获取当前网页所有图片的地址。在控制台打印试试，太好用了~~
+const matchImgs = (sHtml) => {
+  const imgUrlRegex = /<img[^>]+src="((?:https?:)?\/\/[^"]+)"[^>]*?>/gi
+  let matchImgUrls = []
+  
+  sHtml.replace(imgUrlRegex, (match, $1) => {
+    $1 && matchImgUrls.push($1)
+  })
+  return matchImgUrls
+}
+
+console.log(matchImgs(document.body.innerHTML))
+
