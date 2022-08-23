@@ -201,3 +201,13 @@ const matchImgs = (sHtml) => {
 
 console.log(matchImgs(document.body.innerHTML))
 
+
+
+// 格式化电话号码
+// 这个需求也是常见的一匹，用就完事了：
+let mobile = '18379836654' 
+let mobileReg = /(?=(\d{4})+$)/g 
+
+console.log(mobile.replace(mobileReg, '-')) // 183-7983-6654
+
+
