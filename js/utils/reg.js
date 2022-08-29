@@ -211,3 +211,11 @@ let mobileReg = /(?=(\d{4})+$)/g
 console.log(mobile.replace(mobileReg, '-')) // 183-7983-6654
 
 
+
+// 测试正则表达式
+// 使用该.test()方法
+let testString = "My test string";
+let testRegex = /string/;
+testRegex.test(testString);
+
+
