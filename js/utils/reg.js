@@ -218,4 +218,8 @@ let testString = "My test string";
 let testRegex = /string/;
 testRegex.test(testString);
 
+// 测试多项匹配
+// 使用OR运算符（|）
+const regex = /yes|no|maybe/;
+
 
