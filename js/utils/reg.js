@@ -231,3 +231,8 @@ const caseInsensitiveRegex = /ignore case/i;
 const testString = 'We use the i flag to iGnOrE CasE';
 caseInsensitiveRegex.test(testString); // true
 
+
+// 将第一个匹配提取到变量
+// 使用该.match()功能
+const match = "Hello World!".match(/hello/i); // "Hello"
+
