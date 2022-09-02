@@ -236,3 +236,12 @@ caseInsensitiveRegex.test(testString); // true
 // 使用该.match()功能
 const match = "Hello World!".match(/hello/i); // "Hello"
 
+
+// 提取数组中的所有匹配项
+
+// 使用g标志
+
+const testString = "Repeat repeat rePeAT";
+const regexWithAllMatches = /Repeat/gi;
+testString.match(regexWithAllMatches); // ["Repeat", "repeat", "rePeAT"]
+
