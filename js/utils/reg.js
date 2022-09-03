@@ -245,3 +245,14 @@ const testString = "Repeat repeat rePeAT";
 const regexWithAllMatches = /Repeat/gi;
 testString.match(regexWithAllMatches); // ["Repeat", "repeat", "rePeAT"]
 
+
+
+// 匹配任何字符
+
+// 使用通配符.作为任何字符的占位符
+
+// To match "cat", "BAT", "fAT", "mat"
+const regexWithWildcard = /.at/gi;
+const testString = "cat BAT cupcake fAT mat dog";
+const allMatchingWords = testString.match(regexWithWildcard); // ["cat", "BAT", "fAT", "mat"]
+
