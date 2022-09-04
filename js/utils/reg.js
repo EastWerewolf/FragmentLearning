@@ -256,3 +256,14 @@ const regexWithWildcard = /.at/gi;
 const testString = "cat BAT cupcake fAT mat dog";
 const allMatchingWords = testString.match(regexWithWildcard); // ["cat", "BAT", "fAT", "mat"]
 
+
+// 匹配具有多种可能性的单个字符
+
+// 使用字符类，您可以使用它来定义要匹配的一组字符
+// 你把它们放在方括号内 []
+
+// Match "cat" "fat" and "mat" but not "bat"
+const regexWithCharClass = /[cfm]at/g;
+const testString = "cat fat bat mat";
+const allMatchingWords = testString.match(regexWithCharClass); // ["cat", "fat", "mat"]
+
