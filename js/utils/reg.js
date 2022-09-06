@@ -290,3 +290,11 @@ const regexWithLetterAndNumberRange = /[a-z0-9]/ig;
 const testString = "Emma19382";
 testString.match(regexWithLetterAndNumberRange) // true
 
+
+// 匹配单个未知字符
+
+// 要匹配你不希望有的字符集，使用否定的字符集.
+// 要排除字符集，请使用插入符号 ^
+
+const allCharsNotVowels = /[^aeiou]/gi;
+const allCharsNotVowelsOrNumbers = /[^aeiou0-9]/gi;
