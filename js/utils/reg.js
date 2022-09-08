@@ -311,3 +311,20 @@ const cityInFlorida = "Tallahassee";
 cityInFlorida.match(oneOrMoreAsRegex); // ['a', 'a', 'a'];
 cityInFlorida.match(oneOrMoreSsRegex); // ['ss'];
 
+
+
+// 匹配连续出现零次或多次的字符
+
+// 使用星号 *
+
+const zeroOrMoreOsRegex = /hi*/gi;
+const normalHi = "hi";
+const happyHi = "hiiiiii";
+const twoHis = "hiihii";
+const bye = "bye";
+
+normalHi.match(zeroOrMoreOsRegex); // ["hi"]
+happyHi.match(zeroOrMoreOsRegex); // ["hiiiiii"]
+twoHis.match(zeroOrMoreOsRegex); // ["hii", "hii"]
+bye.match(zeroOrMoreOsRegex); // null
+
