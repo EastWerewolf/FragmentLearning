@@ -328,3 +328,16 @@ happyHi.match(zeroOrMoreOsRegex); // ["hiiiiii"]
 twoHis.match(zeroOrMoreOsRegex); // ["hii", "hii"]
 bye.match(zeroOrMoreOsRegex); // null
 
+
+// 懒惰匹配
+
+// 符合给定要求的字符串的最小部分
+// 默认情况下，正则表达式是贪婪的（匹配满足给定要求的字符串的最长部分）
+// 使用?角色进行懒惰匹配
+
+const testString = "catastrophe";
+const greedyRexex = /c[a-z]*t/gi;
+const lazyRegex = /c[a-z]*?t/gi;
+
+testString.match(greedyRexex); // ["catast"]
+testString.match(lazyRegex); // ["cat"]
