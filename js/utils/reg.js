@@ -397,9 +397,9 @@ noAlphaNumericCharRegex.test(weirdCharacters); // true
 noAlphaNumericCharRegex.test(alphaNumericCharacters); // false
 
 
-匹配所有数字
+// 匹配所有数字
 
-您可以使用字符集[0-9]，也可以使用速记\d
+// 您可以使用字符集[0-9]，也可以使用速记\d
 
 const digitsRegex = /\d/g;
 const stringWithDigits = "My cat eats $20.00 worth of food a week.";
