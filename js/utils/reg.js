@@ -417,4 +417,13 @@ const stringWithLetters = "101 degrees";
 stringWithLetters.match(nonDigitsRegex); // [" ", "d", "e", "g", "r", "e", "e", "s"
 
 
+// 匹配空格
+
+// 使用\s匹配空格和回车
+
+const sentenceWithWhitespace = "I like cats!"
+var spaceRegex = /\s/g;
+whiteSpace.match(sentenceWithWhitespace); // [" ", " "]
+
+
 
