@@ -435,4 +435,18 @@ const nonWhiteSpaceRegex = /\S/g;
 sentenceWithWhitespace.match(nonWhiteSpaceRegex); // ["C", "a", "t"]
 
 
+// 匹配字符数
+
+// 您可以使用指定一行中的特定字符数 {lowerBound, upperBound}
+
+const regularHi = "hi";
+const mediocreHi = "hiii";
+const superExcitedHey = "heeeeyyyyy!!!";
+const excitedRegex = /hi{1,4}/;
+
+excitedRegex.test(regularHi); // true
+excitedRegex.test(mediocreHi); // true
+excitedRegex.test(superExcitedHey); //false
+
+
 
