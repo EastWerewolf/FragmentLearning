@@ -463,3 +463,17 @@ excitedRegex.test(regularHi); // false
 excitedRegex.test(mediocreHi); // true
 excitedRegex.test(superExcitedHey); //false
 
+
+// 匹配确切数量的字符数
+
+// 您可以使用指定确切的字符要求数 {requiredCount}
+
+const regularHi = "hi";
+const bestHi = "hii";
+const mediocreHi = "hiii";
+const excitedRegex = /hi{2}/;
+
+excitedRegex.test(regularHi); // false
+excitedRegex.test(bestHi); // true
+excitedRegex.test(mediocreHi); //false
+
