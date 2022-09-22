@@ -477,3 +477,15 @@ excitedRegex.test(regularHi); // false
 excitedRegex.test(bestHi); // true
 excitedRegex.test(mediocreHi); //false
 
+
+// 匹配全部或不匹配的字符
+
+// 要检查字符是否存在，请使用 ?
+
+const britishSpelling = "colour";
+const americanSpelling = "Color";
+const languageRegex = /colou?r/i;
+
+languageRegex.test(britishSpelling); // true
+languageRegex.test(americanSpelling); // true
+
