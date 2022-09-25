@@ -489,3 +489,8 @@ const languageRegex = /colou?r/i;
 languageRegex.test(britishSpelling); // true
 languageRegex.test(americanSpelling); // true
 
+
+// 边界匹配  \b \B
+// \babc\b 执行单词边界匹配(^\w|\w$|\W\w|\w\W)。
+// \ b表示像插入符号（它类似于$和^）的匹配位置，其中一侧是单词字符（如\ w）而另一侧不是单词字符（例如它可能是字符串的开头或空格字符）。
+// 相反，\ B。 它匹配\ b不匹配的所有位置，如果我们想要找到完全被单词字符包围的搜索模式，则可以匹配。
