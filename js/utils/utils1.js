@@ -26,3 +26,10 @@ const timeFromDate = date => date.toTimeString().slice(0, 8);
 timeFromDate(new Date(2021, 11, 2, 12, 30, 0));  // 12:30:00
 timeFromDate(new Date());  // 返回当前时间 09:00:00
 
+
+// 1. 字符串首字母大写
+// 该方法用于将英文字符串的首字母大写处理：
+const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1)
+
+capitalize("hello world")  // Hello world
+
