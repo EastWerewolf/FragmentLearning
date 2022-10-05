@@ -33,3 +33,10 @@ const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1)
 
 capitalize("hello world")  // Hello world
 
+
+// 2. 翻转字符串
+// 该方法用于将一个字符串进行翻转操作，返回翻转后的字符串：
+const reverse = str => str.split('').reverse().join('');
+
+reverse('hello world');   // 'dlrow olleh'
+
