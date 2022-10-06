@@ -40,3 +40,10 @@ const reverse = str => str.split('').reverse().join('');
 
 reverse('hello world');   // 'dlrow olleh'
 
+
+// 3. 随机字符串
+// 该方法用于生成一个随机的字符串：
+
+const randomString = () => Math.random().toString(36).slice(2);
+
+randomString();
