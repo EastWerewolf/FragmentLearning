@@ -47,3 +47,11 @@ reverse('hello world');   // 'dlrow olleh'
 const randomString = () => Math.random().toString(36).slice(2);
 
 randomString();
+
+
+// 4. 截断字符串
+// 该方法可以从指定长度处截断字符串:
+const truncateString = (string, length) => string.length < length ? string : `${string.slice(0, length - 3)}...`;
+
+truncateString('Hi, I should be truncated because I am too loooong!', 36)   // 'Hi, I should be truncated because
+
