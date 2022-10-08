@@ -55,3 +55,8 @@ const truncateString = (string, length) => string.length < length ? string : `${
 
 truncateString('Hi, I should be truncated because I am too loooong!', 36)   // 'Hi, I should be truncated because
 
+
+
+// 5. 去除字符串中的HTML
+// 该方法用于去除字符串中的HTML元素：
+const stripHtml = html => (new DOMParser().parseFromString(html, 'text/html')).body.textContent || '';
