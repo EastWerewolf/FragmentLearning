@@ -60,3 +60,11 @@ truncateString('Hi, I should be truncated because I am too loooong!', 36)   // '
 // 5. 去除字符串中的HTML
 // 该方法用于去除字符串中的HTML元素：
 const stripHtml = html => (new DOMParser().parseFromString(html, 'text/html')).body.textContent || '';
+
+
+// 1. 从数组中移除重复项
+// 该方法用于移除数组中的重复项：
+const removeDuplicates = (arr) => [...new Set(arr)];
+
+console.log(removeDuplicates([1, 2, 2, 3, 3, 4, 4, 5, 5, 6]));
+
