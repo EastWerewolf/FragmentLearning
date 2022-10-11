@@ -73,3 +73,11 @@ console.log(removeDuplicates([1, 2, 2, 3, 3, 4, 4, 5, 5, 6]));
 const isNotEmpty = arr => Array.isArray(arr) && arr.length > 0;
 
 isNotEmpty([1, 2, 3]);  // true
+
+
+// 3. 合并两个数组
+// 可以使用下面两个方法来合并两个数组：
+
+const merge = (a, b) => a.concat(b);
+
+const merge = (a, b) => [...a, ...b];
