@@ -89,3 +89,10 @@ const merge = (a, b) => [...a, ...b];
 const isEven = num => num % 2 === 0;
 
 isEven(996); 
+
+// 3. 合并两个数组
+// 可以使用下面两个方法来合并两个数组：
+
+const merge = (a, b) => a.concat(b);
+
+const merge = (a, b) => [...a, ...b];
