@@ -81,3 +81,11 @@ isNotEmpty([1, 2, 3]);  // true
 const merge = (a, b) => a.concat(b);
 
 const merge = (a, b) => [...a, ...b];
+
+
+// . 判断一个数是奇数还是偶数
+// 该方法用于判断一个数字是奇数还是偶数：
+
+const isEven = num => num % 2 === 0;
+
+isEven(996); 
