@@ -85,3 +85,45 @@ export const post = (url, params = {}, isNeedToken = false) => {
         data: params,
     })
 }
+
+
+
+/**  */
+/**
+ * 并发控制  maxNum 最大并发数量  urls  请求链接数组
+ * @param {*} param0 
+ * @returns 
+ */
+function  controlRequest({maxNum,urls}){
+    return new Promise((resolve)=>{
+        if(urls.length === 0){
+            return resolve([])
+        }
+        let  index = 0; // 发起请求的下标
+        let  count = 0  // 请求完成的数量
+        const results = []
+        async function request(){
+            if(index === urls.length){
+                return
+            }
+            const i = index
+            const url = urls[i]
+            index++
+            try{
+                const res = await fetch(url)
+                results[i] = res
+            }catch(err){
+                result[i] = err
+            } finally{
+                count++
+                if(count === urls.length){
+                    resolve(results)
+                }
+            }
+        }
+        const times = Math.min(maxNum,urls.length)
+        for(let i = 0;i<times; i++){
+            request()
+        }
+    })
+}
