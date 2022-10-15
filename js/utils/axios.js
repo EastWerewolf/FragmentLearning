@@ -113,7 +113,7 @@ function  controlRequest({maxNum,urls}){
                 const res = await fetch(url)
                 results[i] = res
             }catch(err){
-                result[i] = err
+                results[i] = err
             } finally{
                 count++
                 if(count === urls.length){
