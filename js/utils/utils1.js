@@ -90,9 +90,7 @@ const isEven = num => num % 2 === 0;
 
 isEven(996); 
 
-// 3. 合并两个数组
-// 可以使用下面两个方法来合并两个数组：
+// 2. 获得一组数的平均值
+const average = (...args) => args.reduce((a, b) => a + b) / args.length;
 
-const merge = (a, b) => a.concat(b);
-
-const merge = (a, b) => [...a, ...b];
+average(1, 2, 3, 4, 5);   // 3
