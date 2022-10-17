@@ -94,3 +94,10 @@ isEven(996);
 const average = (...args) => args.reduce((a, b) => a + b) / args.length;
 
 average(1, 2, 3, 4, 5);   // 3
+
+
+// 3. 获取两个整数之间的随机整数
+// 该方法用于获取两个整数之间的随机整数
+const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+
+random(1, 50);
