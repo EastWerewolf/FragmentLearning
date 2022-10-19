@@ -109,3 +109,10 @@ const round = (n, d) => Number(Math.round(n + "e" + d) + "e-" + d)
 
 round(1.005, 2) //1.01
 round(1.555, 2) //1.56
+
+
+// 将RGB转化为十六机制
+// 该方法可以将一个RGB的颜色值转化为16进制值：
+const rgbToHex = (r, g, b) => "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+
+rgbToHex(255, 255, 255);  // '#ffffff'
