@@ -131,3 +131,8 @@ const copyToClipboard = (text) => navigator.clipboard.writeText(text);
 
 copyToClipboard("Hello World");
 
+
+// 2. 清除所有cookie
+// 该方法可以通过使用 document.cookie 来访问 cookie 并清除存储在网页中的所有 cookie：
+const clearCookies = document.cookie.split(';').forEach(cookie => document.cookie = cookie.replace(/^ +/, '').replace(/=.*/, `=;expires=${new Date(0).toUTCString()};path=/`))
+
