@@ -123,3 +123,11 @@ rgbToHex(255, 255, 255);  // '#ffffff'
 const randomHex = () => `#${Math.floor(Math.random() * 0xffffff).toString(16).padEnd(6, "0")}`;
 
 randomHex();
+
+
+// 1. 复制内容到剪切板
+// 该方法使用 navigator.clipboard.writeText 来实现将文本复制到剪贴板：
+const copyToClipboard = (text) => navigator.clipboard.writeText(text);
+
+copyToClipboard("Hello World");
+
