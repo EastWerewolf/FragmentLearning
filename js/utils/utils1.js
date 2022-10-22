@@ -136,3 +136,11 @@ copyToClipboard("Hello World");
 // 该方法可以通过使用 document.cookie 来访问 cookie 并清除存储在网页中的所有 cookie：
 const clearCookies = document.cookie.split(';').forEach(cookie => document.cookie = cookie.replace(/^ +/, '').replace(/=.*/, `=;expires=${new Date(0).toUTCString()};path=/`))
 
+
+// 获取选中的文本
+// 该方法通过内置的 getSelection 属性获取用户选择的文本：
+
+const getSelectedText = () => window.getSelection().toString();
+
+getSelectedText();
+
