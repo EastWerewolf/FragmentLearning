@@ -144,3 +144,9 @@ const getSelectedText = () => window.getSelection().toString();
 
 getSelectedText();
 
+
+// 4. 检测是否是黑暗模式
+// 该方法用于检测当前的环境是否是黑暗模式，它是一个布尔值：
+const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+
+console.log(isDarkMode)
