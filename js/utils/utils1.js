@@ -150,3 +150,11 @@ getSelectedText();
 const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
 
 console.log(isDarkMode)
+
+
+// . 滚动到页面顶部
+// 该方法用于在页面中返回顶部：
+
+const goToTop = () => window.scrollTo(0, 0);
+
+goToTop();
