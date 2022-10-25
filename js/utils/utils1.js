@@ -158,3 +158,8 @@ console.log(isDarkMode)
 const goToTop = () => window.scrollTo(0, 0);
 
 goToTop();
+
+// 判断当前标签页是否激活
+// 该方法用于检测当前标签页是否已经激活：
+
+const isTabInView = () => !document.hidden; 
