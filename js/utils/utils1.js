@@ -163,3 +163,10 @@ goToTop();
 // 该方法用于检测当前标签页是否已经激活：
 
 const isTabInView = () => !document.hidden; 
+
+
+// 7. 判断当前是否是苹果设备
+// 该方法用于检测当前的设备是否是苹果的设备：
+const isAppleDevice = () => /Mac|iPod|iPhone|iPad/.test(navigator.platform);
+
+isAppleDevice();
