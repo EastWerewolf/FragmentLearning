@@ -170,3 +170,8 @@ const isTabInView = () => !document.hidden;
 const isAppleDevice = () => /Mac|iPod|iPhone|iPad/.test(navigator.platform);
 
 isAppleDevice();
+
+
+// . 是否滚动到页面底部
+// 该方法用于判断页面是否已经底部：
+const scrolledToBottom = () => document.documentElement.clientHeight + window.scrollY >= document.documentElement.scrollHeight;
