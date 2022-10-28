@@ -175,3 +175,11 @@ isAppleDevice();
 // . 是否滚动到页面底部
 // 该方法用于判断页面是否已经底部：
 const scrolledToBottom = () => document.documentElement.clientHeight + window.scrollY >= document.documentElement.scrollHeight;
+
+
+// . 重定向到一个URL
+// 该方法用于重定向到一个新的URL：
+
+const redirect = url => location.href = url
+
+redirect("https://www.google.com/")
