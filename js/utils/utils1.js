@@ -183,3 +183,9 @@ const scrolledToBottom = () => document.documentElement.clientHeight + window.sc
 const redirect = url => location.href = url
 
 redirect("https://www.google.com/")
+
+
+// 打开浏览器打印框
+// 该方法用于打开浏览器的打印框：
+
+const showPrintDialog = () => window.print()
