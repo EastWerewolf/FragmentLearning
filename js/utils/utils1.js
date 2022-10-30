@@ -189,3 +189,10 @@ redirect("https://www.google.com/")
 // 该方法用于打开浏览器的打印框：
 
 const showPrintDialog = () => window.print()
+
+
+// . 随机布尔值
+// 该方法可以返回一个随机的布尔值，使用Math.random()可以获得0-1的随机数，与0.5进行比较，就有一半的概率获得真值或者假值。
+const randomBoolean = () => Math.random() >= 0.5;
+
+randomBoolean();
