@@ -196,3 +196,9 @@ const showPrintDialog = () => window.print()
 const randomBoolean = () => Math.random() >= 0.5;
 
 randomBoolean();
+
+
+// . 变量交换
+// 可以使用以下形式在不适用第三个变量的情况下，交换两个变量的值：
+
+[foo, bar] = [bar, foo];
