@@ -202,3 +202,17 @@ randomBoolean();
 // 可以使用以下形式在不适用第三个变量的情况下，交换两个变量的值：
 
 [foo, bar] = [bar, foo];
+
+
+// 3. 获取变量的类型
+// 该方法用于获取一个变量的类型：
+const trueTypeOf = (obj) => Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
+
+trueTypeOf('');     // string
+trueTypeOf(0);      // number
+trueTypeOf();       // undefined
+trueTypeOf(null);   // null
+trueTypeOf({});     // object
+trueTypeOf([]);     // array
+trueTypeOf(0);      // number
+trueTypeOf(() => {});  // function
