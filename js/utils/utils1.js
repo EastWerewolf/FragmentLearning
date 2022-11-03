@@ -216,3 +216,9 @@ trueTypeOf({});     // object
 trueTypeOf([]);     // array
 trueTypeOf(0);      // number
 trueTypeOf(() => {});  // function
+
+
+// 5. 检测对象是否为空
+// 该方法用于检测一个JavaScript对象是否为空：
+
+const isEmpty = obj => Reflect.ownKeys(obj).length === 0 && obj.constructor === Object;
