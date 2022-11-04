@@ -222,3 +222,7 @@ trueTypeOf(() => {});  // function
 // 该方法用于检测一个JavaScript对象是否为空：
 
 const isEmpty = obj => Reflect.ownKeys(obj).length === 0 && obj.constructor === Object;
+
+
+// `date` is a Date object
+const isWeekday = (date = new Date()) => date.getDay() % 6 !== 0;
