@@ -229,3 +229,6 @@ const isWeekday = (date = new Date()) => date.getDay() % 6 !== 0;
 
 //Check if a string contains upper case characters
 const containsUpperCase = (str) => str !== str.toLowerCase();
+
+// Check if a path is relative
+const isRelative = (path) => !/^([a-z]+:)?[\\/]/i.test(path);
