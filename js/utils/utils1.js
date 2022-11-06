@@ -232,3 +232,6 @@ const containsUpperCase = (str) => str !== str.toLowerCase();
 
 // Check if a path is relative
 const isRelative = (path) => !/^([a-z]+:)?[\\/]/i.test(path);
+
+// Check if a string is a palindrome
+const isPalindrome = (str) => str === str.split('').reverse().join('');
