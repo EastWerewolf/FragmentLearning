@@ -235,3 +235,6 @@ const isRelative = (path) => !/^([a-z]+:)?[\\/]/i.test(path);
 
 // Check if a string is a palindrome
 const isPalindrome = (str) => str === str.split('').reverse().join('');
+
+// Check if a URL is absolute
+const isAbsoluteUrl = (url) => /^[a-z][a-z0-9+.-]*:/.test(url);
