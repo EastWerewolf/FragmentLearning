@@ -238,3 +238,6 @@ const isPalindrome = (str) => str === str.split('').reverse().join('');
 
 // Check if a URL is absolute
 const isAbsoluteUrl = (url) => /^[a-z][a-z0-9+.-]*:/.test(url);
+
+// Check if two strings are anagram
+const areAnagram = (str1, str2) => str1.toLowerCase().split('').sort().join('') === str2.toLowerCase().split('').sort().join('');
