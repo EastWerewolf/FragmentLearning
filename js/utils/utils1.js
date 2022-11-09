@@ -241,3 +241,6 @@ const isAbsoluteUrl = (url) => /^[a-z][a-z0-9+.-]*:/.test(url);
 
 // Check if two strings are anagram
 const areAnagram = (str1, str2) => str1.toLowerCase().split('').sort().join('') === str2.toLowerCase().split('').sort().join('');
+
+// Convert a base64 encoded string to an uint8 array
+const base64ToUint8 = (str) => Uint8Array.from(atob(str), (c) => c.charCodeAt(0));
