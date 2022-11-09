@@ -244,3 +244,6 @@ const areAnagram = (str1, str2) => str1.toLowerCase().split('').sort().join('') 
 
 // Convert a base64 encoded string to an uint8 array
 const base64ToUint8 = (str) => Uint8Array.from(atob(str), (c) => c.charCodeAt(0));
+
+// Check if a string consists of a repeated character sequence
+const consistsRepeatedSubstring = (str) => `${str}${str}`.indexOf(str, 1) !== str.length;
