@@ -250,3 +250,6 @@ const consistsRepeatedSubstring = (str) => `${str}${str}`.indexOf(str, 1) !== st
 
 // Convert a string to camelCase
 const toCamelCase = (str) => str.trim().replace(/[-_\s]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ''));
+
+// Convert a letter to associate emoji
+const letterToEmoji = (c) => String.fromCodePoint(c.toLowerCase().charCodeAt(0) + 127365);
