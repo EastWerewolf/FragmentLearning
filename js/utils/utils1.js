@@ -256,3 +256,11 @@ const letterToEmoji = (c) => String.fromCodePoint(c.toLowerCase().charCodeAt(0) 
 
 // Convert a string to PascalCase
 const toPascalCase = (str) => (str.match(/[a-zA-Z0-9]+/g) || []).map((w) => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join('');
+
+// Convert a string to URL slug
+const slugify = (str) =>
+    str
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w-]+/g, '');
+slugify('Chapter One: Once upon a time...'); // 'chapter-one-once-upon-a-time'        
