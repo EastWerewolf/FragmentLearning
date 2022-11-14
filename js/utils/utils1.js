@@ -263,4 +263,13 @@ const slugify = (str) =>
         .toLowerCase()
         .replace(/\s+/g, '-')
         .replace(/[^\w-]+/g, '');
-slugify('Chapter One: Once upon a time...'); // 'chapter-one-once-upon-a-time'        
+slugify('Chapter One: Once upon a time...'); // 'chapter-one-once-upon-a-time'      
+
+
+
+// Convert a Windows file path to Unix path
+const toUnixPath = (path) => path.replace(/[\\/]+/g, '/').replace(/^([a-zA-Z]+:|\.\/)/, '');
+
+toUnixPath('./foo/bar/baz'); // foo/bar/baz
+toUnixPath('C:\\foo\\bar\\baz'); // /foo/bar/baz
+
