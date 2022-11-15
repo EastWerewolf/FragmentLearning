@@ -273,3 +273,17 @@ const toUnixPath = (path) => path.replace(/[\\/]+/g, '/').replace(/^([a-zA-Z]+:|
 toUnixPath('./foo/bar/baz'); // foo/bar/baz
 toUnixPath('C:\\foo\\bar\\baz'); // /foo/bar/baz
 
+
+
+// Convert an uint8 array to a base64 encoded string
+const uint8ToBase64 = (arr) =>
+    btoa(
+        Array(arr.length)
+            .fill('')
+            .map((_, i) => String.fromCharCode(arr[i]))
+            .join('')
+    );
+
+// For Node.js
+const uint8ToBase64 = (arr) => Buffer.from(arr).toString('base64');
+
