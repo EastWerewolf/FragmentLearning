@@ -287,3 +287,13 @@ const uint8ToBase64 = (arr) =>
 // For Node.js
 const uint8ToBase64 = (arr) => Buffer.from(arr).toString('base64');
 
+
+// Convert camelCase to kebab-case and vice versa
+const kebabToCamel = (str) => str.replace(/-./g, (m) => m.toUpperCase()[1]);
+
+const camelToKebab = (str) => str.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+
+
+kebabToCamel('background-color'); // 'backgroundColor'
+camelToKebab('backgroundColor'); // 'background-color'
+
