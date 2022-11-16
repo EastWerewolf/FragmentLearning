@@ -297,3 +297,8 @@ const camelToKebab = (str) => str.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLower
 kebabToCamel('background-color'); // 'backgroundColor'
 camelToKebab('backgroundColor'); // 'background-color'
 
+
+
+// Convert snake_case to camelCase
+const snakeToCamel = (str) => str.toLowerCase().replace(/(_\w)/g, (m) => m.toUpperCase().substr(1));
+
