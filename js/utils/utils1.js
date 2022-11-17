@@ -302,3 +302,6 @@ camelToKebab('backgroundColor'); // 'background-color'
 // Convert snake_case to camelCase
 const snakeToCamel = (str) => str.toLowerCase().replace(/(_\w)/g, (m) => m.toUpperCase().substr(1));
 
+// Convert the name of an Excel column to number
+const getIndex = (col) => col.split('').reduce((prev, next) => prev * 26 + parseInt(next, 36) - 9, 0);
+
