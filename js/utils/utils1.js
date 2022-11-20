@@ -305,3 +305,5 @@ const snakeToCamel = (str) => str.toLowerCase().replace(/(_\w)/g, (m) => m.toUpp
 // Convert the name of an Excel column to number
 const getIndex = (col) => col.split('').reduce((prev, next) => prev * 26 + parseInt(next, 36) - 9, 0);
 
+// Count the number of words in a string
+const countWords = (str) => str.trim().split(/\s+/).length;
