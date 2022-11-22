@@ -323,3 +323,10 @@ const countOccurrences = (str, char) => [...str].filter((item) => item === char)
 const countOccurrences = (str, char) => str.split('').filter((item) => item === char).length;
 
 countOccurrences('a.b.c.d.e', '.'); // 4
+
+// Decapitalize a string
+
+const decapitalize = (str) => `${str.charAt(0).toLowerCase()}${str.slice(1)}`;
+
+// Or
+const decapitalize = ([first, ...rest]) => `${first.toLowerCase()}${rest.join('')}`;
