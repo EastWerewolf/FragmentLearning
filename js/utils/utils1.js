@@ -330,3 +330,8 @@ const decapitalize = (str) => `${str.charAt(0).toLowerCase()}${str.slice(1)}`;
 
 // Or
 const decapitalize = ([first, ...rest]) => `${first.toLowerCase()}${rest.join('')}`;
+
+
+
+// Decode HTML entities
+const decodeHtmlEntities = (str) => str.replace(/&#(\w+)(^\w|;)?/g, (_, dec) => String.fromCharCode(dec));
