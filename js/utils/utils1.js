@@ -335,3 +335,11 @@ const decapitalize = ([first, ...rest]) => `${first.toLowerCase()}${rest.join(''
 
 // Decode HTML entities
 const decodeHtmlEntities = (str) => str.replace(/&#(\w+)(^\w|;)?/g, (_, dec) => String.fromCharCode(dec));
+
+
+
+// Escape HTML special characters
+const escape = (str) => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+
+// Or
+const escape = (str) => str.replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
