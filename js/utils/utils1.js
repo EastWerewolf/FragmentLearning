@@ -382,3 +382,9 @@ format(template, 'Jane', 20);
 // Get the file extension from a file name
 
 const ext = (fileName) => fileName.split('.').pop();
+
+
+
+// Get the file name from a URL
+
+const fileName = (url: string): string => url.substring(url.lastIndexOf('/') + 1);
