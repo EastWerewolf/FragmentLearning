@@ -388,3 +388,8 @@ const ext = (fileName) => fileName.split('.').pop();
 // Get the file name from a URL
 
 const fileName = (url: string): string => url.substring(url.lastIndexOf('/') + 1);
+
+
+// Get the length of a string in bytes
+
+const bytes = (str) => new Blob([str]).size;
