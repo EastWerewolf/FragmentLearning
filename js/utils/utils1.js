@@ -393,3 +393,12 @@ const fileName = (url: string): string => url.substring(url.lastIndexOf('/') + 1
 // Get the length of a string in bytes
 
 const bytes = (str) => new Blob([str]).size;
+
+
+
+// Get the number of a character in a string
+
+const characterCount = (str, char) => str.split(char).length - 1;
+
+// Or
+const characterCount = (str, char) => str.replace(new RegExp(String.raw`[^${char}]`, 'g'), '').length;
