@@ -402,3 +402,8 @@ const characterCount = (str, char) => str.split(char).length - 1;
 
 // Or
 const characterCount = (str, char) => str.replace(new RegExp(String.raw`[^${char}]`, 'g'), '').length;
+
+
+
+//Make the first character of a string lowercase
+const lowercaseFirst = (str) => `${str.charAt(0).toLowerCase()}${str.slice(1)}`;
