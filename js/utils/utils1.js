@@ -407,3 +407,7 @@ const characterCount = (str, char) => str.replace(new RegExp(String.raw`[^${char
 
 //Make the first character of a string lowercase
 const lowercaseFirst = (str) => `${str.charAt(0).toLowerCase()}${str.slice(1)}`;
+
+
+// Normalize file path slashes
+const normalizePath = (path) => path.replace(/[\\/]+/g, '/');
