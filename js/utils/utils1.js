@@ -411,3 +411,27 @@ const lowercaseFirst = (str) => `${str.charAt(0).toLowerCase()}${str.slice(1)}`;
 
 // Normalize file path slashes
 const normalizePath = (path) => path.replace(/[\\/]+/g, '/');
+
+
+// Prepend a line number to each line of a text document
+
+
+const prependNumbers = (str) =>
+    str
+        .split(/\r?\n/)
+        .map((line, i) => `${(i + 1).toString().padStart(2, ' ')} ${line}`)
+        .join('\n');
+
+
+prependNumbers(`one
+two
+three
+four`);
+
+/* Output */
+/*
+1 one
+2 two
+3 three
+4 four
+*/
