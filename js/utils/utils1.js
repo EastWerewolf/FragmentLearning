@@ -435,3 +435,9 @@ four`);
 3 three
 4 four
 */
+
+
+// Remove duplicate lines of a text document
+
+
+const removeDuplicateLines = (str) => Array.from(new Set(str.split(/\r?\n/))).join('\n');
