@@ -446,3 +446,12 @@ const removeDuplicateLines = (str) => Array.from(new Set(str.split(/\r?\n/))).jo
 
 // Remove spaces from a string
 const removeSpaces = (str) => str.replace(/\s/g, '');
+
+
+// Remove empty lines of a text document
+
+const removeEmptyLines = (str) =>
+    str
+        .split(/\r?\n/)
+        .filter((line) => line.trim() !== '')
+        .join('\n');
