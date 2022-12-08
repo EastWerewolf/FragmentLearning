@@ -455,3 +455,10 @@ const removeEmptyLines = (str) =>
         .split(/\r?\n/)
         .filter((line) => line.trim() !== '')
         .join('\n');
+
+// Repeat a string
+
+const repeat = (str, numberOfTimes) => str.repeat(numberOfTimes);
+
+// Or
+const repeat = (str, numberOfTimes) => Array(numberOfTimes + 1).join(str);
