@@ -476,3 +476,13 @@ str.split('\n').map((item, index) => (
         <br />
     </React.Fragment>
 ));
+
+
+// Replace multiple spaces with a single space
+
+
+// Replace spaces, tabs and new line characters
+const replaceSpaces = (str) => str.replace(/\s\s+/g, ' ');
+
+// Only replace spaces
+const replaceOnlySpaces = (str) => str.replace(/  +/g, ' ');
