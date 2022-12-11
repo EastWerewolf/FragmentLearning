@@ -486,3 +486,9 @@ const replaceSpaces = (str) => str.replace(/\s\s+/g, ' ');
 
 // Only replace spaces
 const replaceOnlySpaces = (str) => str.replace(/  +/g, ' ');
+
+
+// Replace the first given number of characters of a string with another character
+
+
+const mask = (str, num, mask) => `${str}`.slice(num).padStart(`${str}`.length, mask);
