@@ -501,3 +501,17 @@ const replace = (str, numSpaces = 4) => str.replaceAll('\t', ' '.repeat(numSpace
 // Reverse the order of lines of a text
 
 const reverseLines = (str) => str.split(/\r?\n/).reverse().join('\n');
+
+
+// Reverse a string
+
+const reverse = (str) => str.split('').reverse().join('');
+
+// Or
+const reverse = (str) => [...str].reverse().join('');
+
+// Or
+const reverse = (str) => str.split('').reduce((rev, char) => `${char}${rev}`, '');
+
+// Or
+const reverse = (str) => (str === '' ? '' : `${reverse(str.substr(1))}${str.charAt(0)}`);
