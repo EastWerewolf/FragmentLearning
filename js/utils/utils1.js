@@ -496,3 +496,8 @@ const mask = (str, num, mask) => `${str}`.slice(num).padStart(`${str}`.length, m
 // Replace all tab characters with spaces
 
 const replace = (str, numSpaces = 4) => str.replaceAll('\t', ' '.repeat(numSpaces));
+
+
+// Reverse the order of lines of a text
+
+const reverseLines = (str) => str.split(/\r?\n/).reverse().join('\n');
