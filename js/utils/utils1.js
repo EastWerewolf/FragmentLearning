@@ -515,3 +515,10 @@ const reverse = (str) => str.split('').reduce((rev, char) => `${char}${rev}`, ''
 
 // Or
 const reverse = (str) => (str === '' ? '' : `${reverse(str.substr(1))}${str.charAt(0)}`);
+
+// Sort lines of a text document in the alphabetical order
+
+const sortLines = (str) => str.split(/\r?\n/).sort().join('\n');
+
+// Reverse the order
+const reverseSortedLines = (str) => str.split(/\r?\n/).sort().reverse().join('\n');
