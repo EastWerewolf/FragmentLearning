@@ -522,3 +522,12 @@ const sortLines = (str) => str.split(/\r?\n/).sort().join('\n');
 
 // Reverse the order
 const reverseSortedLines = (str) => str.split(/\r?\n/).sort().reverse().join('\n');
+
+
+// Sort the characters of a string in the alphabetical order
+
+const sort = (str) =>
+    str
+        .split('')
+        .sort((a, b) => a.localeCompare(b))
+        .join('');
