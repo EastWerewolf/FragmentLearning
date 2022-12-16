@@ -531,3 +531,11 @@ const sort = (str) =>
         .split('')
         .sort((a, b) => a.localeCompare(b))
         .join('');
+
+
+//Swap case of characters in a string
+const swapCase = (str) =>
+str
+.split('')
+.map((c) => (c === c.toLowerCase() ? c.toUpperCase() : c.toLowerCase()))
+.join('');
