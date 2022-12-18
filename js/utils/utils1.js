@@ -539,3 +539,11 @@ str
 .split('')
 .map((c) => (c === c.toLowerCase() ? c.toUpperCase() : c.toLowerCase()))
 .join('');
+
+
+// Trim slashes at the beginning and the end of a string
+
+const trimSlashes = (str) => str.replace(/^\/+|\/+$/g, '');
+
+// Or
+const trimSlashes = (str) => str.split('/').filter(Boolean).join('/')
