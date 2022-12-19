@@ -547,3 +547,7 @@ const trimSlashes = (str) => str.replace(/^\/+|\/+$/g, '');
 
 // Or
 const trimSlashes = (str) => str.split('/').filter(Boolean).join('/')
+
+// Trim some character
+
+const trim = (str, char) => str.split(char).filter(Boolean).join();
