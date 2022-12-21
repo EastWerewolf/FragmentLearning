@@ -564,3 +564,6 @@ stripAnsiCodes('\u001B[0m\u001B[4m\u001B[42m\u001B[31mfoo\u001B[39m\u001B[49m\u0
 // Truncate a string at full words
 
 const truncate = (str, max, suffix) => (str.length < max ? str : `${str.substr(0, str.substr(0, max - suffix.length).lastIndexOf(' '))}${suffix}`);
+
+
+truncate('This is a long message', 20, '...'); // 'This is a long...'
