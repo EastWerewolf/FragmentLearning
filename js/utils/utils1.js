@@ -567,3 +567,8 @@ const truncate = (str, max, suffix) => (str.length < max ? str : `${str.substr(0
 
 
 truncate('This is a long message', 20, '...'); // 'This is a long...'
+
+
+// Trim the file extension from a file name
+
+const trimExt = (fileName) => (fileName.indexOf('.') === -1 ? fileName : fileName.split('.').slice(0, -1).join('.'));
