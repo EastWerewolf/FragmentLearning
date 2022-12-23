@@ -572,3 +572,14 @@ truncate('This is a long message', 20, '...'); // 'This is a long...'
 // Trim the file extension from a file name
 
 const trimExt = (fileName) => (fileName.indexOf('.') === -1 ? fileName : fileName.split('.').slice(0, -1).join('.'));
+
+
+// 
+
+const unescape = (str) =>
+    str
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&#0*39;/g, "'")
+        .replace(/&quot;/g, '"');
