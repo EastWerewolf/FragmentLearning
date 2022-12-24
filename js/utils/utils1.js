@@ -583,3 +583,17 @@ const unescape = (str) =>
         .replace(/&gt;/g, '>')
         .replace(/&#0*39;/g, "'")
         .replace(/&quot;/g, '"');
+
+
+
+
+// Uppercase the first character of each word in a string
+
+const uppercaseWords = (str) =>
+    str
+        .split(' ')
+        .map((w) => `${w.charAt(0).toUpperCase()}${w.slice(1)}`)
+        .join(' ');
+
+// Or
+const uppercaseWords = (str) => str.replace(/^(.)|\s+(.)/g, (c) => c.toUpperCase());
