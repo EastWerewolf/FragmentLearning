@@ -603,3 +603,15 @@ const uppercaseWords = (str) => str.replace(/^(.)|\s+(.)/g, (c) => c.toUpperCase
 
 // `date` is a Date object
 const isWeekend = (date = new Date()) => date.getDay() % 6 === 0;
+
+
+
+// Check if a character is a digit
+
+const isDigit = (char) => char < 10;
+
+// Or
+const isDigit = (char) => char.length === 1 && c >= '0' && c <= '9';
+
+// Or
+const isDigit = (char) => Boolean([true, true, true, true, true, true, true, true, true, true][char]);
