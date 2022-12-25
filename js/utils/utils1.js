@@ -597,3 +597,9 @@ const uppercaseWords = (str) =>
 
 // Or
 const uppercaseWords = (str) => str.replace(/^(.)|\s+(.)/g, (c) => c.toUpperCase());
+
+
+// Check if a date is a weekend
+
+// `date` is a Date object
+const isWeekend = (date = new Date()) => date.getDay() % 6 === 0;
