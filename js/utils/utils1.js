@@ -615,3 +615,12 @@ const isDigit = (char) => char.length === 1 && c >= '0' && c <= '9';
 
 // Or
 const isDigit = (char) => Boolean([true, true, true, true, true, true, true, true, true, true][char]);
+
+
+
+
+// Check if a date is between two dates
+
+
+// `min`, `max` and `date` are `Date` instances
+const isBetween = (date, min, max) => date.getTime() >= min.getTime() && date.getTime() <= max.getTime();
