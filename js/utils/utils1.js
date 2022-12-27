@@ -624,3 +624,9 @@ const isDigit = (char) => Boolean([true, true, true, true, true, true, true, tru
 
 // `min`, `max` and `date` are `Date` instances
 const isBetween = (date, min, max) => date.getTime() >= min.getTime() && date.getTime() <= max.getTime();
+
+
+// Check if a date is today
+
+// `date` is a Date object
+const isToday = (date) => date.toISOString().slice(0, 10) === new Date().toISOString().slice(0, 10);
