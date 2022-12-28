@@ -630,3 +630,10 @@ const isBetween = (date, min, max) => date.getTime() >= min.getTime() && date.ge
 
 // `date` is a Date object
 const isToday = (date) => date.toISOString().slice(0, 10) === new Date().toISOString().slice(0, 10);
+
+
+
+// Check if a date occurs in the current year
+
+// `date` is a Date object
+const isCurrentYear = (date) => date.getUTCFullYear() === new Date().getUTCFullYear();
