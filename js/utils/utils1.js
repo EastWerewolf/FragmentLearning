@@ -647,3 +647,12 @@ const isPrime = (n) =>
         .fill(0)
         .map((_, i) => i + 2)
         .every((i) => n % i !== 0);
+
+
+
+// Check if a flat array has duplicate values
+
+const hasDuplicateValues = (arr) => new Set(arr).size !== arr.length;
+
+// Or
+const hasDuplicateValues = (arr) => arr.some((item, index, arr) => arr.indexOf(item) !== index);
