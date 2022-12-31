@@ -656,3 +656,9 @@ const hasDuplicateValues = (arr) => new Set(arr).size !== arr.length;
 
 // Or
 const hasDuplicateValues = (arr) => arr.some((item, index, arr) => arr.indexOf(item) !== index);
+
+
+
+// Check if a number is a power of 2
+
+const isPowerOfTwo = (n) => (n & (n - 1)) === 0;
