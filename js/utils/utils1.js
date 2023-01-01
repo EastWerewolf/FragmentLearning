@@ -662,3 +662,9 @@ const hasDuplicateValues = (arr) => arr.some((item, index, arr) => arr.indexOf(i
 // Check if a number is a power of 2
 
 const isPowerOfTwo = (n) => (n & (n - 1)) === 0;
+
+
+
+//Check if a number is in a given range
+
+const inRange = (num, a, b, threshold = 0) => Math.min(a, b) - threshold <= num && num <= Math.max(a, b) + threshold;
