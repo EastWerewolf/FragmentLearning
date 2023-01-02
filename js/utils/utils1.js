@@ -668,3 +668,12 @@ const isPowerOfTwo = (n) => (n & (n - 1)) === 0;
 //Check if a number is in a given range
 
 const inRange = (num, a, b, threshold = 0) => Math.min(a, b) - threshold <= num && num <= Math.max(a, b) + threshold;
+
+
+
+// Check if a number is negative
+
+const isNegative = (n) => Math.sign(n) === -1;
+
+// Or
+const isNegative = (n) => n < 0;
