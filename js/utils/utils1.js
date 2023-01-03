@@ -677,3 +677,17 @@ const isNegative = (n) => Math.sign(n) === -1;
 
 // Or
 const isNegative = (n) => n < 0;
+
+
+// Check if a number is even
+
+const isEven = (n) => n % 2 === 0;
+
+// Or
+const isEven = (n) => (n & 1) === 0;
+
+// Or
+const isEven = (n) => !(n & 1);
+
+// Or
+const isEven = (n) => Number.isInteger(n / 2);
