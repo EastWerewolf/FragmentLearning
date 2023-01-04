@@ -691,3 +691,16 @@ const isEven = (n) => !(n & 1);
 
 // Or
 const isEven = (n) => Number.isInteger(n / 2);
+
+
+
+// Check if a number is odd
+
+
+const isOdd = (n) => n % 2 !== 0;
+
+// Or
+const isOdd = (n) => !!(n & 1);
+
+// Or
+const isOdd = (n) => !Number.isInteger(n / 2);
