@@ -704,3 +704,10 @@ const isOdd = (n) => !!(n & 1);
 
 // Or
 const isOdd = (n) => !Number.isInteger(n / 2);
+
+
+
+// Check if a number is positive
+
+const isPositive = (n) => Math.sign(n) === 1;
+
