@@ -711,3 +711,8 @@ const isOdd = (n) => !Number.isInteger(n / 2);
 
 const isPositive = (n) => Math.sign(n) === 1;
 
+
+
+// Check if a string contains lower case characters
+
+const containsLowerCase = (str) => str !== str.toUpperCase();
