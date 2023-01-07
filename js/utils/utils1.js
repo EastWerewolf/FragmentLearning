@@ -716,3 +716,7 @@ const isPositive = (n) => Math.sign(n) === 1;
 // Check if a string contains lower case characters
 
 const containsLowerCase = (str) => str !== str.toUpperCase();
+
+// Check if a string contains only ASCII characters
+
+const isAscii = (str) => /^[\x00-\x7F]+$/.test(str);
