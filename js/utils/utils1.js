@@ -720,3 +720,8 @@ const containsLowerCase = (str) => str !== str.toUpperCase();
 // Check if a string contains only ASCII characters
 
 const isAscii = (str) => /^[\x00-\x7F]+$/.test(str);
+
+
+// Check if a string contains only digits
+
+const isNumeric = (str) => !/[^0-9]/.test(str);
