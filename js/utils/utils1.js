@@ -731,3 +731,8 @@ const isNumeric = (str) => !/[^0-9]/.test(str);
 // Check if a string contains only letters and numbers
 
 const isAlphanumeric = (str) => /^[0-9A-Z]+$/i.test(str);
+
+
+// Check if a string contains only letters
+
+const isAlpha = (str) => /^[A-Z]+$/i.test(str);
