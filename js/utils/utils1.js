@@ -740,3 +740,8 @@ const isAlpha = (str) => /^[A-Z]+$/i.test(str);
 // Check if a string contains upper case characters
 
 const containsUpperCase = (str) => str !== str.toLowerCase();
+
+
+// Check if a string contains whitespace
+
+const containsWhitespace = (str) => (str) => /\s/.test(str);
