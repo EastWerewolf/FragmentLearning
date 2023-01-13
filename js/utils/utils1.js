@@ -745,3 +745,8 @@ const containsUpperCase = (str) => str !== str.toLowerCase();
 // Check if a string contains whitespace
 
 const containsWhitespace = (str) => (str) => /\s/.test(str);
+
+
+// Check if a string is a hexadecimal color
+
+const isHexColor = (color) => /^#([0-9A-F]{3}|[0-9A-F]{4}|[0-9A-F]{6}|[0-9A-F]{8})$/i.test(color);
