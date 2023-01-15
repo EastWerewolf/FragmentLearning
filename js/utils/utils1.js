@@ -750,3 +750,11 @@ const containsWhitespace = (str) => (str) => /\s/.test(str);
 // Check if a string is a hexadecimal color
 
 const isHexColor = (color) => /^#([0-9A-F]{3}|[0-9A-F]{4}|[0-9A-F]{6}|[0-9A-F]{8})$/i.test(color);
+
+
+// Check if a string is a hexadecimal number
+
+const isHexadecimal = (str) => /^[A-F0-9]+$/i.test(str);
+
+// Or
+const isHexadecimal = (str) => str.split('').every((c) => '0123456789ABCDEFabcdef'.indexOf(c) !== -1);
