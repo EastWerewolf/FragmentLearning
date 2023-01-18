@@ -776,3 +776,8 @@ const isOctal = (str) => /^(0o)?[0-7]+$/i.test(str);
 // Check if a string is lower case
 
 const isLowerCase = (str) => str === str.toLowerCase();
+
+// Check if a string is upper case
+
+
+const isUpperCase = (str) => str === str.toUpperCase();
