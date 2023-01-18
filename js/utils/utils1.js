@@ -771,3 +771,8 @@ const isMongoId = (str) => str.length === 24 && str.split('').every((c) => '0123
 // Check if a string is an octal number
 
 const isOctal = (str) => /^(0o)?[0-7]+$/i.test(str);
+
+
+// Check if a string is lower case
+
+const isLowerCase = (str) => str === str.toLowerCase();
