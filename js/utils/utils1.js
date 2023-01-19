@@ -781,3 +781,7 @@ const isLowerCase = (str) => str === str.toLowerCase();
 
 
 const isUpperCase = (str) => str === str.toUpperCase();
+
+// Check if a value is a business identifier code
+
+const isBIC = (value) => /^[a-zA-Z]{6}[a-zA-Z0-9]{2}([a-zA-Z0-9]{3})?$/.test(value);
