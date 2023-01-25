@@ -789,3 +789,8 @@ const isBIC = (value) => /^[a-zA-Z]{6}[a-zA-Z0-9]{2}([a-zA-Z0-9]{3})?$/.test(val
 // Check if a value is a number
 
 const isNumber = (value) => !isNaN(parseFloat(value)) && isFinite(value);
+
+
+// Check if a value is a regular expression
+
+const isRegExp = (value) => Object.prototype.toString.call(value) === '[object RegExp]';
