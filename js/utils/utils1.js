@@ -809,3 +809,14 @@ isPlainObject(function () {}); // false
 
 isPlainObject({}); // true
 isPlainObject({ a: '1', b: '2' }); // true
+
+
+// Check if a value is a string
+
+const isString = (value) => Object.prototype.toString.call(value) === '[object String]';
+
+
+
+isString('hello world'); // true
+isString(new String('hello world')); // true
+isString(10); // false
