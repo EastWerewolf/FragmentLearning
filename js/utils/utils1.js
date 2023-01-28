@@ -820,3 +820,16 @@ const isString = (value) => Object.prototype.toString.call(value) === '[object S
 isString('hello world'); // true
 isString(new String('hello world')); // true
 isString(10); // false
+
+
+
+// Check if a value is an object
+
+const isObject = (v) => v !== null && typeof v === 'object';
+
+
+isObject(null); // false
+isObject('hello world'); // false
+
+isObject({}); // true
+isObject([]); // true
