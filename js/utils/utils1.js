@@ -833,3 +833,11 @@ isObject('hello world'); // false
 
 isObject({}); // true
 isObject([]); // true
+
+
+
+// Check if a value is base58 encoded
+
+
+// It doesn't accept the I, O, l characters
+const isBase58 = (value) => /^[A-HJ-NP-Za-km-z1-9]*$/.test(value);
