@@ -841,3 +841,9 @@ isObject([]); // true
 
 // It doesn't accept the I, O, l characters
 const isBase58 = (value) => /^[A-HJ-NP-Za-km-z1-9]*$/.test(value);
+
+
+// Check if a value is base64 encoded
+
+
+const isBase64 = (value) => /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/.test(value);
