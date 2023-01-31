@@ -847,3 +847,8 @@ const isBase58 = (value) => /^[A-HJ-NP-Za-km-z1-9]*$/.test(value);
 
 
 const isBase64 = (value) => /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/.test(value);
+
+
+// Check if a value is base32 encoded
+
+const isBase32 = (value) => value.length % 8 === 0 && /^[A-Z2-7]+=*$/.test(value);
