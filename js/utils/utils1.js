@@ -852,3 +852,12 @@ const isBase64 = (value) => /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z
 // Check if a value is base32 encoded
 
 const isBase32 = (value) => value.length % 8 === 0 && /^[A-Z2-7]+=*$/.test(value);
+
+
+// Check if all array elements are equal to a given value
+
+const isEqual = (arr, value) => arr.every((item) => item === value);
+
+// Or
+// Ends earlier for false arrays
+const isEqual = (arr, value) => !arr.some((item) => item !== value);
