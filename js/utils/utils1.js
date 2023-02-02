@@ -861,3 +861,8 @@ const isEqual = (arr, value) => arr.every((item) => item === value);
 // Or
 // Ends earlier for false arrays
 const isEqual = (arr, value) => !arr.some((item) => item !== value);
+
+
+// Check if a value is null
+
+const isNull = (value) => value == null;
