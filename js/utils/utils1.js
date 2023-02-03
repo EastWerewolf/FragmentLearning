@@ -875,3 +875,11 @@ const isLeapYear = (year) => (year % 4 === 0 && year % 100 !== 0) || year % 400 
 // Or
 // Get the number of days in February
 const isLeapYear = (year) => new Date(year, 1, 29).getDate() === 29;
+
+
+// Check if all items in an array are equal
+
+const areEqual = (arr) => arr.length > 0 && arr.every((item) => item === arr[0]);
+
+// Or
+const areEqual = (arr) => new Set(arr).size === 1;
