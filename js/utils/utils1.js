@@ -883,3 +883,14 @@ const areEqual = (arr) => arr.length > 0 && arr.every((item) => item === arr[0])
 
 // Or
 const areEqual = (arr) => new Set(arr).size === 1;
+
+
+// Check if an array contains a value matching some criterias
+
+const contains = (arr, criteria) => arr.some((v) => criteria(v));
+
+// Or
+const contains = (arr, criteria) => arr.some(criteria);
+
+// Or
+const contains = (arr, criteria) => arr.filter(criteria).length > 0;
