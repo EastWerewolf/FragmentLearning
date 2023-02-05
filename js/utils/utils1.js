@@ -894,3 +894,9 @@ const contains = (arr, criteria) => arr.some(criteria);
 
 // Or
 const contains = (arr, criteria) => arr.filter(criteria).length > 0;
+
+
+
+// Check if an array is not empty
+
+const isNotEmpty = (arr) => Array.isArray(arr) && Object.keys(arr).length > 0;
