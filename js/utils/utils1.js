@@ -900,3 +900,12 @@ const contains = (arr, criteria) => arr.filter(criteria).length > 0;
 // Check if an array is not empty
 
 const isNotEmpty = (arr) => Array.isArray(arr) && Object.keys(arr).length > 0;
+
+
+// Check if an array is subset of other array
+
+// Check if `b` is subset of `a`
+const isSubset = (a, b) => new Set(b).size === new Set(b.concat(a)).size;
+
+// Or
+const isSubset = (a, b) => b.join('|').includes(a.join('|'));
