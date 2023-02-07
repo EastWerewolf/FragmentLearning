@@ -909,3 +909,8 @@ const isSubset = (a, b) => new Set(b).size === new Set(b.concat(a)).size;
 
 // Or
 const isSubset = (a, b) => b.join('|').includes(a.join('|'));
+
+
+// Check if an object is a Promise
+
+const isPromise = (obj) => !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
