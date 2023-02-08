@@ -921,5 +921,11 @@ const isPromise = (obj) => !!obj && (typeof obj === 'object' || typeof obj === '
 const isEmpty = (obj) => Reflect.ownKeys(obj).length === 0 && obj.constructor === Object;
 
 
+
+// Check if an object is an array
+
+const isArray = (obj) => Array.isArray(obj);
+
+
 // Or for enumerable property names only
 const isEmpty = (obj) => JSON.stringify(obj) === '{}';
