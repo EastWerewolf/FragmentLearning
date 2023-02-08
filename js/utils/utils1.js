@@ -914,3 +914,12 @@ const isSubset = (a, b) => b.join('|').includes(a.join('|'));
 // Check if an object is a Promise
 
 const isPromise = (obj) => !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
+
+
+// Check if an object is empty
+
+const isEmpty = (obj) => Reflect.ownKeys(obj).length === 0 && obj.constructor === Object;
+
+
+// Or for enumerable property names only
+const isEmpty = (obj) => JSON.stringify(obj) === '{}';
