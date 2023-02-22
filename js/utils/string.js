@@ -14,3 +14,10 @@ const capitalize = (str) => str.replace(/^([a-z])/, (first) => first.toUpperCase
 
 
 const wrap = (num, min, max) => ((((num - min) % (max - min)) + (max - min)) % (max - min)) + min;
+
+
+
+// Check if a path is relative
+
+
+const isRelative = (path) => !/^([a-z]+:)?[\\/]/i.test(path);
