@@ -21,3 +21,8 @@ const wrap = (num, min, max) => ((((num - min) % (max - min)) + (max - min)) % (
 
 
 const isRelative = (path) => !/^([a-z]+:)?[\\/]/i.test(path);
+
+
+// Check if a string is a palindrome
+
+const isPalindrome = (str) => str === str.split('').reverse().join('');
