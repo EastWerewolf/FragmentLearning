@@ -26,3 +26,7 @@ const isRelative = (path) => !/^([a-z]+:)?[\\/]/i.test(path);
 // Check if a string is a palindrome
 
 const isPalindrome = (str) => str === str.split('').reverse().join('');
+
+// Check if a string consists of a repeated character sequence
+
+const consistsRepeatedSubstring = (str) => `${str}${str}`.indexOf(str, 1) !== str.length;
