@@ -30,3 +30,8 @@ const isPalindrome = (str) => str === str.split('').reverse().join('');
 // Check if a string consists of a repeated character sequence
 
 const consistsRepeatedSubstring = (str) => `${str}${str}`.indexOf(str, 1) !== str.length;
+
+
+// Check if two strings are anagram
+
+const areAnagram = (str1, str2) => str1.toLowerCase().split('').sort().join('') === str2.toLowerCase().split('').sort().join('');
