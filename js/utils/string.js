@@ -35,3 +35,8 @@ const consistsRepeatedSubstring = (str) => `${str}${str}`.indexOf(str, 1) !== st
 // Check if two strings are anagram
 
 const areAnagram = (str1, str2) => str1.toLowerCase().split('').sort().join('') === str2.toLowerCase().split('').sort().join('');
+
+
+// Check if a URL is absolute
+
+const isAbsoluteUrl = (url) => /^[a-z][a-z0-9+.-]*:/.test(url);
