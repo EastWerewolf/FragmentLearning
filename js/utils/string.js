@@ -40,3 +40,8 @@ const areAnagram = (str1, str2) => str1.toLowerCase().split('').sort().join('') 
 // Check if a URL is absolute
 
 const isAbsoluteUrl = (url) => /^[a-z][a-z0-9+.-]*:/.test(url);
+
+
+// Convert a base64 encoded string to an uint8 array
+
+const base64ToUint8 = (str) => Uint8Array.from(atob(str), (c) => c.charCodeAt(0));
