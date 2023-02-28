@@ -50,3 +50,7 @@ const base64ToUint8 = (str) => Uint8Array.from(atob(str), (c) => c.charCodeAt(0)
 // Convert a string to camelCase
 
 const toCamelCase = (str) => str.trim().replace(/[-_\s]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ''));
+
+// Convert a string to PascalCase
+
+const toPascalCase = (str) => (str.match(/[a-zA-Z0-9]+/g) || []).map((w) => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join('');
