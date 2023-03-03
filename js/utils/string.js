@@ -66,7 +66,13 @@ const slugify = (str) =>
         .replace(/[^\w-]+/g, '');
 
 
-        
+
 // Convert a Windows file path to Unix path
 
 const toUnixPath = (path) => path.replace(/[\\/]+/g, '/').replace(/^([a-zA-Z]+:|\.\/)/, '');
+
+
+
+// Convert snake_case to camelCase
+
+const snakeToCamel = (str) => str.toLowerCase().replace(/(_\w)/g, (m) => m.toUpperCase().substr(1));
