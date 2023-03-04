@@ -76,3 +76,18 @@ const toUnixPath = (path) => path.replace(/[\\/]+/g, '/').replace(/^([a-zA-Z]+:|
 // Convert snake_case to camelCase
 
 const snakeToCamel = (str) => str.toLowerCase().replace(/(_\w)/g, (m) => m.toUpperCase().substr(1));
+
+
+// Convert an uint8 array to a base64 encoded string
+
+
+const uint8ToBase64 = (arr) =>
+    btoa(
+        Array(arr.length)
+            .fill('')
+            .map((_, i) => String.fromCharCode(arr[i]))
+            .join('')
+    );
+
+// For Node.js
+const uint8ToBase64 = (arr) => Buffer.from(arr).toString('base64');
