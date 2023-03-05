@@ -100,3 +100,11 @@ const uint8ToBase64 = (arr) => Buffer.from(arr).toString('base64');
 const getIndex = (col) => col.split('').reduce((prev, next) => prev * 26 + parseInt(next, 36) - 9, 0);
 
 
+// Convert camelCase to kebab-case and vice versa
+
+
+const kebabToCamel = (str) => str.replace(/-./g, (m) => m.toUpperCase()[1]);
+
+const camelToKebab = (str) => str.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+
+
