@@ -91,3 +91,12 @@ const uint8ToBase64 = (arr) =>
 
 // For Node.js
 const uint8ToBase64 = (arr) => Buffer.from(arr).toString('base64');
+
+
+
+// Convert the name of an Excel column to number
+
+
+const getIndex = (col) => col.split('').reduce((prev, next) => prev * 26 + parseInt(next, 36) - 9, 0);
+
+
