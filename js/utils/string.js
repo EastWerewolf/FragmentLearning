@@ -108,3 +108,8 @@ const kebabToCamel = (str) => str.replace(/-./g, (m) => m.toUpperCase()[1]);
 const camelToKebab = (str) => str.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
 
 
+// Count the number of words in a string
+
+const countWords = (str) => str.trim().split(/\s+/).length;
+
+
