@@ -113,3 +113,10 @@ const camelToKebab = (str) => str.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLower
 const countWords = (str) => str.trim().split(/\s+/).length;
 
 
+
+// Decode HTML entities
+
+
+const decodeHtmlEntities = (str) => str.replace(/&#(\w+)(^\w|;)?/g, (_, dec) => String.fromCharCode(dec));
+
+
