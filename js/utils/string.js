@@ -120,3 +120,12 @@ const countWords = (str) => str.trim().split(/\s+/).length;
 const decodeHtmlEntities = (str) => str.replace(/&#(\w+)(^\w|;)?/g, (_, dec) => String.fromCharCode(dec));
 
 
+
+// Decapitalize a string
+
+const decapitalize = (str) => `${str.charAt(0).toLowerCase()}${str.slice(1)}`;
+
+// Or
+const decapitalize = ([first, ...rest]) => `${first.toLowerCase()}${rest.join('')}`;
+
+
