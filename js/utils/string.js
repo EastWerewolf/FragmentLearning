@@ -129,3 +129,12 @@ const decapitalize = (str) => `${str.charAt(0).toLowerCase()}${str.slice(1)}`;
 const decapitalize = ([first, ...rest]) => `${first.toLowerCase()}${rest.join('')}`;
 
 
+
+// Escape HTML special characters
+
+const escape = (str) => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+
+// Or
+const escape = (str) => str.replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+
+
