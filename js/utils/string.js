@@ -138,3 +138,18 @@ const escape = (str) => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace
 const escape = (str) => str.replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
 
 
+// Count the occurrences of a character in a string
+
+
+const countOccurrences = (str, char) => [...str].reduce((a, v) => (v === char ? a + 1 : a), 0);
+
+// Or
+const countOccurrences = (str, char) => str.split('').reduce((a, v) => (v === char ? a + 1 : a), 0);
+
+// Or
+const countOccurrences = (str, char) => [...str].filter((item) => item === char).length;
+
+// Or
+const countOccurrences = (str, char) => str.split('').filter((item) => item === char).length;
+
+
