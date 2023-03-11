@@ -153,3 +153,9 @@ const countOccurrences = (str, char) => [...str].filter((item) => item === char)
 const countOccurrences = (str, char) => str.split('').filter((item) => item === char).length;
 
 
+// Get the length of a string in bytes
+
+
+const bytes = (str) => new Blob([str]).size;
+
+
