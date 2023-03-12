@@ -159,3 +159,14 @@ const countOccurrences = (str, char) => str.split('').filter((item) => item === 
 const bytes = (str) => new Blob([str]).size;
 
 
+
+// Remove empty lines of a text document
+
+
+const removeEmptyLines = (str) =>
+    str
+        .split(/\r?\n/)
+        .filter((line) => line.trim() !== '')
+        .join('\n');
+
+
