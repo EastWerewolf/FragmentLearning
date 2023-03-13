@@ -170,3 +170,7 @@ const removeEmptyLines = (str) =>
         .join('\n');
 
 
+// Remove duplicate lines of a text document
+
+
+const removeDuplicateLines = (str) => Array.from(new Set(str.split(/\r?\n/))).join('\n');
