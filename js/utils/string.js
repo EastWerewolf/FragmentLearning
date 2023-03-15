@@ -180,3 +180,14 @@ const removeDuplicateLines = (str) => Array.from(new Set(str.split(/\r?\n/))).jo
 
 
 const removeSpaces = (str) => str.replace(/\s/g, '');
+
+
+
+// Replace multiple spaces with a single space
+
+
+// Replace spaces, tabs and new line characters
+const replaceSpaces = (str) => str.replace(/\s\s+/g, ' ');
+
+// Only replace spaces
+const replaceOnlySpaces = (str) => str.replace(/  +/g, ' ');
