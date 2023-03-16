@@ -191,3 +191,10 @@ const replaceSpaces = (str) => str.replace(/\s\s+/g, ' ');
 
 // Only replace spaces
 const replaceOnlySpaces = (str) => str.replace(/  +/g, ' ');
+
+
+
+// Replace all tab characters with spaces
+
+
+const replace = (str, numSpaces = 4) => str.replaceAll('\t', ' '.repeat(numSpaces));
