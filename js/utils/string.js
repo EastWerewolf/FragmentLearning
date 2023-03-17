@@ -198,3 +198,14 @@ const replaceOnlySpaces = (str) => str.replace(/  +/g, ' ');
 
 
 const replace = (str, numSpaces = 4) => str.replaceAll('\t', ' '.repeat(numSpaces));
+
+
+
+
+
+
+// Check if a value is a function
+
+
+
+const isFunction = (v) => ['[object Function]', '[object GeneratorFunction]', '[object AsyncFunction]', '[object Promise]'].includes(Object.prototype.toString.call(v));
