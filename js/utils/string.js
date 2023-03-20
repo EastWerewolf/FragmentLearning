@@ -260,3 +260,9 @@ const fn = pipe(lowercase, capitalize, reverse);
 
 // We will execute `lowercase`, `capitalize` and `reverse` in order
 fn('Hello World') === 'dlrow olleH';
+
+
+/// Curry a function
+
+
+const curry = (fn, ...args) => (fn.length <= args.length ? fn(...args) : curry.bind(null, fn, ...args));
