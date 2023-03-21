@@ -266,3 +266,20 @@ fn('Hello World') === 'dlrow olleH';
 
 
 const curry = (fn, ...args) => (fn.length <= args.length ? fn(...args) : curry.bind(null, fn, ...args));
+
+
+
+// Delay the evaluation of a function
+
+
+// returns a new version of `fn` that returns values as lazy evaluable
+const thunkfy =
+    (fn) =>
+    (...args) =>
+    () =>
+        fn(...args);
+
+
+const heavyComputation = (x) => doStuff(x);
+const unnecessarySlow = manyThings.map(heavyComputation).find((result) => result.criteria);
+const probablyFaster = manyThings.map(thunkfy(heavyComputation)).find((thunk) => thunk().criteria);
