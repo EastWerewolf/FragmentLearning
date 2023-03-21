@@ -283,3 +283,22 @@ const thunkfy =
 const heavyComputation = (x) => doStuff(x);
 const unnecessarySlow = manyThings.map(heavyComputation).find((result) => result.criteria);
 const probablyFaster = manyThings.map(thunkfy(heavyComputation)).find((thunk) => thunk().criteria);
+
+
+
+// Execute a function once
+
+const once = (fn) =>
+    (
+        (ran = false) =>
+        () =>
+            ran ? fn : ((ran = !ran), (fn = fn()))
+    )();
+
+
+
+let n = 0;
+const incOnce = once(() => ++n);
+incOnce(); // n = 1
+incOnce(); // n = 1
+incOnce(); // n = 1
