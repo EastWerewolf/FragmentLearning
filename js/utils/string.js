@@ -302,3 +302,13 @@ const incOnce = once(() => ++n);
 incOnce(); // n = 1
 incOnce(); // n = 1
 incOnce(); // n = 1
+
+
+
+// Create an empty function
+
+const noop = () => {};
+
+// Or
+const noop = Function();
+// calling Function() might be detected as using eval by some security tools
