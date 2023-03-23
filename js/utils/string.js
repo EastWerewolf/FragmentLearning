@@ -312,3 +312,14 @@ const noop = () => {};
 // Or
 const noop = Function();
 // calling Function() might be detected as using eval by some security tools
+
+
+
+// Memoize a function
+
+const memoize = (fn) =>
+    (
+        (cache = Object.create(null)) =>
+        (arg) =>
+            cache[arg] || (cache[arg] = fn(arg))
+    )();
