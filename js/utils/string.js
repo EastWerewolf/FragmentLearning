@@ -323,3 +323,9 @@ const memoize = (fn) =>
         (arg) =>
             cache[arg] || (cache[arg] = fn(arg))
     )();
+
+
+// Check if a date is a weekday
+
+// `date` is a Date object
+const isWeekday = (date = new Date()) => date.getDay() % 6 !== 0;
