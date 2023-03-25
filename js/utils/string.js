@@ -329,3 +329,9 @@ const memoize = (fn) =>
 
 // `date` is a Date object
 const isWeekday = (date = new Date()) => date.getDay() % 6 !== 0;
+
+
+// Generate a random integer in given range
+
+
+const randomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
