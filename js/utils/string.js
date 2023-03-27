@@ -342,3 +342,14 @@ const randomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1)) 
 
 
 const randomFloat = (min, max) => Math.random() * (max - min) + min;
+
+
+
+// Sort an object by its properties
+
+
+
+const sort = (obj) =>
+    Object.keys(obj)
+        .sort()
+        .reduce((p, c) => ((p[c] = obj[c]), p), {});
