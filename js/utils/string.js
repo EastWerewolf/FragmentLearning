@@ -353,3 +353,10 @@ const sort = (obj) =>
     Object.keys(obj)
         .sort()
         .reduce((p, c) => ((p[c] = obj[c]), p), {});
+
+
+
+
+// Generate a random boolean
+
+const randomBoolean = () => Math.random() >= 0.5;
