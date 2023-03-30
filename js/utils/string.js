@@ -370,3 +370,15 @@ const randomColor = () => `#${Math.random().toString(16).slice(2, 8).padEnd(6, '
 
 // Or
 const randomColor = () => `#${(~~(Math.random() * (1 << 24))).toString(16)}`;
+
+
+
+
+/// Generate a random IP address
+
+
+const randomIp = () =>
+    Array(4)
+        .fill(0)
+        .map((_, i) => Math.floor(Math.random() * 255) + (i === 0 ? 1 : 0))
+        .join('.');
