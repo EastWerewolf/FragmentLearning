@@ -405,3 +405,8 @@ const generateString = (length, chars) =>
 
 
 generateString(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+
+
+// Round a number to a given number of digits
+
+const round = (n, decimals = 0) => Number(`${Math.round(`${n}e${decimals}`)}e-${decimals}`);
