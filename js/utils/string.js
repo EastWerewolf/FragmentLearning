@@ -425,3 +425,10 @@ const randomArrayInRange = (min, max, n) => Array.from({ length: n }, () => Math
 
 
 const uuid = (a) => (a ? (a ^ ((Math.random() * 16) >> (a / 4))).toString(16) : ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, uuid));
+
+
+
+// Get a random item from an array
+
+
+const randomItem = (arr) => arr[(Math.random() * arr.length) | 0];
