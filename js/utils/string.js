@@ -432,3 +432,12 @@ const uuid = (a) => (a ? (a ^ ((Math.random() * 16) >> (a / 4))).toString(16) : 
 
 
 const randomItem = (arr) => arr[(Math.random() * arr.length) | 0];
+
+
+
+
+// Get random items of an array
+
+
+
+const randomItems = (arr, count) => arr.concat().reduce((p, _, __, arr) => (p[0] < count ? [p[0] + 1, p[1].concat(arr.splice((Math.random() * arr.length) | 0, 1))] : p), [0, []])[1];
