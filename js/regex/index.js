@@ -58,3 +58,19 @@ const allMatchingWords = testString.match(regexWithWildcard); // ["cat", "BAT", 
 const regexWithCharClass = /[cfm]at/g;
 const testString = "cat fat bat mat";
 const allMatchingWords = testString.match(regexWithCharClass); // ["cat", "fat", "mat"]
+
+
+
+
+// 匹配字母表的字母
+
+// 使用字符集中的范围 [a-z]
+
+const regexWithCharRange = /[a-e]at/;
+const catString = "cat";
+const batString = "bat";
+const fatString = "fat";
+
+regexWithCharRange.test(catString); // true
+regexWithCharRange.test(batString); // true
+regexWithCharRange.test(fatString); // false
