@@ -74,3 +74,14 @@ const fatString = "fat";
 regexWithCharRange.test(catString); // true
 regexWithCharRange.test(batString); // true
 regexWithCharRange.test(fatString); // false
+
+
+
+// 匹配特定的数字和字母
+
+// 您还可以使用连字符匹配数字
+
+const regexWithLetterAndNumberRange = /[a-z0-9]/ig;
+const testString = "Emma19382";
+testString.match(regexWithLetterAndNumberRange) // true
+
