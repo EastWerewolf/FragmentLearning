@@ -95,3 +95,17 @@ const allCharsNotVowels = /[^aeiou]/gi;
 const allCharsNotVowelsOrNumbers = /[^aeiou0-9]/gi;
 
 
+
+// 匹配连续出现一次或多次的字符
+
+// 使用+符号
+
+const oneOrMoreAsRegex = /a+/gi;
+const oneOrMoreSsRegex = /s+/gi;
+const cityInFlorida = "Tallahassee";
+
+cityInFlorida.match(oneOrMoreAsRegex); // ['a', 'a', 'a'];
+cityInFlorida.match(oneOrMoreSsRegex); // ['ss'];
+
+
+
