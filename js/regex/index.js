@@ -141,3 +141,15 @@ testString.match(greedyRexex); // ["catast"]
 testString.match(lazyRegex); // ["cat"]
 
 
+
+// 匹配起始字符串模式
+
+// 要测试字符串开头的字符匹配，请使用插入符号^，但不要使用字符集
+
+const emmaAtFrontOfString = "Emma likes cats a lot.";
+const emmaNotAtFrontOfString = "The cats Emma likes are fluffy.";
+const startingStringRegex = /^Emma/;
+
+startingStringRegex.test(emmaAtFrontOfString); // true
+startingStringRegex.test(emmaNotAtFrontOfString); // false
+
