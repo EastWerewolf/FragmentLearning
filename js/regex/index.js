@@ -153,3 +153,18 @@ const startingStringRegex = /^Emma/;
 startingStringRegex.test(emmaAtFrontOfString); // true
 startingStringRegex.test(emmaNotAtFrontOfString); // false
 
+
+
+
+
+// 匹配结束字符串模式
+
+// 使用$正则表达式末尾的美元符号来检查字符串末尾是否存在
+
+const emmaAtBackOfString = "The cats do not like Emma";
+const emmaNotAtBackOfString = "Emma loves the cats";
+const startingStringRegex = /Emma$/;
+
+startingStringRegex.test(emmaAtBackOfString); // true
+startingStringRegex.test(emmaNotAtBackOfString); // false
+
