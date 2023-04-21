@@ -168,3 +168,21 @@ const startingStringRegex = /Emma$/;
 startingStringRegex.test(emmaAtBackOfString); // true
 startingStringRegex.test(emmaNotAtBackOfString); // false
 
+
+
+
+
+// 匹配所有字母和数字
+
+// 使用\word速记
+
+const longHand = /[A-Za-z0-9_]+/;
+const shortHand = /\w+/;
+const numbers = "42";
+const myFavoriteColor = "magenta";
+
+longHand.test(numbers); // true
+shortHand.test(numbers); // true
+longHand.test(myFavoriteColor); // true
+shortHand.test(myFavoriteColor); // true
+
