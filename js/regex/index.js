@@ -223,3 +223,20 @@ stringWithLetters.match(nonDigitsRegex); // [" ", "d", "e", "g", "r", "e", "e", 
 
 
 
+
+
+// 匹配字母表的字母
+
+// 使用字符集中的范围 [a-z]
+
+const regexWithCharRange = /[a-e]at/;
+const catString = "cat";
+const batString = "bat";
+const fatString = "fat";
+
+regexWithCharRange.test(catString); // true
+regexWithCharRange.test(batString); // true
+regexWithCharRange.test(fatString); // false
+
+
+
