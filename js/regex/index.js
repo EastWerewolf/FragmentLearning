@@ -355,6 +355,20 @@ shortHand.test(myFavoriteColor); // true
 
 
 
+除了字母和数字之外的所有内容
+
+您可以使用相反的\w用\W
+
+const noAlphaNumericCharRegex = /\W/gi;
+const weirdCharacters = "!_$!!";
+const alphaNumericCharacters = "ab283AD";
+
+noAlphaNumericCharRegex.test(weirdCharacters); // true
+noAlphaNumericCharRegex.test(alphaNumericCharacters); // false
+
+
+
+
 
 
 
