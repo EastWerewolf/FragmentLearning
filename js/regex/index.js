@@ -379,6 +379,17 @@ stringWithDigits.match(digitsRegex); // ["2", "0", "0", "0"]
 
 
 
+// 匹配所有非数字
+
+// 您可以使用相反的\d用\D
+
+const nonDigitsRegex = /\D/g;
+const stringWithLetters = "101 degrees";
+
+stringWithLetters.match(nonDigitsRegex); // [" ", "d", "e", "g", "r", "e", "e", "s"]
+
+
+
 
 
 
