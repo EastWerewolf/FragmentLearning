@@ -400,6 +400,17 @@ whiteSpace.match(sentenceWithWhitespace); // [" ", " "]
 
 
 
+// 匹配非空格
+
+// 您可以使用相反的\s用\S
+
+const sentenceWithWhitespace = "C a t"
+const nonWhiteSpaceRegex = /\S/g;
+sentenceWithWhitespace.match(nonWhiteSpaceRegex); // ["C", "a", "t"]
+
+
+
+
 
 
 
