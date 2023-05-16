@@ -424,6 +424,22 @@ excitedRegex.test(mediocreHi); // true
 excitedRegex.test(superExcitedHey); //false
 
 
+// 匹配最少的字符数
+
+// 您只能定义最少数量的字符要求 {lowerBound,}
+// 这称为数量说明符
+
+ini复制代码const regularHi = "hi";
+const mediocreHi = "hiii";
+const superExcitedHey = "heeeeyyyyy!!!";
+const excitedRegex = /hi{2,}/;
+
+excitedRegex.test(regularHi); // false
+excitedRegex.test(mediocreHi); // true
+excitedRegex.test(superExcitedHey); //false
+
+
+
 
 
 
