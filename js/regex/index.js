@@ -444,7 +444,7 @@ excitedRegex.test(superExcitedHey); //false
 
 // 您可以使用指定确切的字符要求数 {requiredCount}
 
-ini复制代码const regularHi = "hi";
+const regularHi = "hi";
 const bestHi = "hii";
 const mediocreHi = "hiii";
 const excitedRegex = /hi{2}/;
@@ -452,6 +452,20 @@ const excitedRegex = /hi{2}/;
 excitedRegex.test(regularHi); // false
 excitedRegex.test(bestHi); // true
 excitedRegex.test(mediocreHi); //false
+
+
+
+
+// 匹配全部或不匹配的字符
+
+// 要检查字符是否存在，请使用 ?
+
+const britishSpelling = "colour";
+const americanSpelling = "Color";
+const languageRegex = /colou?r/i;
+
+languageRegex.test(britishSpelling); // true
+languageRegex.test(americanSpelling); // true
 
 
 
