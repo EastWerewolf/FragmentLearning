@@ -20,3 +20,12 @@ const array = [3, 2, 1];
 const sortedArray = array.toSorted();
 console.log(sortedArray); // [1, 2, 3]
 console.log(array); // 原数组不变 [3, 2, 1]
+
+
+
+//toReversed reverse方法的复制版本；复制数组原数组，对新数组颠倒顺序，并返回新数组。
+const original = [1, 2, 3, 4];
+const reversed = original.toReversed();
+console.log(original);  // [ 1, 2, 3, 4 ] 原数组不变
+console.log(reversed);  // [ 4, 3, 2, 1 ]
+
