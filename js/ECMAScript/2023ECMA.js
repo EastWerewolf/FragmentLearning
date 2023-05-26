@@ -29,3 +29,12 @@ const reversed = original.toReversed();
 console.log(original);  // [ 1, 2, 3, 4 ] 原数组不变
 console.log(reversed);  // [ 4, 3, 2, 1 ]
 
+
+//toSpliced splice() 方法的复制版本。它返回一个新数组，并在给定的索引处删除和/或替换了一些元素。
+const original = ["Jan", "Mar", "Apr", "May"];
+  // 在索引 1 处添加一个元素
+const spliced = months.toSpliced(1, 0, "Feb");
+console.log(spliced); // ["Jan", "Feb", "Mar", "Apr", "May"]
+console.log(original); // ["Jan", "Mar", "Apr", "May"]  原数组不变
+
+
