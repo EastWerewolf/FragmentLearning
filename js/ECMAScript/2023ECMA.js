@@ -38,3 +38,9 @@ console.log(spliced); // ["Jan", "Feb", "Mar", "Apr", "May"]
 console.log(original); // ["Jan", "Mar", "Apr", "May"]  原数组不变
 
 
+// with 使用方括号表示法修改指定索引值的复制方法版本
+const arr = [1, 2, 3, 4, 5];
+console.log(arr.with(2, 6)); // [1, 2, 6, 4, 5]
+console.log(arr); // [1, 2, 3, 4, 5] 原数组不变
+
+
