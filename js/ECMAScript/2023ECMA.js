@@ -53,3 +53,20 @@ console.log(arr.with(0, 2)); // [2, undefined, 3, 4, undefined, 6]
 
 
 
+// toSorted、toReversed、toSpliced、with可以使用call或者apply在类数组对象上应用
+function fn1(){
+    console.log(Array.prototype.with.call(arguments,2,6)); // [1,2,6,4,5]
+  }
+  fn1(1,2,3,4,5)
+  
+  const arrayLike = {
+    length: 3,
+    unrelated: "foo",
+    0: 5,
+    2: 4,
+  };
+  console.log(Array.prototype.with.call(arrayLike, 0, 1));
+  // [ 1, undefined, 4 ]
+
+
+
