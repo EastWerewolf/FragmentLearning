@@ -70,3 +70,53 @@ function fn1(){
 
 
 
+// toSorted、toReversed、toSpliced、with在实际工作中是非常有用的，尤其在react中使用immutable data进行状态更新的时候, 这四个api能很大程度简化操作，下面的例子是一个简单的todo组件例子。
+function App(){
+    const [items,setItems] = React.useState([{id:1,text:'学习',done:false},{id:2,text:'吃饭',done:false},{id:3,text:'睡觉',done:false}]);
+    const removeItem = (index)=>{
+      // 方法一 使用splice
+      // setItems((prev)=>{
+      //   const copy = [...prev];
+      //   copy.splice(index,1);
+      //   return copy;
+      // })
+      // 方法二 使用filter
+      // setItems(prev=>prev.filter((_,i)=>i !== index ))
+      // 方法三 使用toSpliced
+      setItems(prev=>prev.toSpliced(index,1));
+    }
+    const toggleStatus = (index)=>{
+      // 方法一 使用map
+      // setItems(prev=>prev.map((item,i)=>{
+      //   if(index === i){
+      //     return {
+      //       ...item,
+      //       done: !item.done
+      //     }
+      //   }
+      //   return item;
+      // }))
+
+      // 使用with
+      setItems(prev=>prev.with(index, {
+        ...prev[index],
+        done: !prev[index].done
+      }))
+    }
+    return (
+      <div>
+        {
+          items.map((i,index)=>{
+            return (
+              <div key={i.id}>
+                <input type="checkbox" checked={i.done} onChange={()=>toggleStatus(index)}/>
+                <span>{i.text}</span>
+                <button onClick={()=>removeItem(index)}>删除</button>
+              </div>
+            )
+          })
+        }
+      </div>
+    )
+  }
+
