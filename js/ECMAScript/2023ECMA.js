@@ -120,3 +120,12 @@ function App(){
     )
   }
 
+
+
+// WeakMap 支持 Symbol 作为键
+const weak = new WeakMap();
+const key = Symbol("ref");
+weak.set(key, "ECMAScript 2023");
+
+console.log(weak.get(key)); // ECMAScript 2023
+
