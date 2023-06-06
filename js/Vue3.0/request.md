@@ -82,3 +82,34 @@ markdown复制代码*   在Vue2中: 组件必须有一个根标签
         </div>
     </div>
 </teleport>
+
+
+Suspense
+
+
+等待异步组件时渲染一些额外内容，让应用有更好的用户体验
+
+
+使用步骤：
+
+
+异步引入组件
+javascript复制代码import {defineAsyncComponent} from 'vue'
+const Child = defineAsyncComponent(()=>import('./components/Child.vue'))
+
+
+
+使用Suspense包裹组件，并配置好default 与 fallback
+<template>
+    <div class="app">
+        <h3>我是App组件</h3>
+        <Suspense>
+            <template v-slot:default>
+                <Child/>
+            </template>
+            <template v-slot:fallback>
+                <h3>加载中.....</h3>
+            </template>
+        </Suspense>
+    </div>
+</template>
