@@ -126,3 +126,13 @@ Vue2.0 和 Vue3.0 有什么区别
 8. 打包体积优化
 9. ssr渲染性能提升
 10. 支持多个根节点
+
+
+Vue 生命周期
+1.vue2.x的生命周期
+
+![图片](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/68bee44057b94174b62cd1350936ec04~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+2.vue3.0的生命周期
+
+![图片](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/93eb8366f638409b9035610c3e9adefc~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
