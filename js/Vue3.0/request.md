@@ -174,3 +174,20 @@ Vue 实例有⼀个完整的⽣命周期，也就是从开始创建、初始化�
 7、beforeDestroy（销毁前） ：实例销毁之前调用。这一步，实例仍然完全可用，`this` 仍能获取到实例。
 8、destroyed（销毁后） ：实例销毁后调用，调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。该钩子在服务端渲染期间不被调用。 
 
+
+都说 Composition API 和 React Hook 很像，请问他们的区别是什么
+从 React Hook 从实现的角度来看，React Hook 是基于 useState 的调用顺序来确定下一个 re 渲染时间状态从哪个 useState 开始，所以有以下几个限制
+​
+*   不在循环中、条件、调用嵌套函数 Hook
+*   你必须确保它总是在你这边 React Top level 调用函数 Hook
+*   使用效果、使用备忘录 依赖关系必须手动确定
+​
+和 Composition API 是基于 Vue 的响应系统，和 React Hook 相比
+​
+*   在设置函数中，一个组件实例只调用一次设置，而 React Hook 每次重新渲染时，都需要调用 Hook，给 React 带来的 GC 比 Vue 更大的压力，性能也相对 Vue 对我来说也比较慢
+*   Compositon API 你不必担心调用的顺序，它也可以在循环中、条件、在嵌套函数中使用
+*   响应式系统自动实现依赖关系收集，而且组件的性能优化是由 Vue 内部完成的，而 React Hook 的依赖关系需要手动传递，并且依赖关系的顺序必须得到保证，让路 useEffect、useMemo 等等，否则组件性能会因为依赖关系不正确而下降。
+​
+虽然Compoliton API看起来像React Hook来使用，但它的设计思路也是React Hook的参考。
+
+
