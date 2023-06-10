@@ -191,3 +191,14 @@ Vue 实例有⼀个完整的⽣命周期，也就是从开始创建、初始化�
 虽然Compoliton API看起来像React Hook来使用，但它的设计思路也是React Hook的参考。
 
 
+
+6. Composition Api 与Options Api 有什么不同
+1.Options Api
+Options API，即大家常说的选项API，即以vue为后缀的文件，通过定义methods，computed，watch，data等属性与方法，共同处理页面逻辑
+如下图：
+
+![图片](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8d6769c3019e479c88121ed726398703~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+可以看到Options代码编写方式，如果是组件状态，则写在data属性上，如果是方法，则写在methods属性上...
+用组件的选项 (data、computed、methods、watch) 组织逻辑在大多数情况下都有效
+然而，当组件变得复杂，导致对应属性的列表也会增长，这可能会导致组件难以阅读和理解
+
