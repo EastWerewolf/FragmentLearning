@@ -202,3 +202,10 @@ Options API，即大家常说的选项API，即以vue为后缀的文件，通过
 用组件的选项 (data、computed、methods、watch) 组织逻辑在大多数情况下都有效
 然而，当组件变得复杂，导致对应属性的列表也会增长，这可能会导致组件难以阅读和理解
 
+Composition Api
+在 Vue3 Composition API 中，组件根据逻辑功能来组织的，一个功能所定义的所有 API 会放在一起（更加的高内聚，低耦合）
+
+即使项目很大，功能很多，我们都能快速的定位到这个功能所用到的所有 API
+![图片](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/18337c0974434ae09ae141a116aff75b~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+
