@@ -208,4 +208,17 @@ Composition Api
 即使项目很大，功能很多，我们都能快速的定位到这个功能所用到的所有 API
 ![图片](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/18337c0974434ae09ae141a116aff75b~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
 
+3.对比
+下面对Composition Api与Options Api进行两大方面的比较
 
+逻辑组织
+逻辑复用
+逻辑组织
+Options API
+假设一个组件是一个大型组件，其内部有很多处理逻辑关注点（对应下图不用颜色）
+
+![图片](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ba80a442eb69455fb3499f1493378a5f~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+可以看到，这种碎片化使得理解和维护复杂组件变得困难
+
+选项的分离掩盖了潜在的逻辑问题。此外，在处理单个逻辑关注点时，我们必须不断地“跳转”相关代码的选项块
