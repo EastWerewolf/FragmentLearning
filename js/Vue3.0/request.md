@@ -222,3 +222,43 @@ Options API
 可以看到，这种碎片化使得理解和维护复杂组件变得困难
 
 选项的分离掩盖了潜在的逻辑问题。此外，在处理单个逻辑关注点时，我们必须不断地“跳转”相关代码的选项块
+
+
+
+Compostion API
+而Compositon API正是解决上述问题，将某个逻辑关注点相关的代码全都放在一个函数里，这样当需要修改一个功能时，就不再需要在文件中跳来跳去
+下面举个简单例子，将处理count属性相关的代码放在同一个函数了
+function useCount() {
+    let count = ref(10);
+    let double = computed(() => {
+        return count.value * 2;
+    });
+​
+    const handleConut = () => {
+        count.value = count.value * 2;
+    };
+​
+    console.log(count);
+​
+    return {
+        count,
+        double,
+        handleConut,
+    };
+}
+
+组件上中使用count
+export default defineComponent({
+    setup() {
+        const { count, double, handleConut } = useCount();
+        return {
+            count,
+            double,
+            handleConut
+        }
+    },
+});
+
+
+再来一张图进行对比，可以很直观地感受到 Composition API在逻辑组织方面的优势，以后修改一个属性功能的时候，只需要跳到控制该属性的方法中即可
+![图片](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ce453cd816a84cf2b7f295dbc3835314~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
