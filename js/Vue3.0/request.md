@@ -262,3 +262,143 @@ export default defineComponent({
 
 再来一张图进行对比，可以很直观地感受到 Composition API在逻辑组织方面的优势，以后修改一个属性功能的时候，只需要跳到控制该属性的方法中即可
 ![图片](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ce453cd816a84cf2b7f295dbc3835314~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+
+逻辑复用
+在Vue2中，我们是用过mixin去复用相同的逻辑
+下面举个例子，我们会另起一个mixin.js文件
+javascript复制代码export const MoveMixin = {
+  data() {
+    return {
+      x: 0,
+      y: 0,
+    };
+  },
+​
+  methods: {
+    handleKeyup(e) {
+      console.log(e.code);
+      // 上下左右 x y
+      switch (e.code) {
+        case "ArrowUp":
+          this.y--;
+          break;
+        case "ArrowDown":
+          this.y++;
+          break;
+        case "ArrowLeft":
+          this.x--;
+          break;
+        case "ArrowRight":
+          this.x++;
+          break;
+      }
+    },
+  },
+​
+  mounted() {
+    window.addEventListener("keyup", this.handleKeyup);
+  },
+​
+  unmounted() {
+    window.removeEventListener("keyup", this.handleKeyup);
+  },
+};
+
+然后在组件中使用
+<template>
+  <div>
+    Mouse position: x {{ x }} / y {{ y }}
+  </div>
+</template>
+<script>
+import mousePositionMixin from './mouse'
+export default {
+  mixins: [mousePositionMixin]
+}
+</script>
+
+
+
+使用单个mixin似乎问题不大，但是当我们一个组件混入大量不同的 mixins 的时候
+mixins: [mousePositionMixin, fooMixin, barMixin, otherMixin]
+
+会存在两个非常明显的问题：
+
+命名冲突
+数据来源不清晰
+
+现在通过Compositon API这种方式改写上面的代码
+import { onMounted, onUnmounted, reactive } from "vue";
+export function useMove() {
+  const position = reactive({
+    x: 0,
+    y: 0,
+  });
+​
+  const handleKeyup = (e) => {
+    console.log(e.code);
+    // 上下左右 x y
+    switch (e.code) {
+      case "ArrowUp":
+        // y.value--;
+        position.y--;
+        break;
+      case "ArrowDown":
+        // y.value++;
+        position.y++;
+        break;
+      case "ArrowLeft":
+        // x.value--;
+        position.x--;
+        break;
+      case "ArrowRight":
+        // x.value++;
+        position.x++;
+        break;
+    }
+  };
+​
+  onMounted(() => {
+    window.addEventListener("keyup", handleKeyup);
+  });
+​
+  onUnmounted(() => {
+    window.removeEventListener("keyup", handleKeyup);
+  });
+​
+  return { position };
+}
+
+在组件中使用
+<template>
+  <div>
+    Mouse position: x {{ x }} / y {{ y }}
+  </div>
+</template>
+​
+<script>
+import { useMove } from "./useMove";
+import { toRefs } from "vue";
+export default {
+  setup() {
+    const { position } = useMove();
+    const { x, y } = toRefs(position);
+    return {
+      x,
+      y,
+    };
+​
+  },
+};
+</script>
+
+可以看到，整个数据来源清晰了，即使去编写更多的 hook 函数，也不会出现命名冲突的问题
+小结
+
+在逻辑组织和逻辑复用方面，Composition API是优于Options API
+因为Composition API几乎是函数，会有更好的类型推断。
+Composition API对 tree-shaking 友好，代码也更容易压缩
+Composition API中见不到this的使用，减少了this指向不明的情况
+如果是小型组件，可以继续使用Options API，也是十分友好的
+
