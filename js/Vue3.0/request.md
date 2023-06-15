@@ -267,7 +267,7 @@ export default defineComponent({
 逻辑复用
 在Vue2中，我们是用过mixin去复用相同的逻辑
 下面举个例子，我们会另起一个mixin.js文件
-javascript复制代码export const MoveMixin = {
+export const MoveMixin = {
   data() {
     return {
       x: 0,
@@ -402,3 +402,20 @@ Composition API对 tree-shaking 友好，代码也更容易压缩
 Composition API中见不到this的使用，减少了this指向不明的情况
 如果是小型组件，可以继续使用Options API，也是十分友好的
 
+
+
+
+7.什么是SPA单页面应用，首屏加载你是如何优化的
+go复制代码单页Web应用（single page web application，SPA），就是只有一张Web页面的应用，是加载单个HTML页面并在用户与应用程序交互时动态更新该页面的Web应用程序。我们开发的`Vue`项目大多是借助个官方的`CLI`脚手架，快速搭建项目，直接通过`new Vue`构建一个实例，并将`el:'#app'`挂载参数传入，最后通过`npm run build`的方式打包后生成一个`index.html`，称这种只有一个`HTML`的页面为单页面应用。
+​
+当然，`vue`也可以像`jq`一样引入，作为多页面应用的基础框架。
+​
+​
+SPA首屏优化方式
+​
+减小入口文件积
+静态资源本地缓存
+UI框架按需加载
+图片资源的压缩
+组件重复打包
+开启GZip压缩
