@@ -476,3 +476,23 @@ UI框架按需加载
 
 *   有些图片图标尽可能使用字体图标
 
+
+
+9.Vue组件通信的方式有哪些
+vue中8种常规的通信方案
+​
+通过 props 传递
+通过 $emit 触发自定义事件
+使用 ref
+EventBus
+$parent 或$root
+attrs 与 listeners
+Provide 与 Inject
+Vuex
+​
+组件间通信的分类可以分成以下
+​
+父子关系的组件数据传递选择 props  与 $emit进行传递，也可选择ref
+兄弟关系的组件数据传递可选择$bus，其次可以选择$parent进行传递
+祖先与后代组件数据传递可选择attrs与listeners或者 Provide与 Inject
+复杂关系的组件数据传递可以通过vuex存放共享的变量
