@@ -473,7 +473,7 @@ UI框架按需加载
 *   前端渲染，一些企业内部使用的后端管理系统可以采用前端渲染的方式
 
 11、字体图标的使用
-
+2
 *   有些图片图标尽可能使用字体图标
 
 
@@ -496,3 +496,97 @@ Vuex
 兄弟关系的组件数据传递可选择$bus，其次可以选择$parent进行传递
 祖先与后代组件数据传递可选择attrs与listeners或者 Provide与 Inject
 复杂关系的组件数据传递可以通过vuex存放共享的变量
+
+
+
+
+10.Vue常用的修饰符有哪些
+xml复制代码 1、表单修饰符
+​
+（1）`.lazy`
+​
+在默认情况下，`v-model` 在每次 `input` 事件触发后将输入框的值与数据进行同步 ，可以添加 `lazy` 修饰符，从而转为在 `change` 事件之后进行同步:
+​
+```
+<input v-model.lazy="msg">
+​
+```
+​
+（2）`.number`
+​
+如果想自动将用户的输入值转为数值类型，可以给 `v-model` 添加 `number` 修饰符：
+​
+```
+<input v-model.number="age" type="number">
+​
+```
+​
+（3）`.trim`
+​
+如果要自动过滤用户输入的首尾空白字符，可以给 `v-model` 添加 `trim` 修饰符：
+​
+```
+<input v-model.trim="msg">
+​
+```
+​
+ 2、事件修饰符
+​
+ （1）`.stop`
+​
+阻止单击事件继续传播。
+​
+```
+<!--这里只会触发a-->
+<div @click="divClick"><a v-on:click.stop="aClick">点击</a></div>
+​
+```
+​
+（2）`.prevent`
+​
+阻止标签的默认行为。
+​
+```
+<a href="http://www.baidu.com" v-on:click.prevent="aClick">点击</a>
+​
+```
+​
+（3）`.capture`
+​
+事件先在有`.capture`修饰符的节点上触发，然后在其包裹的内部节点中触发。
+​
+```
+<!--这里先执行divClick事件，然后再执行aClick事件-->
+<div @click="divClick"><a v-on:click="aClick">点击</a></div>
+​
+```
+​
+（4）`.self`
+​
+只当在 event.target 是当前元素自身时触发处理函数，即事件不是从内部元素触发的。
+​
+```
+<!--在a标签上点击时只会触发aClick事件，只有点击phrase的时候才会触发divClick事件-->
+<div @click.self="divClick">phrase<a v-on:click="aClick">点击</a></div>
+​
+```
+​
+（5）`.once`
+​
+不像其它只能对原生的 DOM 事件起作用的修饰符，`.once` 修饰符还能被用到自定义的组件事件上，表示当前事件只触发一次。
+​
+```
+<a v-on:click.once="aClick">点击</a>
+​
+```
+（6）`.passive`
+​
+`.passive` 修饰符尤其能够提升移动端的性能
+​
+```
+<!-- 滚动事件的默认行为 (即滚动行为) 将会立即触发 -->  
+<!-- 而不会等待 `onScroll` 完成 -->  
+<!-- 这其中包含 `event.preventDefault()` 的情况 -->  
+<div v-on:scroll.passive="onScroll">...</div>
+```
+​
