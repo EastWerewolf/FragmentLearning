@@ -654,3 +654,24 @@ Vue 的异步更新机制的核心是利用了浏览器的异步任务队列来�
 flushCallbacks 函数负责执行 callbacks 数组中的所有 flushSchedulerQueue 函数。
 ​
 flushSchedulerQueue 函数负责刷新 watcher 队列，即执行 queue 数组中每一个 watcher 的 run 方法，从而进入更新阶段，比如执行
+
+
+13.v-show和v-if有什么区别？你可以讲讲吗
+sql复制代码v-show 与 v-if 的作用效果是相同的(不含v-else)，都能控制元素在页面是否显示,在用法上也是相同的
+​
+- 区别 
+控制手段不同
+编译过程不同
+编译条件不同
+​
+控制手段：v-show隐藏则是为该元素添加css--display:none，dom元素依旧还在。v-if显示隐藏是将dom元素整个添加或删除
+​
+编译过程：v-if切换有一个局部编译/卸载的过程，切换过程中合适地销毁和重建内部的事件监听和子组件；v-show只是简单的基于css切换
+​
+编译条件：v-if是真正的条件渲染，它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和重建。只有渲染条件为假时，并不做操作，直到为真才渲染
+​
+v-show 由false变为true的时候不会触发组件的生命周期
+​
+v-if由false变为true的时候，触发组件的beforeCreate、create、beforeMount、mounted钩子，由true变为false的时候触发组件的beforeDestory、destoryed方法
+​
+性能消耗：v-if有更高的切换消耗；v-show有更高的初始渲染消耗
