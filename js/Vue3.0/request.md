@@ -675,3 +675,40 @@ v-show 由false变为true的时候不会触发组件的生命周期
 v-if由false变为true的时候，触发组件的beforeCreate、create、beforeMount、mounted钩子，由true变为false的时候触发组件的beforeDestory、destoryed方法
 ​
 性能消耗：v-if有更高的切换消耗；v-show有更高的初始渲染消耗
+
+
+14.有用过keep-alive吗？它有什么作用
+xml复制代码`vue`中支持组件化，并且也有用于缓存的内置组件`keep-alive`可直接使用，使用场景为`路由组件`和`动态组件`。
+​
+*   `activated`表示进入组件的生命周期，`deactivated`表示离开组件的生命周期
+*   `include`表示匹配到的才缓存，`exclude`表示匹配到的都不缓存
+*   `max`表示最多可以缓存多少组件
+​
+​
+关于keep-alive的基本用法：
+​
+<keep-alive>
+  <component :is="view"></component>
+</keep-alive>
+使用includes和exclude：
+​
+<keep-alive include="a,b">
+  <component :is="view"></component>
+</keep-alive>
+​
+<!-- 正则表达式 (使用 `v-bind`) -->
+<keep-alive :include="/a|b/">
+  <component :is="view"></component>
+</keep-alive>
+​
+<!-- 数组 (使用 `v-bind`) -->
+<keep-alive :include="['a', 'b']">
+  <component :is="view"></component>
+</keep-alive>
+匹配首先检查组件自身的 name 选项，如果 name 选项不可用，则匹配它的局部注册名称 (父组件 components 选项的键值)，匿名组件不能被匹配
+​
+设置了 keep-alive 缓存的组件，会多出两个生命周期钩子（activated与deactivated）：
+​
+首次进入组件时：beforeRouteEnter > beforeCreate > created> mounted > activated > ... ... > beforeRouteLeave > deactivated
+​
+再次进入组件时：beforeRouteEnter >activated > ... ... > beforeRouteLeave > deactivated
