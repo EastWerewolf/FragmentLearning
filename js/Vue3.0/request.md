@@ -712,3 +712,329 @@ xml复制代码`vue`中支持组件化，并且也有用于缓存的内置组件
 首次进入组件时：beforeRouteEnter > beforeCreate > created> mounted > activated > ... ... > beforeRouteLeave > deactivated
 ​
 再次进入组件时：beforeRouteEnter >activated > ... ... > beforeRouteLeave > deactivated
+
+
+
+
+
+15.你可以实现一个虚拟DOM吗
+先看浏览器对HTML的理解：
+xml复制代码<div>  
+    <h1>My title</h1>  
+    Some text content  
+    <!-- TODO: Add tagline -->  
+</div>
+
+当浏览器读到这些代码时，它会建立一个DOM树来保持追踪所有内容，如同你会画一张家谱树来追踪家庭成员的发展一样。 上述 HTML 对应的 DOM 节点树如下图所示：
+
+![图片](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7ee0f38a11304a768737a2e7de69e7e9~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+每个元素都是一个节点。每段文字也是一个节点。甚至注释也都是节点。一个节点就是页面的一个部分。就像家谱树一样，每个节点都可以有孩子节点 (也就是说每个部分可以包含其它的一些部分)。
+
+**再看`Vue`对`HTML template`的理解**
+
+Vue 通过建立一个**虚拟 DOM** 来追踪自己要如何改变真实 DOM。因为它所包含的信息会告诉 Vue 页面上需要渲染什么样的节点，包括及其子节点的描述信息。我们把这样的节点描述为“虚拟节点 (virtual node)”，也常简写它为“**VNode**”。“虚拟 DOM”是我们对由 Vue 组件树建立起来的整个 VNode 树的称呼。
+
+简言之，浏览器对HTML的理解是DOM树，Vue对`HTML`的理解是虚拟DOM，最后在`patch`阶段通过DOM操作的api将其渲染成真实的DOM节点。
+
+如何实现虚拟DOM
+首先可以看看vue中VNode的结构
+
+源码位置：src/core/vdom/vnode.js
+
+
+export default class VNode {
+  tag: string | void;
+  data: VNodeData | void;
+  children: ?Array<VNode>;
+  text: string | void;
+  elm: Node | void;
+  ns: string | void;
+  context: Component | void; // rendered in this component's scope
+  functionalContext: Component | void; // only for functional component root nodes
+  key: string | number | void;
+  componentOptions: VNodeComponentOptions | void;
+  componentInstance: Component | void; // component instance
+  parent: VNode | void; // component placeholder node
+  raw: boolean; // contains raw HTML? (server only)
+  isStatic: boolean; // hoisted static node
+  isRootInsert: boolean; // necessary for enter transition check
+  isComment: boolean; // empty comment placeholder?
+  isCloned: boolean; // is a cloned node?
+  isOnce: boolean; // is a v-once node?
+​
+  constructor (
+    tag?: string,
+    data?: VNodeData,
+    children?: ?Array<VNode>,
+    text?: string,
+    elm?: Node,
+    context?: Component,
+    componentOptions?: VNodeComponentOptions
+  ) {
+    /*当前节点的标签名*/
+    this.tag = tag
+    /*当前节点对应的对象，包含了具体的一些数据信息，是一个VNodeData类型，可以参考VNodeData类型中的数据信息*/
+    this.data = data
+    /*当前节点的子节点，是一个数组*/
+    this.children = children
+    /*当前节点的文本*/
+    this.text = text
+    /*当前虚拟节点对应的真实dom节点*/
+    this.elm = elm
+    /*当前节点的名字空间*/
+    this.ns = undefined
+    /*编译作用域*/
+    this.context = context
+    /*函数化组件作用域*/
+    this.functionalContext = undefined
+    /*节点的key属性，被当作节点的标志，用以优化*/
+    this.key = data && data.key
+    /*组件的option选项*/
+    this.componentOptions = componentOptions
+    /*当前节点对应的组件的实例*/
+    this.componentInstance = undefined
+    /*当前节点的父节点*/
+    this.parent = undefined
+    /*简而言之就是是否为原生HTML或只是普通文本，innerHTML的时候为true，textContent的时候为false*/
+    this.raw = false
+    /*静态节点标志*/
+    this.isStatic = false
+    /*是否作为跟节点插入*/
+    this.isRootInsert = true
+    /*是否为注释节点*/
+    this.isComment = false
+    /*是否为克隆节点*/
+    this.isCloned = false
+    /*是否有v-once指令*/
+    this.isOnce = false
+  }
+​
+  // DEPRECATED: alias for componentInstance for backwards compat.
+  /* istanbul ignore next https://github.com/answershuto/learnVue*/
+  get child (): Component | void {
+    return this.componentInstance
+  }
+}
+
+
+
+这里对VNode进行稍微的说明：
+
+所有对象的 context 选项都指向了 Vue 实例
+elm 属性则指向了其相对应的真实 DOM 节点
+
+vue`是通过`createElement`生成`VNode
+源码位置：src/core/vdom/create-element.js
+
+export function createElement (
+  context: Component,
+  tag: any,
+  data: any,
+  children: any,
+  normalizationType: any,
+  alwaysNormalize: boolean
+): VNode | Array<VNode> {
+  if (Array.isArray(data) || isPrimitive(data)) {
+    normalizationType = children
+    children = data
+    data = undefined
+  }
+  if (isTrue(alwaysNormalize)) {
+    normalizationType = ALWAYS_NORMALIZE
+  }
+  return _createElement(context, tag, data, children, normalizationType)
+}
+上面可以看到createElement 方法实际上是对 _createElement 方法的封装，对参数的传入进行了判断
+export function _createElement(
+    context: Component,
+    tag?: string | Class<Component> | Function | Object,
+    data?: VNodeData,
+    children?: any,
+    normalizationType?: number
+): VNode | Array<VNode> {
+    if (isDef(data) && isDef((data: any).__ob__)) {
+        process.env.NODE_ENV !== 'production' && warn(
+            `Avoid using observed data object as vnode data: ${JSON.stringify(data)}\n` +
+            'Always create fresh vnode data objects in each render!',
+            context`
+        )
+        return createEmptyVNode()
+    }
+    // object syntax in v-bind
+    if (isDef(data) && isDef(data.is)) {
+        tag = data.is
+    }
+    if (!tag) {
+        // in case of component :is set to falsy value
+        return createEmptyVNode()
+    }
+    ... 
+    // support single function children as default scoped slot
+    if (Array.isArray(children) &&
+        typeof children[0] === 'function'
+    ) {
+        data = data || {}
+        data.scopedSlots = { default: children[0] }
+        children.length = 0
+    }
+    if (normalizationType === ALWAYS_NORMALIZE) {
+        children = normalizeChildren(children)
+    } else if ( === SIMPLE_NORMALIZE) {
+        children = simpleNormalizeChildren(children)
+    }
+  // 创建VNode
+    ...
+}
+可以看到_createElement接收5个参数：
+
+context 表示 VNode 的上下文环境，是 Component 类型
+tag 表示标签，它可以是一个字符串，也可以是一个 Component
+data 表示 VNode 的数据，它是一个 VNodeData 类型
+children 表示当前 VNode的子节点，它是任意类型的
+normalizationType 表示子节点规范的类型，类型不同规范的方法也就不一样，主要是参考 render 函数是编译生成的还是用户手写的
+
+根据normalizationType 的类型，children会有不同的定义
+if (normalizationType === ALWAYS_NORMALIZE) {
+    children = normalizeChildren(children)
+} else if ( === SIMPLE_NORMALIZE) {
+    children = simpleNormalizeChildren(children)
+}
+simpleNormalizeChildren方法调用场景是 render 函数是编译生成的
+normalizeChildren方法调用场景分为下面两种：
+
+render 函数是用户手写的
+编译 slot、v-for 的时候会产生嵌套数组
+
+无论是simpleNormalizeChildren还是normalizeChildren都是对children进行规范（使children 变成了一个类型为 VNode 的 Array），这里就不展开说了
+规范化children的源码位置在：src/core/vdom/helpers/normalzie-children.js
+在规范化children后，就去创建VNode
+let vnode, ns
+// 对tag进行判断
+if (typeof tag === 'string') {
+  let Ctor
+  ns = (context.$vnode && context.$vnode.ns) || config.getTagNamespace(tag)
+  if (config.isReservedTag(tag)) {
+    // 如果是内置的节点，则直接创建一个普通VNode
+    vnode = new VNode(
+      config.parsePlatformTagName(tag), data, children,
+      undefined, undefined, context
+    )
+  } else if (isDef(Ctor = resolveAsset(context.$options, 'components', tag))) {
+    // component
+    // 如果是component类型，则会通过createComponent创建VNode节点
+    vnode = createComponent(Ctor, data, context, children, tag)
+  } else {
+    vnode = new VNode(
+      tag, data, children,
+      undefined, undefined, context
+    )
+  }
+} else {
+  // direct component options / constructor
+  vnode = createComponent(tag, data, context, children)
+}
+源码位置：src/core/vdom/create-component.js
+
+export function createComponent (
+  Ctor: Class<Component> | Function | Object | void,
+  data: ?VNodeData,
+  context: Component,
+  children: ?Array<VNode>,
+  tag?: string
+): VNode | Array<VNode> | void {
+  if (isUndef(Ctor)) {
+    return
+  }
+ // 构建子类构造函数 
+  const baseCtor = context.$options._base
+​
+  // plain options object: turn it into a constructor
+  if (isObject(Ctor)) {
+    Ctor = baseCtor.extend(Ctor)
+  }
+​
+  // if at this stage it's not a constructor or an async component factory,
+  // reject.
+  if (typeof Ctor !== 'function') {
+    if (process.env.NODE_ENV !== 'production') {
+      warn(`Invalid Component definition: ${String(Ctor)}`, context)
+    }
+    return
+  }
+​
+  // async component
+  let asyncFactory
+  if (isUndef(Ctor.cid)) {
+    asyncFactory = Ctor
+    Ctor = resolveAsyncComponent(asyncFactory, baseCtor, context)
+    if (Ctor === undefined) {
+      return createAsyncPlaceholder(
+        asyncFactory,
+        data,
+        context,
+        children,
+        tag
+      )
+    }
+  }
+​
+  data = data || {}
+​
+  // resolve constructor options in case global mixins are applied after
+  // component constructor creation
+  resolveConstructorOptions(Ctor)
+​
+  // transform component v-model data into props & events
+  if (isDef(data.model)) {
+    transformModel(Ctor.options, data)
+  }
+​
+  // extract props
+  const propsData = extractPropsFromVNodeData(data, Ctor, tag)
+​
+  // functional component
+  if (isTrue(Ctor.options.functional)) {
+    return createFunctionalComponent(Ctor, propsData, data, context, children)
+  }
+​
+  // extract listeners, since these needs to be treated as
+  // child component listeners instead of DOM listeners
+  const listeners = data.on
+  // replace with listeners with .native modifier
+  // so it gets processed during parent component patch.
+  data.on = data.nativeOn
+​
+  if (isTrue(Ctor.options.abstract)) {
+    const slot = data.slot
+    data = {}
+    if (slot) {
+      data.slot = slot
+    }
+  }
+​
+  // 安装组件钩子函数，把钩子函数合并到data.hook中
+  installComponentHooks(data)
+​
+  //实例化一个VNode返回。组件的VNode是没有children的
+  const name = Ctor.options.name || tag
+  const vnode = new VNode(
+    `vue-component-${Ctor.cid}${name ? `-${name}` : ''}`,
+    data, undefined, undefined, undefined, context,
+    { Ctor, propsData, listeners, tag, children },
+    asyncFactory
+  )
+  if (__WEEX__ && isRecyclableComponent(vnode)) {
+    return renderRecyclableComponentTemplate(vnode)
+  }
+​
+  return vnode
+}
+稍微提下createComponent生成VNode的三个关键流程：
+
+构造子类构造函数Ctor
+installComponentHooks安装组件钩子函数
+实例化 vnode
+
+小结
+createElement 创建 VNode 的过程，每个 VNode 有 children，children 每个元素也是一个VNode，这样就形成了一个虚拟树结构，用于描述真实的DOM树结构
