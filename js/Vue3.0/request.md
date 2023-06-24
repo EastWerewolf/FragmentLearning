@@ -1038,3 +1038,83 @@ installComponentHooks安装组件钩子函数
 
 小结
 createElement 创建 VNode 的过程，每个 VNode 有 children，children 每个元素也是一个VNode，这样就形成了一个虚拟树结构，用于描述真实的DOM树结构
+
+
+
+
+16.为什么data属性是一个函数而不是一个对象，具体原因是什么
+是不是一定是函数，得看场景。并且，也无需担心什么时候该将`data`写为函数还是对象，因为`vue`内部已经做了处理，并在控制台输出错误信息。
+​
+**场景一**：`new Vue({data: ...})`  
+这种场景主要为项目入口或者多个`html`页面各实例化一个`Vue`时，这里的`data`即可用对象的形式，也可用工厂函数返回对象的形式。因为，这里的`data`只会出现一次，不存在重复引用而引起的数据污染问题。
+​
+**场景二**：组件场景中的选项  
+在生成组件`vnode`的过程中，组件会在生成构造函数的过程中执行合并策略：
+​
+```
+// data合并策略
+strats.data = function (
+  parentVal,
+  childVal,
+  vm
+) {
+  if (!vm) {
+    if (childVal && typeof childVal !== 'function') {
+      process.env.NODE_ENV !== 'production' && warn(
+        'The "data" option should be a function ' +
+        'that returns a per-instance value in component ' +
+        'definitions.',
+        vm
+      );
+​
+      return parentVal
+    }
+    return mergeDataOrFn(parentVal, childVal)
+  }
+​
+  return mergeDataOrFn(parentVal, childVal, vm)
+};
+```
+​
+如果合并过程中发现子组件的数据不是函数，即`typeof childVal !== 'function'`成立，进而在开发环境会在控制台输出警告并且直接返回`parentVal`，说明这里压根就没有把`childVal`中的任何`data`信息合并到`options`中去。
+​
+​
+上面讲到组件data必须是一个函数，不知道大家有没有思考过这是为什么呢？
+​
+在我们定义好一个组件的时候，vue最终都会通过Vue.extend()构成组件实例
+​
+这里我们模仿组件构造函数，定义data属性，采用对象的形式
+​
+function Component(){
+ 
+}
+Component.prototype.data = {
+  count : 0
+}
+创建两个组件实例
+​
+const componentA = new Component()
+const componentB = new Component()
+修改componentA组件data属性的值，componentB中的值也发生了改变
+​
+console.log(componentB.data.count)  // 0
+componentA.data.count = 1
+console.log(componentB.data.count)  // 1
+产生这样的原因这是两者共用了同一个内存地址，componentA修改的内容，同样对componentB产生了影响
+​
+如果我们采用函数的形式，则不会出现这种情况（函数返回的对象内存地址并不相同）
+​
+function Component(){
+  this.data = this.data()
+}
+Component.prototype.data = function (){
+    return {
+      count : 0
+    }
+}
+修改componentA组件data属性的值，componentB中的值不受影响
+​
+console.log(componentB.data.count)  // 0
+componentA.data.count = 1
+console.log(componentB.data.count)  // 0
+vue组件可能会有很多个实例，采用函数返回一个全新data形式，使每个实例对象的数据不会受到其他实例对象数据的污染
