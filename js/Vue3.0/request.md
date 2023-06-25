@@ -1118,3 +1118,56 @@ console.log(componentB.data.count)  // 0
 componentA.data.count = 1
 console.log(componentB.data.count)  // 0
 vue组件可能会有很多个实例，采用函数返回一个全新data形式，使每个实例对象的数据不会受到其他实例对象数据的污染
+
+
+
+
+17.Vue2的初始化过程你有过了解吗，做了哪些事情
+scss复制代码new Vue走到了vue的构造函数中：`src\core\instance\index.js`文件。
+​
+this._init(options)
+​
+然后从Mixin增加的原型方法看，initMixin(Vue)，调用的是为Vue增加的原型方法_init
+​
+// src/core/instance/init.js
+​
+function initMixin (Vue) {
+  Vue.prototype._init = function (options) {
+     var vm = this; 创建vm, 
+     ...
+     // 合并options 到 vm.$options
+     vm.$options = mergeOptions(  
+       resolveConstructorOptions(vm.constructor), 
+       options || {},  
+       vm 
+     );
+  }
+  ...
+   initLifecycle(vm); //初始生命周期
+   initEvents(vm); //初始化事件
+   initRender(vm); //初始render函数
+   callHook(vm, 'beforeCreate'); //执行 beforeCreate生命周期钩子
+   ...
+   initState(vm);  //初始化data，props，methods computed，watch 
+   ...
+   callHook(vm, 'created');  //执行 created 生命周期钩子
+   
+   if (vm.$options.el) {
+      vm.$mount(vm.$options.el); //这里也是重点，下面需要用到
+   }
+ }
+​
+总结
+​
+所以，从上面的函数看来，new vue所做的事情，就像一个流程图一样展开了，分别是
+​
+-   合并配置
+-   初始化生命周期
+-   初始化事件
+-   初始化渲染
+-   调用 `beforeCreate` 钩子函数
+-   init injections and reactivity（这个阶段属性都已注入绑定，而且被 `$watch` 变成reactivity，但是 `$el` 还是没有生成，也就是DOM没有生成）
+-   初始化state状态（初始化了data、props、computed、watcher）
+-   调用created钩子函数。
+​
+在初始化的最后，检测到如果有 el 属性，则调用 vm.$mount 方法挂载 vm，挂载的目标就是把模板渲染成最终的 DOM。
