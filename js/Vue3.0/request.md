@@ -1171,3 +1171,57 @@ function initMixin (Vue) {
 -   调用created钩子函数。
 ​
 在初始化的最后，检测到如果有 el 属性，则调用 vm.$mount 方法挂载 vm，挂载的目标就是把模板渲染成最终的 DOM。
+
+
+
+19.vue3响应式api如何编写
+var activeEffect = null;
+function effect(fn) {
+  activeEffect = fn;
+  activeEffect();
+  activeEffect = null; 
+}
+var depsMap = new WeakMap();
+function gather(target, key) {
+  // 避免例如console.log(obj1.name)而触发gather
+  if (!activeEffect) return;
+  let depMap = depsMap.get(target);
+  if (!depMap) {
+    depsMap.set(target, (depMap = new Map()));
+  }
+  let dep = depMap.get(key);
+  if (!dep) {
+    depMap.set(key, (dep = new Set()));
+  }
+  dep.add(activeEffect)
+}
+function trigger(target, key) {
+  let depMap = depsMap.get(target);
+  if (depMap) {
+    const dep = depMap.get(key);
+    if (dep) {
+      dep.forEach((effect) => effect());
+    }
+  }
+}
+function reactive(target) {
+  const handle = {
+    set(target, key, value, receiver) {
+      Reflect.set(target, key, value, receiver);
+      trigger(receiver, key); // 设置值时触发自动更新
+    },
+    get(target, key, receiver) {
+      gather(receiver, key); // 访问时收集依赖
+      return Reflect.get(target, key, receiver);
+    },
+  };
+  return new Proxy(target, handle);
+}
+​
+function ref(name){
+    return reactive(
+        {
+            value: name
+        }
+    )
+}
