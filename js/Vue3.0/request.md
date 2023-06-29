@@ -1264,7 +1264,7 @@ diff整体策略为：深度优先，同层比较
   - 如果两者都有子节点，则执行updateChildren函数比较子节点
 - updateChildren主要做了以下操作：
   - 设置新旧VNode的头尾指针
-  - 新旧头尾指针进行比较，循环向中间靠拢，根据情况调用patchVnode进行patch重复流程、调用createElem创建一个新节点，从哈希表
+  - 新旧头尾指针进行比较，循环向中间靠拢，根据情况调用patchVnode进行patch重复流程、调用createElem创建一个新节点，从哈希表寻找 key一致的VNode 节点再分情况操作
 
 
 
