@@ -1295,3 +1295,17 @@ JavaScript 一共有 8 种数据类型，其中有 7 种基本数据类型：Und
 原始数据类型：直接存储在**栈**（stack）中，占据空间小、大小固定，属于被频繁使用数据，所以放入栈中存储。
 ​
 引用数据类型：同时存储在**栈**（stack）和**堆**（heap）中，占据空间大、大小不固定。引用数据类型在栈中存储了指针，该指针指向堆中该实体的起始地址。当解释器寻找引用值时，会首先检索其在栈中的地址，取得地址后从堆中获得实体。
+
+
+
+24. JS 中Object.prototype.toString.call()判断数据类型
+
+var a = Object.prototype.toString;
+console.log(a.call(2));
+console.log(a.call(true));
+console.log(a.call('str'));
+console.log(a.call([]));
+console.log(a.call(function(){}));
+console.log(a.call({}));
+console.log(a.call(undefined));
+console.log(a.call(null));https://link.juejin.cn?target=https%3A%2F%2Fsegmentfault.com%2Fa%2F1190000011467723%23articleHeader24 "https://segmentfault.com/a/1190000011467723#articleHeader24")
