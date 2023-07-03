@@ -1324,3 +1324,9 @@ undefined 在 js 中不是一个保留字，这意味着我们可以使用 undef
 ​
 当我们对两种类型使用 typeof 进行判断的时候，Null 类型化会返回 “object”，这是一个历史遗留的问题。当我们使用双等 号对两种类型的值进行比较时会返回 true，使用三个等号时会返回 false。
 
+
+26. {}和 [] 的 valueOf 和 toString 的结果是什么？
+{} 的 valueOf 结果为 {} ，toString 的结果为 "[object Object]"
+
+[] 的 valueOf 结果为 [] ，toString 的结果为 ""
+
