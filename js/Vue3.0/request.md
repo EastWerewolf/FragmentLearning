@@ -1399,6 +1399,12 @@ JavaScript 对象是通过引用来传递的，我们创建的每个新对象实
 3.  **DOM2 级事件模型：** 在该事件模型中，一次事件共有三个过程，第一个过程是事件捕获阶段。捕获指的是事件从 document 一直向下传播到目标元素，依次检查经过的节点是否绑定了事件监听函数，如果有则执行。后面两个阶段和 IE 事件模型的两个阶段相同。这种事件模型，事件绑定的函数是 addEventListener，其中第三个参数可以指定事件是否在捕获阶段执行。
 
 
+32. js 数组和字符串有哪些原生方法, 列举一下
+
+![图片](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ab8c5beff9054a23a296c5b738878184~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+![图片](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d35b1e307cba458c8b1e73917165be6b~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+
 
 
 
