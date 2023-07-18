@@ -1540,5 +1540,18 @@ v8 的垃圾回收机制基于分代回收机制，这个机制又基于世代�
 *   函数默认参数
 *   展开
 
+41. 什么是箭头函数？
+
+//ES5 Version
+var getCurrentDate = function (){
+  return new Date();
+}
+​
+//ES6 Version
+const getCurrentDate = () => new Date();
+​
+箭头函数表达式的语法比函数表达式更简洁，并且没有自己的`this，arguments，super或new.target`。箭头函数表达式更适用于那些本来需要匿名函数的地方，并且它不能用作构造函数。
+​
+箭头函数没有自己的 this 值。它捕获词法作用域函数的 this 值，如果我们在全局作用域声明箭头函数，则 this 值为 window 对象。
 
 
