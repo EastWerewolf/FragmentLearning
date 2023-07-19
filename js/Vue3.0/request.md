@@ -1555,3 +1555,13 @@ const getCurrentDate = () => new Date();
 箭头函数没有自己的 this 值。它捕获词法作用域函数的 this 值，如果我们在全局作用域声明箭头函数，则 this 值为 window 对象。
 
 
+42. 什么是高阶函数？
+
+高阶函数只是将函数作为参数或返回值的函数。
+​
+function higherOrderFunction(param,callback){
+    return callback(param);
+}
+
+
+
