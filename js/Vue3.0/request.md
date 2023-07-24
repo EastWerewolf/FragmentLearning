@@ -1754,3 +1754,36 @@ function curry(fn, ...args) {
 
 
 
+45. 实现一个 new 操作符
+首先需要了解new做了什么事情：
+
+首先创建了一个空对象。
+将空对象proto指向构造函数的原型prototype。
+使this指向新创建的对象，并执行构造函数。
+执行结果有返回值并且是一个对象， 返回执行的结果， 否则返回新创建的对象。
+
+
+// 代码实现
+function mu_new(fn,...arg){
+    // 首先创建空对象
+    const obj = {};
+    // 将空对象的原型proto指向构造函数的原型prototype
+    Object.setPrototypeOf(obj, fn.prototype)
+    // 将this指向新创建的对象，并且执行构造函数
+    const result = fn.apply(obj,arg);
+    // 执行结果有返回值并且是一个对象，返回执行的结果，否侧返回新创建的对象
+    return result instanceof Object ? result : obj;
+}
+
+// 验证mu_new函数
+function Dog(name){
+    this.name = name;
+    this.say = function(){
+        console.log('my name is' + this.name);
+    }
+}
+
+const dog = mu_new(Dog, "傻🐶");
+dog.say() //my name is傻🐶
+
+
