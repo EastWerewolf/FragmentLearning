@@ -1787,3 +1787,33 @@ const dog = mu_new(Dog, "傻🐶");
 dog.say() //my name is傻🐶
 
 
+46. 可以讲讲Promise吗，可以手写实现一下吗？
+
+
+Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。它由社区最早提出和实现，ES6 将其写进了语言标准，统一了用法，原生提供了`Promise`对象。
+
+所谓`Promise`，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。Promise 提供统一的 API，各种异步操作都可以用同样的方法进行处理。
+
+**那我们来看看我们所熟知的`Promise`的基本原理**
+
++ 首先我们在调用Promise时，会返回一个Promise对象。
++ 构建Promise对象时，需要传入一个executor函数，Promise的主要业务流程都在executor函数中执行。
++ 如果运行在excutor函数中的业务执行成功了，会调用resolve函数；如果执行失败了，则调用reject函数。
++ Promise的状态不可逆，同时调用resolve函数和reject函数，默认会采取第一次调用的结果。
+
+**结合Promise/A+规范，我们还可以分析出哪些基本特征**
+
+Promise/A+的规范比较多，在这列出一下核心的规范。[Promise/A+规范](https://link.juejin.cn/?target=https%3A%2F%2Fpromisesaplus.com%2F)
+
++ promise有三个状态：pending，fulfilled，rejected，默认状态是pending。
++ promise有一个value保存成功状态的值，有一个reason保存失败状态的值，可以是undefined/thenable/promise。
++ promise只能从pending到rejected, 或者从pending到fulfilled，状态一旦确认，就不会再改变。
++ promise 必须有一个then方法，then接收两个参数，分别是promise成功的回调onFulfilled, 和promise失败的回调onRejected。
++ 如果then中抛出了异常，那么就会把这个异常作为参数，传递给下一个then的失败的回调onRejected。
+
+那`CustomPromise`，还实现不了基本原理的3，4两条，那我们来根据基本原理与Promise/A+分析下，还缺少什么
+
+- promise有三个状态：pending，fulfilled，rejected。
+- executor执行器调用reject与resolve两个方法
+- 还需要有保存成功或失败两个值的变量
+- then接收两个参数，分别是成功的回调onFulfilled,失败的回调onRejected
