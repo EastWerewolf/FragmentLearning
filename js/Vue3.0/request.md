@@ -1817,3 +1817,18 @@ Promise/A+的规范比较多，在这列出一下核心的规范。[Promise/A+�
 - executor执行器调用reject与resolve两个方法
 - 还需要有保存成功或失败两个值的变量
 - then接收两个参数，分别是成功的回调onFulfilled,失败的回调onRejected
+
+
+
+47. 什么是 async/await 及其如何工作, 可以手写async吗
+
+
+
+1、Async—声明一个异步函数
+  - 自动将常规函数转换成Promise，返回值也是一个Promise对象
+  - 只有async函数内部的异步操作执行完，才会执行then方法指定的回调函数
+  - 异步函数内部可以使用await
+2、Await—暂停异步的功能执行(var result = await someAsyncCall();)
+  - 放置在Promise调用之前，await强制其他代码等待，直到Promise完成并返回结果
+  - 只能与Promise一起使用，不适用与回调
+  - 只能在async函数内部使用
