@@ -1873,3 +1873,27 @@ const isArray = mu_instanceof([],Array);
 console.log(isArray); //true
 const isDate = mu_instanceof('2023-01-09',Date);
 console.log(isDate); // false
+
+
+
+49. js 的节流与防抖
+1.防抖
+函数防抖是在事件被触发n秒后再执行回调，如果在「n秒内又被触发」，则「重新计时」
+
+function debounce(fn, wait) {
+    let timer = null;
+    return function () {
+      if (timer != null) {
+        clearTimeout(timer);
+      }
+      timer = setTimeout(() => {
+        fn();
+      }, wait);
+    };
+  }
+  // 测试
+  function handle() {
+    console.log(Math.random());
+  }
+  // 窗口大小改变，触发防抖，执行handle
+  window.addEventListener('resize', debounce(handle, 1000));
