@@ -1897,3 +1897,34 @@ function debounce(fn, wait) {
   }
   // 窗口大小改变，触发防抖，执行handle
   window.addEventListener('resize', debounce(handle, 1000));
+
+ 
+2.节流
+当事件触发时，保证一定时间段内只调用一次函数。例如页面滚动的时候，每隔一段时间发一次请求
+实现步骤：
+
+传入参数为执行函数fn，等待时间wait。
+保存初始时间now。
+返回一个函数，如果超过等待时间，执行函数，将now更新为当前时间。
+
+function throttle(fn, wait, ...args) {
+    var pre = Date.now();
+    return function () {
+      // 函数可能会有入参
+      var context = this;
+      var now = Date.now();
+      if (now - pre >= wait) {
+        // 将执行函数的this指向当前作用域
+        fn.apply(context, args);
+        pre = Date.now();
+      }
+    };
+  }
+​
+  // 测试
+  var name = 'mu';
+  function handle(val) {
+    console.log(val + this.name);
+  }
+  // 滚动鼠标，触发防抖，执行handle
+  window.addEventListener('scroll', throttle(handle, 1000, '木由'));
