@@ -1898,7 +1898,7 @@ function debounce(fn, wait) {
   // 窗口大小改变，触发防抖，执行handle
   window.addEventListener('resize', debounce(handle, 1000));
 
- 
+
 2.节流
 当事件触发时，保证一定时间段内只调用一次函数。例如页面滚动的时候，每隔一段时间发一次请求
 实现步骤：
@@ -1928,3 +1928,12 @@ function throttle(fn, wait, ...args) {
   }
   // 滚动鼠标，触发防抖，执行handle
   window.addEventListener('scroll', throttle(handle, 1000, '木由'));
+
+
+
+ 50.HTML、XML、XHTML 的区别
+
+- `HTML`：超文本标记语言，是语法较为松散的、不严格的`Web`语言；
+- `XML`：可扩展的标记语言，主要用于存储数据和结构，可扩展；
+- `XHTML`：可扩展的超文本标记语言，基于`XML`，作用与`HTML`类似，但语法更严格。
+
