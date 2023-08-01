@@ -1937,3 +1937,9 @@ function throttle(fn, wait, ...args) {
 - `XML`：可扩展的标记语言，主要用于存储数据和结构，可扩展；
 - `XHTML`：可扩展的超文本标记语言，基于`XML`，作用与`HTML`类似，但语法更严格。
 
+
+52.行内元素有哪些？块级元素有哪些？ 空(void)元素有那些？
+
+- 行内元素： `a`, `b`, `span`, `img`, `input`, `select`, `strong`;
+- 块级元素： `div`, `ul`, `li`, `dl`, `dt`, `dd`, `h1-5`, `p`等；
+- 空元素： `<br>`, `<hr>`, `<img>`, `<link>`, `<meta>`;
