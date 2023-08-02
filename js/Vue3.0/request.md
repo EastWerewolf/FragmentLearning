@@ -1943,3 +1943,11 @@ function throttle(fn, wait, ...args) {
 - 行内元素： `a`, `b`, `span`, `img`, `input`, `select`, `strong`;
 - 块级元素： `div`, `ul`, `li`, `dl`, `dt`, `dd`, `h1-5`, `p`等；
 - 空元素： `<br>`, `<hr>`, `<img>`, `<link>`, `<meta>`;
+
+
+53. 页面导入样式时，使用link和@import有什么区别
+
+- `link`属于`HTML`标签，而`@import`是`css`提供的；
+- 页面被加载时，`link`会同时被加载，而`@import`引用的css会等到页面被加载完再加载；
+- `@import`只在`IE5`以上才能识别，而`link`是`XHTML`标签，无兼容问题；
+- `link`方式的样式的权重高于`@import`的权重。
