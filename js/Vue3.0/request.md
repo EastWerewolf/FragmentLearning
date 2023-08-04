@@ -1966,3 +1966,11 @@ function throttle(fn, wait, ...args) {
 - 方便其他设备解析（如屏幕阅读器、盲人阅读器、移动设备）以意义的方式来渲染网页；
 - 有利于`SEO`：和搜索引擎建立良好沟通，有助于爬虫抓取更多的有效信息：爬虫依赖于标签来确定上下文和各个关键字的权重；
 - 便于团队开发和维护，语义化更具可读性，遵循W3C标准的团队都遵循这个标准，可以减少差异化。
+
+
+55. property和attribute的区别是什么
+
+- `property`是`DOM`中的属性，是`JavaScript`里的对象;
+- `attribute`是`HTML`标签上的特性，它的值只能够是字符串;
+​
+简单的理解就是：`Attribute`就是`DOM`节点自带的属性，例如`html`中常用的`id`、`class`、`title`、`align`等；而`Property`是这个`DOM`元素作为对象，其附加的内容，例如`childNodes`、`firstChild`等。
