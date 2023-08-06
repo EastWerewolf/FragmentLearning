@@ -1974,3 +1974,36 @@ function throttle(fn, wait, ...args) {
 - `attribute`是`HTML`标签上的特性，它的值只能够是字符串;
 ​
 简单的理解就是：`Attribute`就是`DOM`节点自带的属性，例如`html`中常用的`id`、`class`、`title`、`align`等；而`Property`是这个`DOM`元素作为对象，其附加的内容，例如`childNodes`、`firstChild`等。
+
+
+56. html5有哪些新特性、移除了那些元素
+
+新特性
+​
+**HTML5 现在已经不是 SGML 的子集，主要是关于图像，位置，存储，多任务等功能的增加。**
+​
+- 拖拽释放`(Drag and drop)` `API`；
+- 语义化更好的内容标签（`header`, `nav`, `footer`, `aside`, `article`, `section`）;
+- 音频、视频API(`audio`, `video`);
+- 画布`(Canvas)` `API`;
+- 地理`(Geolocation)` `API`;
+- 本地离线存储 `localStorage` 长期存储数据，浏览器关闭后数据不丢失；
+- `sessionStorage` 的数据在浏览器关闭后自动删除;
+- 表单控件:`calendar`、`date`、`time`、`email`、`url`、`search` ;
+- 新的技术`webworker`, `websocket`, `Geolocation`等；
+​
+移除元素
+​
+**纯表现元素**：
+​
+- `<basefont>` 默认字体，不设置字体，以此渲染；
+- `<font>` 字体标签；
+- `<center>` 水平居中；
+- `<u>` 下划线；
+- `<big>`字体；
+- `<strike>`中横字；
+- `<tt>`文本等宽；
+​
+**对可用性产生负面影响的元素**：
+​
+`<frameset>`,`<noframes>`和`<frame>`；
