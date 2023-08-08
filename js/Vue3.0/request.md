@@ -2023,3 +2023,12 @@ function throttle(fn, wait, ...args) {
 ​
 - 代码分离，利于团队的开发和后期的维护；
 - 减少维护成本，提高可读性和更好的兼容性；
+
+
+
+52.行内元素有哪些？块级元素有哪些？ 空(void)元素有那些？
+
+- 行内元素： `a`, `b`, `span`, `img`, `input`, `select`, `strong`;
+- 块级元素： `div`, `ul`, `li`, `dl`, `dt`, `dd`, `h1-5`, `p`等；
+- 空元素： `<br>`, `<hr>`, `<img>`, `<link>`, `<meta>`;
+
