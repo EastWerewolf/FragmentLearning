@@ -2036,3 +2036,19 @@ function throttle(fn, wait, ...args) {
 - 反向链接，网站外链接优化；
 - meta标签优化（`title`, `description`, `keywords`）,`heading`标签的优化,`alt`优化；
 
+
+59. Html5中本地存储概念是什么，有什么优点，与cookie有什么区别？
+
+
+`HTML5`的`Web storage`的存储方式有两种：`sessionStorage`和`localStorage`。
+​
+- `sessionStorage`用于本地存储一个会话中的数据，当会话结束后就会销毁；
+- 和`sessionStorage`不同，`localStorage`用于持久化的本地存储，除非用户主动删除数据，否则数据永远不会过期；
+- `cookie`是网站为了标示用户身份而储存在用户本地终端（`Client Side`）上的数据（通常经过加密）。
+​
+**区别**：
+​
+- **从浏览器和服务器间的传递看**： `cookie`数据始终在同源的http请求中携带（即使不需要），即`cookie`在浏览器和服务器间来回传递；而`sessionStorage`和`localStorage`不会自动把数据发给服务器，仅在本地保存。
+- **从大小看**： 存储大小限制不同，`cookie`数据不能超过`4k`，只适合保存很小的数据；而`sessionStorage`和`localStorage` 虽然也有存储大小的限制，但比`cookie`大得多，可以达到5M或更大。
+- **从数据有效期看**： `sessionStorage`在会话关闭会立刻关闭，因此持续性不久；`cookie`只在设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭。而`localStorage`始终有效。
+- **从作用域看**： `sessionStorage`不在不同的浏览器窗口中共享，即使是同一个页面；而`localStorage`和`cookie`都是可以在所有的同源窗口中共享的。
