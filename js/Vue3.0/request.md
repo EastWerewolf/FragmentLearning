@@ -2052,3 +2052,12 @@ function throttle(fn, wait, ...args) {
 - **从大小看**： 存储大小限制不同，`cookie`数据不能超过`4k`，只适合保存很小的数据；而`sessionStorage`和`localStorage` 虽然也有存储大小的限制，但比`cookie`大得多，可以达到5M或更大。
 - **从数据有效期看**： `sessionStorage`在会话关闭会立刻关闭，因此持续性不久；`cookie`只在设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭。而`localStorage`始终有效。
 - **从作用域看**： `sessionStorage`不在不同的浏览器窗口中共享，即使是同一个页面；而`localStorage`和`cookie`都是可以在所有的同源窗口中共享的。
+
+
+60. 常见的浏览器内核有哪些
+
+
+- `Trident`内核：IE最先开发或使用的， 360浏览器；
+- `Webkit`内核：Google Chrome，Safari， 搜狗浏览器，360极速浏览器， 阿里云浏览器等；
+- `Gecko`内核： Mozilla FireFox (火狐浏览器) ，K-Meleon浏览器；
+- `Presto`内核：Opera浏览器；
