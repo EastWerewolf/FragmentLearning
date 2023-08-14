@@ -2061,3 +2061,13 @@ function throttle(fn, wait, ...args) {
 - `Webkit`内核：Google Chrome，Safari， 搜狗浏览器，360极速浏览器， 阿里云浏览器等；
 - `Gecko`内核： Mozilla FireFox (火狐浏览器) ，K-Meleon浏览器；
 - `Presto`内核：Opera浏览器；
+
+
+61. LocalStorage本地存储在HTML5中有什么用途
+
+`localStorage`本地存储相当于一个轻量级的数据库，可以在本地永久的储存数据（除非人为删除）。此外，还可以在断网情况下读取本地缓存的`cookies`。
+​
+- 使用`localStorage`保存数据： `localStorage.setItem(key, value)`;
+- 使用`localStorage`获取保存的数据: `localStorage.getItem(key)`;
+- 清除`localStorage`保存的数据： `localStorage.removeItem(key)`;
+- 清除全部`localStorage`对象保存的数据: `localStorage.clear( )`;
