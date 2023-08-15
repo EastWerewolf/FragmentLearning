@@ -2071,3 +2071,12 @@ function throttle(fn, wait, ...args) {
 - 使用`localStorage`获取保存的数据: `localStorage.getItem(key)`;
 - 清除`localStorage`保存的数据： `localStorage.removeItem(key)`;
 - 清除全部`localStorage`对象保存的数据: `localStorage.clear( )`;
+
+62. 为什么利用多个域名来存储网站资源会更有效
+
+- `CDN`缓存更加方便；
+- 突破浏览器并发限制；
+- 节约`cookie`宽带；
+- 节约主域名的连接数，优化页面下响应速度；
+- 防止不必要的安全问题；
+
