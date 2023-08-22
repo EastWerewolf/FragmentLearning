@@ -2149,4 +2149,31 @@ Cache-Control 与 Expires 可以在服务端配置同时启用，同时启用的
 
 
 
+66.什么是协商缓存
+
+当强缓存没有命中的时候，浏览器会发送一个请求到服务器，服务器根据 header 中的部分信息来判断是否命中缓存。如果命中，则返回 304 ，告诉浏览器资源未更新，可使用本地的缓存。
+​
+这里的 header 中的信息指的是 Last-Modify/If-Modify-Since 和 ETag/If-None-Match.
+​
+Last-Modify/If-Modify-Since
+浏览器第一次请求一个资源的时候，服务器返回的 header 中会加上 Last-Modify，Last-modify 是一个时间标识该资源的最后修改时间（只能精确到秒，所以间隔时间小于 1 秒的请求是检测不到文件更改的。）。
+​
+当浏览器再次请求该资源时，request 的请求头中会包含 If-Modify-Since，该值为缓存之前返回的 Last-Modify。服务器收到 If-Modify-Since 后，根据资源的最后修改时间判断是否命中缓存。
+​
+如果命中缓存，则返回 304，并且不会返回资源内容，并且不会返回 Last-Modify。
+​
+缺点:
+​
+短时间内资源发生了改变，Last-Modified 并不会发生变化。
+​
+周期性变化。如果这个资源在一个周期内修改回原来的样子了，我们认为是可以使用缓存的，但是 Last-Modified 可不这样认为, 因此便有了 ETag。
+​
+ETag/If-None-Match
+Etag 是基于文件内容进行编码的，可以保证如果服务器有更新，一定会重新请求资源，但是编码需要付出额外的开销。
+​
+与 Last-Modify/If-Modify-Since 不同的是，Etag/If-None-Match 返回的是一个校验码。ETag 可以保证每一个资源是唯一的，资源变化都会导致 ETag 变化。服务器根据浏览器上送的 If-None-Match 值来判断是否命中缓存。
+​
+与 Last-Modified 不一样的是，当服务器返回 304 Not Modified 的响应时，由于 ETag 重新生成过，response header 中还会把这个 ETag 返回，即使这个 ETag 跟之前的没有变化。
+​
+Last-Modified 与 ETag 是可以一起使用的，服务器会优先验证 ETag，一致的情况下，才会继续比对 Last-Modified，最后才决定是否返回 304。
 
