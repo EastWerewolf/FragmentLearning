@@ -2332,3 +2332,18 @@ HTTPS是HTTP协议的安全版本，HTTP协议的数据传输是明文的，是�
 HTTP 和 HTTPS 使用连接方式不同，默认端口也不一样，HTTP是80，HTTPS是443
 HTTPS 由于需要设计加密以及多次握手，性能方面不如 HTTP
 HTTPS需要SSL，SSL 证书需要钱，功能越强大的证书费用越高
+
+
+
+73.webpack文件指纹策略：hash chunkhash contenthash
+
+
+hash策略：是以项目为单位的，项目内容改变则会生成新的hash，内容不变则hash不变
+​
+chunkhash策略：是以chunk为单位的，当一个文件内容改变，则整个相应的chunk组模块的hash回发生改变
+​
+contenthash策略：是以自身内容为单为的
+​
+推荐使用：css ：contenthash
+​
+•js：chunkhash
