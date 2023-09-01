@@ -2439,3 +2439,15 @@ class MyPlugin {
   }
 }
 在 emit 事件发生时，代表源文件的转换和组装已经完成，可以读取到最终将输出的资源、代码块、模块及其依赖，并且可以修改输出资源的内容
+
+
+76.提高webpack的构建速度
+
+优化 loader 配置
+合理使用 resolve.extensions
+优化 resolve.modules
+优化 resolve.alias
+使用 DLLPlugin 插件
+使用 cache-loader
+terser 启动多线程
+合理使用 sourceMap
