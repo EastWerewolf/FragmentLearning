@@ -2476,3 +2476,8 @@ file-loader: 分发文件到output目录并返回相对路径
 url-loader: 和file-loader类似，但是当文件小于设定的limit时可以返回一个Data Url
 html-minify-loader: 压缩HTML
 babel-loader :用babel来转换ES6文件到ES
+
+
+79.webpack中常见的Plugin
+
+![图片](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/42a9982ea5ee422d8a6877b2a36a83f1~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
