@@ -2605,3 +2605,21 @@ git stash apply <储藏的名称> 取出储藏中对应的工作状态进行恢�
 git stash clear 清空所有储藏中的工作
 ​
 git stash drop <储藏的名称> 删除对应的某个储藏
+
+
+
+
+
+81.标准的CSS盒子模型及其和低版本的IE盒子模型的区别？
+
+标准（W3C）盒子模型：width = 内容宽度（content） + border + padding + margin
+
+低版本IE盒子模型： width = 内容宽度（content + border + padding）+ margin
+
+图片展示:
+![图片](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e67a7e62bf014408ad1c20e3951c179a~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+
+![图片](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9599a855d62546d993f481f44caa252c~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+区别： 标准盒子模型盒子的height和width是content（内容）的宽高，而IE盒子模型盒子的宽高则包括content+padding+border部分。
