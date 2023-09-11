@@ -2645,3 +2645,28 @@ git stash drop <储藏的名称> 删除对应的某个储藏
 可继承的样式属性： `font-size`, `font-family`, `color`, `ul`, `li`, `dl`, `dd`, `dt`;
 ​
 不可继承的样式属性： `border`, `padding`, `margin`, `width`, `height`；
+
+
+84.position的值relative和absolute定位原点？
+
+首先，使用`position`的时候，应该记住一个规律是‘**子绝父相**’。
+​
+`relative`（相对定位）： 生成相对定位的元素，定位原点是元素本身所在的位置；
+​
+`absolute`（绝对定位）：生成绝对定位的元素，定位原点是离自己这一级元素最近的一级`position`设置为`absolute`或者`relative`的父元素的左上角为原点的。
+​
+`fixed` （老IE不支持）：生成绝对定位的元素，相对于浏览器窗口进行定位。
+​
+`static`：默认值。没有定位，元素出现在正常的流中（忽略 `top`, `bottom`, `left`, `right`、`z-index` 声明）。
+​
+`inherit`：规定从父元素继承 `position` 属性的值。
+​
+**更新一个属性**
+​
+`sticky`: (新增元素，目前兼容性可能不是那么的好)，可以设置 position:sticky 同时给一个 (top,bottom,right,left) 之一即可。
+​
+**注意**：
+​
+- 使用`sticky`时，必须指定top、bottom、left、right4个值之一，不然只会处于相对定位；
+- `sticky`只在其父元素内其效果，且保证父元素的高度要高于`sticky`的高度；
+- 父元素不能`overflow:hidden`或者`overflow:auto`等属性。
