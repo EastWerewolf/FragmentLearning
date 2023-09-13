@@ -2690,3 +2690,22 @@ git stash drop <储藏的名称> 删除对应的某个储藏
 - 多背景图 ;
 - 盒子大小;
 - 语音;
+
+
+
+86.用纯CSS创建一个三角形的原理是什么？
+
+实现步骤： 1.首先保证元素是块级元素；2.设置元素的边框；3.不需要显示的边框使用透明色。
+
+css: 
+    * {margin: 0; padding: 0;}
+    .content {
+        width:0;
+        height:0;
+        margin:0 auto;
+        border:50px solid transparent;
+        border-top: 50px solid pink;
+    }
+​
+html: 
+    <div class="content"></div>
