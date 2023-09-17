@@ -2749,3 +2749,14 @@ ini复制代码
 ![图片](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9599a855d62546d993f481f44caa252c~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
 
 区别： 标准盒子模型盒子的height和width是content（内容）的宽高，而IE盒子模型盒子的宽高则包括content+padding+border部分。
+
+
+82.几种解决IE6存在的bug的方法
+
+- 由`float`引起的双边距的问题，使用`display`解决；
+- 由`float`引起的3像素问题，使用`display: inline -3px`;
+- 使用正确的书写顺序`link visited hover active`，解决超链接`hover`点击失效问题；
+- 对于`IE` 的`z-index`问题，通过给父元素增加`position: relative`解决；
+- 使用`!important`解决`Min-height`最小高度问题；
+- 使用`iframe`解决`select`在`IE6`下的覆盖问题；
+- 使用`over: hidden`, `zoom: 0.08`, `line-height: 1px`解决定义1px左右的容器宽度问题；
