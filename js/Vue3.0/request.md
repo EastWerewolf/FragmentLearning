@@ -2760,3 +2760,15 @@ ini复制代码
 - 使用`!important`解决`Min-height`最小高度问题；
 - 使用`iframe`解决`select`在`IE6`下的覆盖问题；
 - 使用`over: hidden`, `zoom: 0.08`, `line-height: 1px`解决定义1px左右的容器宽度问题；
+
+
+83.CSS选择符有哪些？哪些属性可以继承？
+
+常见的选择符有一下：
+​
+`id`选择器（`#content`），类选择器（`.content`）, 标签选择器（`div`, `p`, `span`等）, 相邻选择器（`h1+p`）, 子选择器（`ul>li`）, 后代选择器（`li a`）， 通配符选择器（`*`）, 属性选择器（`a[rel = "external"]`）， 伪类选择器（`a:hover`, `li:nth-child`）
+​
+可继承的样式属性： `font-size`, `font-family`, `color`, `ul`, `li`, `dl`, `dd`, `dt`;
+​
+不可继承的样式属性： `border`, `padding`, `margin`, `width`, `height`；
+
