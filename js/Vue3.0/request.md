@@ -2798,3 +2798,21 @@ ini复制代码
 - 父元素不能`overflow:hidden`或者`overflow:auto`等属性。
 
 
+85.CSS3有哪些新特性？
+
+关于`CSS`新增的特性，有以下：
+​
+- 选择器;
+- 圆角`（border-raduis）`;
+- 多列布局`（multi-column layout）`;
+- 阴影`（shadow）`和反射`（reflect）`;
+- 文字特效`（text-shadow）`;
+- 文字渲染`（text-decoration`）;
+- 线性渐变`（gradient）`;
+- 旋转`（rotate`）/缩放`（scale）`/倾斜`（skew）`/移动`（translate）`;
+- 媒体查询`（@media）`;
+- `RGBA`和透明度 ;
+- `@font-face`属性;
+- 多背景图 ;
+- 盒子大小;
+- 语音;
