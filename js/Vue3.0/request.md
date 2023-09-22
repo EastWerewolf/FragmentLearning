@@ -2835,3 +2835,16 @@ css:
 html: 
     <div class="content"></div>
 
+ 
+
+
+ 87.什么是响应式设计？响应式设计的基本原理是什么？如何兼容低版本的IE？
+
+ 响应式网站设计（Responsive Web design）是一个网站能够兼容多个终端，而不是为每一个终端做一个特定的版本。
+关于原理： 基本原理是通过媒体查询（@media）查询检测不同的设备屏幕尺寸做处理。
+关于兼容： 页面头部必须有mate声明的viewport。
+
+
+<meta name="’viewport’" content="”width=device-width," initial-scale="1." maximum-scale="1,user-scalable=no”"/>
+
+
