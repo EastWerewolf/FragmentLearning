@@ -2848,3 +2848,21 @@ html:
 <meta name="’viewport’" content="”width=device-width," initial-scale="1." maximum-scale="1,user-scalable=no”"/>
 
 
+
+
+88.CSS优化、提高性能的方法有哪些？
+
+
+- 多个`css`可合并，并尽量减少`http`请求
+- 属性值为0时，不加单位
+- 将`css`文件放在页面最上面
+- 避免后代选择符，过度约束和链式选择符
+- 使用紧凑的语法
+- 避免不必要的重复
+- 使用语义化命名，便于维护
+- 尽量少的使用`!impotrant`，可以选择其他选择器
+- 精简规则，尽可能合并不同类的重复规则
+- 遵守盒子模型规则
+
+
+
