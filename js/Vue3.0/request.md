@@ -2897,4 +2897,24 @@ html:
 
 
 
+92.对BFC规范(块级格式化上下文：block formatting context)的理解
 
+
+`BFC`规定了内部的`Block Box`如何布局。一个页面是由很多个`Box`组成的，元素的类型和`display`属性，决定了这个`Box`的类型。不同类型的`box`，会参与不同的`Formatting Context`（决定如何渲染文档的容器），因此`Box`内的元素会以不用的方式渲染，也是就是说`BFC`内部的元素和外部的元素不会相互影响。
+​
+定位方案：
+​
+- 内部的`box`会在垂直方向上一个接一个的放置；
+- `box`垂直方向的距离由`margin`决定，属于同一个`BFC`的两个相邻`Box`的`margin`会发生重叠；
+- 每个元素`margin box`的左边，与包含块`border box`的左边相接触；
+- `BFC`的区域不会与float box重叠；
+- `BFC`是页面上的一个隔离的独立容器，容器里面的元素不会影响到外面的元素；
+- 计算`BFC`的高度时，浮动元素也会参与计算。
+​
+满足下列条件之一就可以出发BFC：
+​
+- 根元素变化，即`html`；
+- `float`的值不为`none`（默认）；
+- `overflow`的值不为`visible`（默认）；
+- `display`的值为`inline-block`, `tabke-cell`，`table-caption`；
+- `position`的值为`absolute`或`fixed`;
