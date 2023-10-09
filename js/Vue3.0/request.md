@@ -2918,3 +2918,14 @@ html:
 - `overflow`的值不为`visible`（默认）；
 - `display`的值为`inline-block`, `tabke-cell`，`table-caption`；
 - `position`的值为`absolute`或`fixed`;
+
+
+93.经常遇到的浏览器的兼容性有哪些？原因，解决方法是什么，常用hack的技巧 ？
+
+（1）、问题：`png24`位的图片在`ie`浏览器上出现背景。解决： 做成`png8`；
+​
+（2）、问题：浏览器默认的`margin`和`padding`不同。 解决： 添加一个全局的`*{ margin： 0; padding： 0;}`；
+​
+（3）、问题：`IE`下,可以使用获取常规属性的方法来获取自定义属性,也可以使用`getAttribute()`获取自定义属性，而`Firefox`下,只能使用`getAttribute()`获取自定义属性。 解决： 统一通过`getAttribute()`获取自定义属性；
+​
+（4）、问题： `IE`下,`event`对象有`x`,`y`属性,但是没有`pageX`,`pageY`属性，而`Firefox`下,`event`对象有`pageX`,`pageY`属性,但是没有`x`,`y`属性。 解决： 使用`mX(mX = event.x ? event.x : event.pageX;)`来代替`IE`下的`event.x`或者`Firefox`下的`event.pageX`。
