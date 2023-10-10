@@ -2929,3 +2929,12 @@ html:
 （3）、问题：`IE`下,可以使用获取常规属性的方法来获取自定义属性,也可以使用`getAttribute()`获取自定义属性，而`Firefox`下,只能使用`getAttribute()`获取自定义属性。 解决： 统一通过`getAttribute()`获取自定义属性；
 ​
 （4）、问题： `IE`下,`event`对象有`x`,`y`属性,但是没有`pageX`,`pageY`属性，而`Firefox`下,`event`对象有`pageX`,`pageY`属性,但是没有`x`,`y`属性。 解决： 使用`mX(mX = event.x ? event.x : event.pageX;)`来代替`IE`下的`event.x`或者`Firefox`下的`event.pageX`。
+
+
+94. 怎么让Chrome支持小于12px 的文字？
+
+.shrink {
+    -webkit-transform: scale(0.8);
+    -o-transform: scale(1);
+    display: inilne-block;
+}
