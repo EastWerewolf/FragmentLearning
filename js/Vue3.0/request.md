@@ -2938,3 +2938,8 @@ html:
     -o-transform: scale(1);
     display: inilne-block;
 }
+
+
+95. :link、:visited、:hover、:active的执行顺序是怎么样的？
+
+`L-V-H-A`，`l(link)ov(visited)e h(hover)a(active)te`，即用喜欢和讨厌两个词来概括
