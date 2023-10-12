@@ -2943,3 +2943,11 @@ html:
 95. :link、:visited、:hover、:active的执行顺序是怎么样的？
 
 `L-V-H-A`，`l(link)ov(visited)e h(hover)a(active)te`，即用喜欢和讨厌两个词来概括
+
+96. CSS属性overflow属性定义溢出元素内容区的内容会如何处理?
+
+- 参数是`scroll`的时候，一定会出滚动条；
+- 参数是`auto`的时候，子元素内容大于父元素时出现滚动条；
+- 参数是`visible`的时候，溢出的内容出现在父元素之外；
+- 参数是`hidden`的时候，溢出隐藏；
+
