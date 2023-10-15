@@ -2959,3 +2959,13 @@ html:
 外联样式： 优点： 完全实现了结构和样式相分离； 缺点： 需要引入才能使用；
 
 
+
+
+98. position 跟 display、overflow、float 这些特性相互叠加后会怎么样？
+
+
+- `display`属性规定元素应该生成的框的类型；
+- `position`属性规定元素的定位类型；
+- `float`属性是一种布局方式，定义元素往哪个方向浮动；
+​
+**叠加结果**：有点类似于优先机制。`position`的值-- `absolute/fixed`优先级最高，有他们在时，`float`不起作用，`display`值需要调整。`float`或者`absolute`定位的元素，只能是块元素或者表格。
