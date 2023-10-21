@@ -46,4 +46,4 @@ const observer = new MutationObserver(newCallBack)
 // 以上述配置开始观察目标节点
 observer.observe(targetNode, config)
 
-export {}
+export {}    
