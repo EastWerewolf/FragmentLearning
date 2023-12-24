@@ -26,27 +26,3 @@ export function decrypto(ciphertext: string) {
   }
   return null;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
