@@ -1226,3 +1226,9 @@ export const handleFloatCount = (value: number | null,obj:any,key:string,count:n
   const bottomBtn = document.getElementById("bottom-btn");
   observer.observe(btn);
   observer.observe(bottomBtn);
+
+
+
+
+
+  
