@@ -1225,4 +1225,4 @@ export const handleFloatCount = (value: number | null,obj:any,key:string,count:n
   const btn = document.getElementById("btn");
   const bottomBtn = document.getElementById("bottom-btn");
   observer.observe(btn);
-  observer.observe(bottomBtn);;
+  observer.observe(bottomBtn)
