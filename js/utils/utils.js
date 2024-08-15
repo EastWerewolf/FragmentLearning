@@ -701,7 +701,7 @@ const printNums1 = async() => {
 printNums1(); // Logs: 1, 2, 3 (2 and 3 log after 500ms)
 
 /**
- * implement a singleton in JavaScript
+ * implement a singleton in JavaScript  单利化
  * @param className
  * @returns {*}
  */
@@ -709,9 +709,9 @@ const singletonify = (className) => {
     return new Proxy(className.prototype.constructor, {
         instance: null,
         construct: (target, argumentsList) => {
-            if (!this.instance)
-                this.instance = new target(...argumentsList);
-            return this.instance;
+            // if (!this.instance)
+            //     this.instance = new target(...argumentsList);
+            return (this.instance ??=new target(...argumentsList))
         }
     });
 }
@@ -1226,3 +1226,5 @@ export const handleFloatCount = (value: number | null,obj:any,key:string,count:n
   const bottomBtn = document.getElementById("bottom-btn");
   observer.observe(btn);
   observer.observe(bottomBtn);;
+
+
