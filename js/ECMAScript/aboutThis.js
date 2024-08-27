@@ -34,7 +34,7 @@ Function.prototype.call2 = function(context = window) {
  * @returns {function(): *}
  */
 Function.prototype.bind2 = function(context,...args){
-    return ()=>this.call2(context,args)
+    return ()=>this.call2(context,...args)
 }
 /**
  * 实现bing 版本二

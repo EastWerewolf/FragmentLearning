@@ -498,6 +498,13 @@ const createEventHub = () => ({
         const i = (this.hub[event] || []).findIndex(h => h === handler);
         if (i > -1) this.hub[event].splice(i, 1);
         if (this.hub[event].length === 0) delete this.hub[event];
+    },
+    once(event,handler){
+      const hand = ()=>{
+        handler();
+        this.off(event,hand)
+      }
+      this.on(event,hand)
     }
 });
 const handler = data => console.log(data);
