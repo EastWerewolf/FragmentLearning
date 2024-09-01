@@ -36,4 +36,4 @@ const coinChange = function (coins, amount) {
     // 若有解，直接返回解的内容
     return f[amount];
 };
-coinChange([1,2,5],11)
+coinChange([1,2,5],11);
