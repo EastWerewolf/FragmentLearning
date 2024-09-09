@@ -32,7 +32,7 @@ const coinChange = function (coins, amount) {
     if (f[amount] === Infinity) {
         return -1;
     }
-    console.log(f)
+    console.log(f);
     // 若有解，直接返回解的内容  
     return f[amount];
 };
