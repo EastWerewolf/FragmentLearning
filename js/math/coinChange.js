@@ -37,3 +37,12 @@ const coinChange = function (coins, amount) {
     return f[amount];
 };
 coinChange([1,2,5],11);;
+
+
+function gennerraterFN(args){
+    const [args1,fn] = args
+    return (extend)=>{
+        const newArgs = [...args1,extend]
+        fn(...newArgs)
+    }
+}
