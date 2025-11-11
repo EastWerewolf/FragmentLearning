@@ -20,7 +20,7 @@ const press = (str)=>{
     }
   }
   // ret = ret.replaceAll(/1/g,'')
-  // console.log(ret,'返回值')////////////
+  // console.log(ret,'返回值')//////////
   return ret.replaceAll(/1/g,'')
 }
 press('aabcccccaaa');
