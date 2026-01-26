@@ -20,11 +20,11 @@ const press = (str)=>{
     }
   }
   // ret = ret.replaceAll(/1/g,'')
-  // console.log(ret,'返回值')////////
+  // console.log(ret,'返回值')///////////
   return ret.replaceAll(/1/g,'')
 }
 press('aabcccccaaa');
-const pressSimple = (str)=>{
+const pressSimple = (str)=>{ 
   let ret = ''
   const map = new Map();
   for(let i = 0; i < str.length;i++){
